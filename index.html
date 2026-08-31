@@ -5,6 +5,254 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Donat</title>
 <style>
+    /* =========================
+   LACKY CASINO SLOT
+========================= */
+
+.slot-page{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:#10091c;
+    z-index:270;
+    padding:70px 20px 30px;
+    overflow-y:auto;
+}
+
+.slot-page.active{
+    display:block;
+}
+
+.slot-container{
+    width:100%;
+    max-width:500px;
+    margin:auto;
+    text-align:center;
+}
+
+.slot-container h1{
+    font-size:2.3rem;
+    color:#facc15;
+    text-shadow:
+        0 0 10px #facc15,
+        0 0 25px rgba(250,204,21,.6);
+}
+
+.slot-subtitle{
+    opacity:.7;
+    margin:5px 0 20px;
+}
+
+.slot-balance{
+    background:rgba(250,204,21,.08);
+    border:1px solid #facc15;
+    border-radius:15px;
+    padding:14px;
+    margin-bottom:18px;
+    box-shadow:0 0 18px rgba(250,204,21,.2);
+}
+
+.slot-balance span{
+    color:#facc15;
+    font-weight:bold;
+    font-size:1.15rem;
+}
+
+.slot-machine{
+    padding:25px 15px;
+    border-radius:25px;
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(250,204,21,.15),
+            transparent 60%
+        ),
+        #181021;
+    border:2px solid #facc15;
+    box-shadow:
+        0 0 15px rgba(250,204,21,.3),
+        inset 0 0 35px rgba(250,204,21,.08);
+}
+
+.slot-reels{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+}
+
+.slot-reel{
+    height:100px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#09060d;
+    border:2px solid #6b4f00;
+    border-radius:18px;
+    font-size:3.5rem;
+    box-shadow:
+        inset 0 0 20px rgba(255,255,255,.05),
+        0 0 10px rgba(250,204,21,.15);
+}
+
+.slot-reel.spinning{
+    animation:slotSpin .12s linear infinite;
+}
+
+@keyframes slotSpin{
+    0%{transform:translateY(-5px)}
+    50%{transform:translateY(5px)}
+    100%{transform:translateY(-5px)}
+}
+
+.slot-result{
+    min-height:28px;
+    margin-top:18px;
+    color:#facc15;
+    font-weight:bold;
+    font-size:1rem;
+}
+
+.slot-bet{
+    margin-top:18px;
+}
+
+.slot-bet label{
+    display:block;
+    margin-bottom:8px;
+    opacity:.7;
+}
+
+.slot-bet-controls{
+    display:flex;
+    gap:8px;
+}
+
+.slot-bet-controls button{
+    width:55px;
+    border:none;
+    border-radius:12px;
+    background:#291d38;
+    color:#fff;
+    font-size:25px;
+    cursor:pointer;
+}
+
+.slot-bet-controls input{
+    flex:1;
+    min-width:0;
+    text-align:center;
+    border:1px solid #facc15;
+    border-radius:12px;
+    background:#120d19;
+    color:#fff;
+    font-size:20px;
+    outline:none;
+}
+
+.slot-spin{
+    width:100%;
+    border:none;
+    border-radius:15px;
+    padding:17px;
+    margin-top:14px;
+    color:#1a1200;
+    font-size:1.1rem;
+    font-weight:900;
+    cursor:pointer;
+    background:linear-gradient(
+        135deg,
+        #eab308,
+        #fde047,
+        #f59e0b
+    );
+    box-shadow:
+        0 0 12px rgba(250,204,21,.4),
+        0 0 30px rgba(250,204,21,.15);
+    transition:.2s;
+}
+
+.slot-spin:hover{
+    transform:scale(1.02);
+}
+
+.slot-spin:disabled{
+    opacity:.4;
+    cursor:not-allowed;
+    transform:none;
+}
+
+.slot-paytable{
+    margin-top:20px;
+    padding:18px;
+    background:rgba(255,255,255,.04);
+    border:1px solid #3d3048;
+    border-radius:18px;
+    text-align:left;
+}
+
+.slot-paytable h3{
+    text-align:center;
+    margin-bottom:12px;
+    color:#facc15;
+}
+
+.slot-paytable div{
+    padding:7px 0;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    display:flex;
+    justify-content:space-between;
+}
+
+.slot-paytable div:last-child{
+    border-bottom:none;
+}
+
+.slot-paytable b{
+    color:#facc15;
+}
+
+.slot-back{
+    width:100%;
+    background:#241d2d;
+    color:#fff;
+    border:1px solid #51435d;
+    padding:14px;
+    border-radius:13px;
+    cursor:pointer;
+    margin-top:18px;
+}
+
+.slot-back:hover{
+    transform:scale(1.02);
+}
+
+.slot-win{
+    color:#4ade80 !important;
+    text-shadow:
+        0 0 10px #4ade80,
+        0 0 25px rgba(74,222,128,.5);
+}
+
+.slot-jackpot{
+    color:#facc15 !important;
+    font-size:1.25rem;
+    text-shadow:
+        0 0 10px #facc15,
+        0 0 30px #facc15;
+    animation:jackpotPulse .5s infinite alternate;
+}
+
+@keyframes jackpotPulse{
+    from{transform:scale(1)}
+    to{transform:scale(1.08)}
+}
+
+@media(max-width:600px){
+    .slot-reel{
+        height:80px;
+        font-size:2.7rem;
+    }
+}
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#121212;color:#fff;font-family:Segoe UI,sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;overflow:hidden}
 .top-bar{position:fixed;top:0;left:0;right:0;height:60px;background:rgba(0,0,0,0.3);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;z-index:100}
@@ -670,6 +918,8 @@ body,
          style="width:100%; height:auto; display:block; object-fit:cover; border-radius:16px;">
 </div>
 <div class="dock">
+    <div class="dock-divider"></div>
+<button class="dock-item" id="dockSlotBtn">🎰</button>
 <button class="dock-item" id="dockPlayBtn">▶</button>
 <div class="dock-divider"></div>
 <button class="dock-item" id="dockMusicBtn">♫</button>
@@ -715,6 +965,63 @@ body,
         </button>
 
         <button class="jet-back" id="jetBack">
+            ← Назад
+        </button>
+
+    </div>
+</div>
+<div class="slot-page" id="slotPage">
+    <div class="slot-container">
+
+        <h1>🎰 Lacky Casino</h1>
+        <p class="slot-subtitle">Испытай удачу — джекпот до 1000x!</p>
+
+        <div class="slot-balance">
+            💎 Баланс: <span id="slotBalance">0</span>
+        </div>
+
+        <div class="slot-machine">
+
+            <div class="slot-reels">
+                <div class="slot-reel" id="reel1">🍒</div>
+                <div class="slot-reel" id="reel2">🍋</div>
+                <div class="slot-reel" id="reel3">💎</div>
+            </div>
+
+            <div class="slot-result" id="slotResult">
+                Сделай ставку и крути!
+            </div>
+
+        </div>
+
+        <div class="slot-bet">
+            <label>💎 Ставка</label>
+
+            <div class="slot-bet-controls">
+                <button id="slotBetMinus">−</button>
+                <input id="slotBet" type="number" min="1" value="10">
+                <button id="slotBetPlus">+</button>
+            </div>
+        </div>
+
+        <button class="slot-spin" id="slotSpin">
+            🎰 КРУТИТЬ
+        </button>
+
+        <div class="slot-paytable">
+            <h3>🏆 Выигрыши</h3>
+
+            <div>💎 💎 💎 — <b>1000x</b></div>
+            <div>7️⃣ 7️⃣ 7️⃣ — <b>500x</b></div>
+            <div>⭐ ⭐ ⭐ — <b>100x</b></div>
+            <div>🔔 🔔 🔔 — <b>50x</b></div>
+            <div>🍒 🍒 🍒 — <b>20x</b></div>
+            <div>🍋 🍋 🍋 — <b>10x</b></div>
+            <div>🍊 🍊 🍊 — <b>5x</b></div>
+            <div>Любые 2 одинаковых — <b>2x</b></div>
+        </div>
+
+        <button class="slot-back" id="slotBack">
             ← Назад
         </button>
 
@@ -919,10 +1226,29 @@ function closeJet(){
 }
 
 function randomCrash(){
-    return Math.max(
-        1.05,
-        +(1 + Math.random() * Math.random() * 8).toFixed(2)
-    );
+    // Краш может произойти от 1.05x до 1000x
+    const r = Math.random();
+
+    let crash;
+
+    if(r < 0.50){
+        // 50% — быстрый краш
+        crash = 1.05 + Math.random() * 2.95;
+    } 
+    else if(r < 0.85){
+        // 35% — средний
+        crash = 4 + Math.random() * 16;
+    }
+    else if(r < 0.97){
+        // 12% — высокий
+        crash = 20 + Math.random() * 180;
+    }
+    else {
+        // 3% — очень высокий, вплоть до 1000x
+        crash = 200 + Math.random() * 800;
+    }
+
+    return Math.min(1000, +crash.toFixed(2));
 }
 
 function startJet(){
@@ -1080,8 +1406,267 @@ jetPlus.onclick=function(){
     jetBet.value=
         Number(jetBet.value)+10;
 };
+/* =========================
+   LACKY CASINO SLOT
+========================= */
 
+const slotPage = document.getElementById('slotPage');
+const dockSlotBtn = document.getElementById('dockSlotBtn');
+const slotBack = document.getElementById('slotBack');
+
+const slotBalance = document.getElementById('slotBalance');
+const slotBet = document.getElementById('slotBet');
+const slotBetMinus = document.getElementById('slotBetMinus');
+const slotBetPlus = document.getElementById('slotBetPlus');
+
+const slotSpin = document.getElementById('slotSpin');
+const slotResult = document.getElementById('slotResult');
+
+const reel1 = document.getElementById('reel1');
+const reel2 = document.getElementById('reel2');
+const reel3 = document.getElementById('reel3');
+
+let slotRunning = false;
+
+const slotSymbols = [
+    '🍒',
+    '🍋',
+    '🍊',
+    '🔔',
+    '⭐',
+    '7️⃣',
+    '💎'
+];
+
+function updateSlotBalance(){
+    slotBalance.textContent = Math.floor(g.d);
+}
+
+function openSlot(){
+
+    closeS();
+
+    if(ig) closeG();
+    if(im2) closeMusic();
+
+    document.querySelector('.content').style.display='none';
+
+    slotPage.classList.add('active');
+
+    updateSlotBalance();
+}
+
+function closeSlot(){
+
+    if(slotRunning) return;
+
+    slotPage.classList.remove('active');
+
+    document.querySelector('.content').style.display='flex';
+}
+
+function randomSymbol(){
+    return slotSymbols[
+        Math.floor(Math.random()*slotSymbols.length)
+    ];
+}
+
+function getMultiplier(a,b,c){
+
+    /* 💎 ДЖЕКПОТ */
+    if(a==='💎' && b==='💎' && c==='💎'){
+        return 1000;
+    }
+
+    if(a==='7️⃣' && b==='7️⃣' && c==='7️⃣'){
+        return 500;
+    }
+
+    if(a==='⭐' && b==='⭐' && c==='⭐'){
+        return 100;
+    }
+
+    if(a==='🔔' && b==='🔔' && c==='🔔'){
+        return 50;
+    }
+
+    if(a==='🍒' && b==='🍒' && c==='🍒'){
+        return 20;
+    }
+
+    if(a==='🍋' && b==='🍋' && c==='🍋'){
+        return 10;
+    }
+
+    if(a==='🍊' && b==='🍊' && c==='🍊'){
+        return 5;
+    }
+
+    /* любые два одинаковых */
+    if(a===b || a===c || b===c){
+        return 2;
+    }
+
+    return 0;
+}
+
+function spinSlot(){
+
+    if(slotRunning) return;
+
+    let bet = Math.floor(Number(slotBet.value));
+
+    if(!bet || bet < 1){
+        showToast('❌ Введи ставку');
+        return;
+    }
+
+    if(bet > g.d){
+        showToast('❌ Недостаточно Donat');
+        return;
+    }
+
+    g.d -= bet;
+
+    save();
+    upd();
+    updateSlotBalance();
+
+    slotRunning = true;
+    slotSpin.disabled = true;
+
+    slotResult.textContent='🎰 Крутим...';
+    slotResult.classList.remove(
+        'slot-win',
+        'slot-jackpot'
+    );
+
+    [reel1,reel2,reel3].forEach(r=>{
+        r.classList.add('spinning');
+    });
+
+    /*
+       Сначала быстро меняем символы,
+       потом останавливаем барабаны по очереди.
+    */
+
+    const spinInterval = setInterval(()=>{
+
+        reel1.textContent=randomSymbol();
+        reel2.textContent=randomSymbol();
+        reel3.textContent=randomSymbol();
+
+    },80);
+
+    setTimeout(()=>{
+
+        clearInterval(spinInterval);
+
+        const a=randomSymbol();
+        const b=randomSymbol();
+        const c=randomSymbol();
+
+        reel1.textContent=a;
+        reel2.textContent=b;
+        reel3.textContent=c;
+
+        [reel1,reel2,reel3].forEach(r=>{
+            r.classList.remove('spinning');
+        });
+
+        finishSlot(bet,a,b,c);
+
+    },1200);
+}
+
+function finishSlot(bet,a,b,c){
+
+    const multiplier=getMultiplier(a,b,c);
+
+    if(multiplier > 0){
+
+        const win=Math.floor(
+            bet * multiplier
+        );
+
+        g.d += win;
+
+        save();
+        upd();
+        updateSlotBalance();
+
+        if(multiplier===1000){
+
+            slotResult.textContent=
+                '💎💎💎 ДЖЕКПОТ! +'+
+                win+
+                ' Donat!';
+
+            slotResult.classList.add(
+                'slot-jackpot'
+            );
+
+            showToast(
+                '💎 ДЖЕКПОТ 1000x! +' +
+                win +
+                ' Donat!'
+            );
+
+        }else{
+
+            slotResult.textContent=
+                '🎉 Выигрыш '+
+                multiplier+
+                'x — +'+
+                win+
+                ' Donat!';
+
+            slotResult.classList.add(
+                'slot-win'
+            );
+
+            showToast(
+                '🎉 Выигрыш '+
+                multiplier+
+                'x!'
+            );
+        }
+
+    }else{
+
+        slotResult.textContent=
+            '😵 Не повезло! Ставка потеряна';
+
+        showToast(
+            '😵 Попробуй ещё раз!'
+        );
+    }
+
+    slotRunning=false;
+    slotSpin.disabled=false;
+}
+
+dockSlotBtn.onclick=openSlot;
+
+slotBack.onclick=closeSlot;
+
+slotSpin.onclick=spinSlot;
+
+slotBetMinus.onclick=function(){
+
+    slotBet.value=Math.max(
+        1,
+        Number(slotBet.value)-10
+    );
+};
+
+slotBetPlus.onclick=function(){
+
+    slotBet.value=
+        Number(slotBet.value)+10;
+};
 setInterval(dt2,1000);dt2();loadTheme();load();
+
 </script>
 </body>
 </html>
