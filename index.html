@@ -312,7 +312,7 @@ body{background:#121212;color:#fff;font-family:Segoe UI,sans-serif;display:flex;
 .dock-item{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.08);border:2px solid rgba(255,255,255,0.1);color:#fff;font-size:19px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;text-decoration:none}
 .dock-item:hover{transform:translateY(-8px)scale(1.08);background:rgba(255,255,255,0.2)}
 .dock-divider{width:1px;height:30px;background:rgba(255,255,255,0.1)}
-.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:50;opacity:0;visibility:hidden;transition:all .4s}
+.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.78);z-index:50;opacity:0;visibility:hidden;transition:all .4s}
 .overlay.active{opacity:1;visibility:visible}
 .sidebar{
     position:fixed;
@@ -322,8 +322,8 @@ body{background:#121212;color:#fff;font-family:Segoe UI,sans-serif;display:flex;
     width:90vw;
     max-width:500px;
     height:70vh;
-    background:#1e1e1e;
-    z-index:60;
+    background:#08111c !important;
+    z-index:1000;
     padding:70px 25px 30px;
     overflow-y:auto;
     border-radius:0 0 28px 28px;
@@ -1505,7 +1505,7 @@ body{
         height:auto !important;
         min-height:calc(100vh - 120px) !important;
         justify-content:flex-start !important;
-        padding-top:28px !important;
+        padding-top:10px !important;
         padding-bottom:120px !important;
     }
     .games-showcase{
@@ -2473,6 +2473,61 @@ body.blue-theme .page-back-btn{
     transform:scale(1.08) !important;
 }
 
+
+/* ===== РАЗДЕЛ ПРОГРЕССА ===== */
+.progress-page{display:none;position:fixed;inset:0;z-index:360;background:var(--progress-bg,#121212);color:inherit;overflow-y:auto;padding:72px 16px 110px}.progress-page.active{display:block}.progress-container{width:min(100%,920px);margin:0 auto}.progress-top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:16px}.progress-top h1{font-size:2rem;margin:0}.progress-back{border:2px solid #38bdf8;background:rgba(56,189,248,.08);color:inherit;border-radius:50%;width:44px;height:44px;font-size:22px;cursor:pointer;display:grid;place-items:center;box-shadow:0 0 12px rgba(56,189,248,.35)}.progress-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.progress-card{background:rgba(255,255,255,.055);border:1px solid rgba(56,189,248,.25);border-radius:18px;padding:16px;box-shadow:0 8px 25px rgba(0,0,0,.14)}.progress-card h3{margin:0 0 9px;font-size:1.05rem}.progress-card p{margin:5px 0;opacity:.75;font-size:.87rem}.progress-wide{grid-column:1/-1}.progress-stat{font-size:1.5rem;font-weight:900;color:#38bdf8}.progress-bar{height:10px;background:rgba(127,127,127,.18);border-radius:99px;overflow:hidden;margin:9px 0}.progress-bar>span{display:block;height:100%;width:0;background:linear-gradient(90deg,#0ea5e9,#38bdf8);border-radius:inherit;transition:width .35s}.progress-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.progress-btn{border:1px solid #38bdf8;background:rgba(56,189,248,.12);color:inherit;padding:9px 12px;border-radius:10px;cursor:pointer;font-weight:700}.progress-btn:disabled{opacity:.45;cursor:not-allowed}.progress-list{display:flex;flex-direction:column;gap:8px;margin-top:10px}.progress-item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.07)}.progress-item small{opacity:.65}.progress-tag{font-size:.75rem;padding:4px 7px;border-radius:999px;background:rgba(56,189,248,.14);border:1px solid rgba(56,189,248,.28)}.progress-map{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}.map-node{padding:12px 8px;text-align:center;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);font-size:.82rem}.map-node.owned{border-color:#4ade80;background:rgba(74,222,128,.1)}.case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.case{padding:12px;border-radius:14px;border:1px solid rgba(56,189,248,.25);background:rgba(56,189,248,.07);text-align:center}.case b{display:block;margin:5px 0}@media(max-width:700px){.progress-grid{grid-template-columns:1fr}.progress-wide{grid-column:auto}.case-grid{grid-template-columns:1fr}.progress-map{grid-template-columns:repeat(2,1fr)}.progress-page{padding-left:11px;padding-right:11px}}body.light-theme .progress-page{--progress-bg:#f5f5f5;color:#222}body.blue-theme .progress-page{--progress-bg:#bae6fd;color:#111}
+
+/* ===== FIX: МЕНЮ И АККАУНТ ПОЛНОСТЬЮ ВИДИМЫ ===== */
+.placement-advice{display:none !important;visibility:hidden !important;pointer-events:none !important;}
+.sidebar{
+  top:74px !important;
+  height:calc(100dvh - 74px) !important;
+  max-height:calc(100dvh - 74px) !important;
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+  padding:16px 20px 110px !important;
+  -webkit-overflow-scrolling:touch !important;
+  scrollbar-width:thin;
+  box-sizing:border-box !important;
+  z-index:1000 !important;
+}
+.sidebar.open{
+  transform:translate(-50%,0) !important;
+}
+.auth-section{
+  display:flex !important;
+  min-height:54px !important;
+  align-items:stretch !important;
+  visibility:visible !important;
+}
+.auth-profile{
+  min-height:66px !important;
+  visibility:visible !important;
+}
+@media (max-width:600px){
+  .sidebar{
+    width:min(92vw,360px) !important;
+    top:64px !important;
+    height:calc(100dvh - 64px) !important;
+    max-height:calc(100dvh - 64px) !important;
+    padding:14px 18px 120px !important;
+  }
+}
+
+/* Compact Donat page: keep the game panel smaller so it does not cover the whole screen */
+.game-container{max-width:430px!important;padding:22px 16px!important;box-sizing:border-box!important}
+.game-container h1{font-size:1.65rem!important;margin-bottom:4px!important}
+.game-container > p{font-size:.9rem!important;margin:4px 0 10px!important}
+.stat-box{padding:10px!important;margin:10px 0!important}
+.stat-item{padding:9px 10px!important}
+.stat-value.donat{font-size:1.45rem!important}
+.click-btn{padding:14px!important;font-size:1.2rem!important;border-radius:14px!important;margin:10px 0!important}
+.upgrades-grid{gap:8px!important;margin:12px 0!important}
+.upgrade-card{padding:11px!important;border-radius:12px!important}
+.upgrade-name{font-size:.92rem!important}
+.upgrade-desc{font-size:.72rem!important;margin:4px 0!important}
+.upgrade-cost{font-size:.82rem!important}
+@media(max-width:650px){.game-container{max-width:390px!important;padding:18px 12px!important}.click-btn{padding:13px!important;font-size:1.1rem!important}.upgrade-card{padding:10px!important}}
 </style>
 
 <style id="shop-dock-fix">
@@ -2578,7 +2633,7 @@ body.blue-theme .auth-form input{background:#d9f2ff;color:#123047;border-color:#
 <style id="shop-styles">
 /* ===== БОЛЬШОЙ МАГАЗИН ===== */
 #dockShopBtn{display:flex !important;}
-.shop-page{display:none;position:fixed;inset:0;z-index:90;overflow-y:auto;padding:82px 16px 130px;background:#111;box-sizing:border-box;}
+.shop-page{display:none;position:fixed;inset:0;z-index:90;overflow-y:auto;padding:82px 16px 130px;background:rgba(12,16,22,.88);backdrop-filter:blur(18px) saturate(.8);-webkit-backdrop-filter:blur(18px) saturate(.8);box-sizing:border-box;}
 .shop-page.active{display:block;}
 .shop-container{max-width:1120px;margin:0 auto;}
 .shop-head{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;margin-bottom:18px;position:sticky;top:0;z-index:5;padding:8px 0 14px;background:linear-gradient(#111 80%,transparent);}
@@ -2665,6 +2720,445 @@ body.blue-theme .tasks-page{background:#bae6fd;color:#082f49;}
 body.blue-theme .task-card,body.blue-theme .tasks-progress-wrap{background:rgba(255,255,255,.3);border-color:rgba(8,47,73,.12);}
 body.blue-theme .tasks-back{background:#7dd3fc;border-color:#38bdf8;color:#082f49;}
 @media(max-width:700px){.tasks-page{padding:74px 10px 120px}.tasks-head h1{font-size:1.55rem}.tasks-subtitle{font-size:.78rem}.tasks-list{grid-template-columns:1fr}.task-card{padding:14px;}}
+.unlock-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:10px}.unlock-item{padding:11px;border-radius:13px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08)}.unlock-item.locked{opacity:.48}.unlock-item.unlocked{border-color:#4ade80;background:rgba(74,222,128,.08)}.unlock-title{font-weight:800}.unlock-meta{font-size:.76rem;opacity:.7;margin-top:4px}.unlock-status{float:right;font-size:.72rem;padding:3px 7px;border-radius:99px;border:1px solid rgba(56,189,248,.3)}.business-map-page{display:none;position:fixed;inset:0;z-index:365;background:var(--progress-bg,#121212);color:inherit;overflow-y:auto;padding:72px 14px 110px}.business-map-page.active{display:block}.business-map-container{width:min(100%,1000px);margin:0 auto}.business-map-head{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:16px}.business-map-head h1{margin:0}.business-map-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.business-map-node{min-height:125px;padding:14px;border-radius:18px;background:rgba(255,255,255,.05);border:1px solid rgba(56,189,248,.24);display:flex;flex-direction:column;justify-content:space-between}.business-map-node.owned{border-color:#4ade80;background:rgba(74,222,128,.1)}.business-map-node.locked{opacity:.42}.business-map-node .biz-icon{font-size:34px}.business-map-node .biz-name{font-weight:800}.business-map-node .biz-bonus{font-size:.78rem;opacity:.7}.business-map-node .biz-state{font-size:.75rem;margin-top:6px}@media(max-width:800px){.business-map-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:600px){.unlock-grid{grid-template-columns:1fr}.business-map-page{padding-left:10px;padding-right:10px}.business-map-grid{grid-template-columns:repeat(2,1fr);gap:8px}.business-map-node{min-height:115px;padding:12px}}body.light-theme .business-map-page{--progress-bg:#f5f5f5;color:#222}body.blue-theme .business-map-page{--progress-bg:#bae6fd;color:#111}
+</style>
+
+<style>
+/* GAME CITY MAP */
+.game-city-map{max-width:1200px!important;margin:0 auto;padding:18px 16px 110px!important;}
+.city-legend{display:flex;gap:18px;flex-wrap:wrap;margin:10px 2px 12px;font-size:.82rem;opacity:.9}
+.city-legend .dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:5px;box-shadow:0 0 8px currentColor}
+.owned-dot{background:#22c55e;color:#22c55e}.open-dot{background:#38bdf8;color:#38bdf8}.locked-dot{background:#ef4444;color:#ef4444}
+.city-map{position:relative;min-height:690px;overflow:hidden;border:1px solid rgba(56,189,248,.35);border-radius:24px;background:
+ radial-gradient(circle at 72% 18%,rgba(34,197,94,.16),transparent 18%),
+ radial-gradient(circle at 25% 75%,rgba(56,189,248,.10),transparent 22%),
+ linear-gradient(135deg,#0b1720,#12231d 42%,#0b1620);box-shadow:inset 0 0 70px rgba(0,0,0,.55),0 0 30px rgba(56,189,248,.09);}
+.city-map:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);background-size:55px 55px;opacity:.5}
+.road{position:absolute;background:#303941;border:2px solid #4b5862;box-shadow:0 0 0 3px rgba(0,0,0,.12),inset 0 0 0 2px rgba(255,255,255,.03);border-radius:18px;z-index:1}
+.road-a{left:-5%;top:44%;width:110%;height:82px;transform:rotate(-8deg)}
+.road-b{left:40%;top:-8%;width:86px;height:115%;transform:rotate(12deg)}
+.road-c{left:7%;top:13%;width:90%;height:56px;transform:rotate(26deg)}
+.park{position:absolute;z-index:2;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(34,197,94,.12);border:1px solid rgba(74,222,128,.2);width:120px;height:90px;font-size:28px;opacity:.9}
+.park-a{left:8%;top:8%}.park-b{right:9%;bottom:8%}.fountain{position:absolute;z-index:2;left:46%;top:43%;font-size:38px;filter:drop-shadow(0 0 10px rgba(56,189,248,.5))}
+.city-building{position:absolute;z-index:4;width:150px;min-height:120px;padding:12px 10px 10px;border-radius:18px;border:1px solid rgba(56,189,248,.35);background:linear-gradient(180deg,#1d2930,#11191e);color:inherit;cursor:pointer;box-shadow:0 12px 24px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.05);transition:.22s;display:flex;flex-direction:column;align-items:center;justify-content:flex-end}
+.city-building:hover{transform:translateY(-5px) scale(1.02);box-shadow:0 16px 30px rgba(0,0,0,.5),0 0 22px rgba(56,189,248,.22)}
+.city-building:before{content:"";position:absolute;top:-11px;left:15px;right:15px;height:22px;border-radius:9px 9px 5px 5px;background:#29343b;border:1px solid #4b5862;box-shadow:inset 0 4px 0 rgba(255,255,255,.04)}
+.building-emoji{font-size:38px;line-height:1;position:absolute;top:12px;filter:drop-shadow(0 3px 6px rgba(0,0,0,.35))}.building-roof{display:none}.building-name{font-weight:900;font-size:.84rem;margin-top:36px;text-align:center}.building-bonus{color:#38bdf8;font-weight:900;font-size:.76rem;margin-top:2px}.building-status{font-size:.67rem;opacity:.78;margin-top:5px}
+.city-building.owned{border-color:#22c55e;box-shadow:0 0 18px rgba(34,197,94,.18),0 14px 28px rgba(0,0,0,.4)}
+.city-building.owned .building-status{color:#4ade80}.city-building.locked{border-color:#7f1d1d;filter:saturate(.6);opacity:.72}.city-building.locked .building-status{color:#fca5a5}
+.p1{left:5%;top:23%}.p2{left:23%;top:10%}.p3{left:65%;top:10%}.p4{left:9%;top:51%}.p5{left:31%;top:48%}.p6{left:54%;top:25%}.p7{right:6%;top:42%}.p8{left:12%;bottom:8%}.p9{left:39%;bottom:10%}.p10{right:17%;bottom:16%}.p11{left:63%;bottom:4%}.p12{right:3%;top:12%}.p13{left:41%;top:5%}
+.small{width:132px;min-height:106px}.medium{width:154px;min-height:118px}.large{width:176px;min-height:128px}.mega{width:190px;min-height:142px;border-color:#a855f7}
+.city-tip{margin-top:12px;padding:12px 14px;border-radius:14px;background:rgba(56,189,248,.07);border:1px solid rgba(56,189,248,.14);font-size:.82rem;opacity:.9}
+@media(max-width:800px){.city-map{min-height:960px}.city-building{transform:scale(.82);transform-origin:center}.city-building:hover{transform:scale(.86) translateY(-4px)}.p1{left:2%;top:18%}.p2{left:29%;top:8%}.p3{right:2%;top:18%}.p4{left:2%;top:42%}.p5{left:32%;top:38%}.p6{right:4%;top:40%}.p7{left:5%;top:63%}.p8{left:34%;top:57%}.p9{right:3%;top:63%}.p10{left:5%;bottom:8%}.p11{left:38%;bottom:5%}.p12{right:2%;bottom:11%}.p13{left:35%;top:25%}}
+</style>
+
+<style id="lucky-redesign">
+:root{
+  --bg:#080c14; --panel:rgba(16,24,36,.78); --panel2:rgba(20,31,46,.88);
+  --line:rgba(148,163,184,.18); --text:#f8fafc; --muted:#94a3b8;
+  --cyan:#38bdf8; --cyan2:#22d3ee; --green:#22c55e; --yellow:#facc15;
+  --pink:#f472b6; --purple:#a78bfa; --danger:#fb7185;
+  --shadow:0 18px 50px rgba(0,0,0,.34);
+  --radius:20px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; min-height:100vh; color:var(--text);
+  font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;
+  background:
+    radial-gradient(900px 500px at 15% -10%,rgba(56,189,248,.16),transparent 60%),
+    radial-gradient(700px 450px at 100% 0%,rgba(167,139,250,.13),transparent 55%),
+    linear-gradient(180deg,#07101a 0%,#0a0f17 42%,#060a10 100%);
+}
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.18;
+  background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:28px 28px; mask-image:linear-gradient(to bottom,black,transparent 90%);
+}
+button,input{font:inherit}
+button{border:0}
+.top-bar{
+  height:74px!important; padding:0 18px!important;
+  background:rgba(7,12,20,.76)!important; backdrop-filter:blur(18px)!important;
+  border-bottom:1px solid var(--line)!important; box-shadow:0 8px 30px rgba(0,0,0,.25)!important;
+}
+.menu-btn,.back-btn-top{
+  width:44px!important;height:44px!important;border-radius:50%!important;
+  background:linear-gradient(145deg,rgba(21,35,50,.96),rgba(8,14,23,.96))!important;
+  border:1px solid rgba(56,189,248,.55)!important;
+  box-shadow:0 0 0 1px rgba(56,189,248,.08),0 0 20px rgba(56,189,248,.14)!important;
+}
+.menu-btn:hover,.back-btn-top:hover{transform:translateY(-1px);box-shadow:0 0 24px rgba(56,189,248,.26)!important}
+.info-btn{
+  min-width:190px!important;height:46px!important;padding:0 18px!important;
+  border-radius:999px!important;background:rgba(17,27,40,.9)!important;
+  border:1px solid rgba(56,189,248,.7)!important;color:#fff!important;font-weight:800!important;
+  box-shadow:0 0 18px rgba(56,189,248,.16)!important;
+}
+.sidebar{
+  width:290px!important; padding:22px 16px!important;
+  background:linear-gradient(180deg,rgba(8,15,25,.97),rgba(9,14,22,.94))!important;
+  border-right:1px solid var(--line)!important; box-shadow:18px 0 50px rgba(0,0,0,.3)!important;
+}
+.sidebar h2{font-size:15px!important;color:#cbd5e1!important;letter-spacing:.06em;text-transform:uppercase}
+.auth-section{padding:8px!important;gap:10px!important}
+.auth-btn,.settings-btn,.close-settings,.auth-submit{
+  border-radius:14px!important;border:1px solid var(--line)!important;
+  background:rgba(255,255,255,.045)!important;color:var(--text)!important;
+}
+.auth-btn:hover,.settings-btn:hover,.close-settings:hover{border-color:rgba(56,189,248,.5)!important;background:rgba(56,189,248,.09)!important}
+.sidebar-item{
+  margin:6px 0!important;padding:13px 15px!important;border-radius:14px!important;
+  color:#cbd5e1!important;transition:.2s ease!important;
+}
+.sidebar-item:hover,.sidebar-item.active{
+  color:#fff!important;background:linear-gradient(90deg,rgba(56,189,248,.15),rgba(56,189,248,.04))!important;
+  box-shadow:inset 3px 0 0 var(--cyan),0 10px 25px rgba(0,0,0,.16)!important;
+}
+.content{
+  width:min(1320px,calc(100vw - 320px))!important; margin-left:290px!important;
+  padding:26px 28px 120px!important;
+}
+.content>*, .games-showcase,.casino-news,.game-container,.settings-panel,.shop-page,.tasks-page,.businesses-page,.progress-page,.map-page{
+  border-radius:var(--radius);
+}
+.games-showcase,.casino-news,.progress-card,.upgrade-card,.shop-card,.task-card,.business-card,.collection-card,.stat-item,.news-card,.employee-card,.market-card,.event-card{
+  background:linear-gradient(180deg,rgba(19,29,42,.86),rgba(11,18,28,.86))!important;
+  border:1px solid var(--line)!important; box-shadow:var(--shadow)!important;
+}
+.games-showcase{padding:22px!important}
+.games-showcase-head h2,.casino-news h2{font-size:clamp(1.5rem,2vw,2rem)!important;margin-bottom:4px!important}
+.games-showcase-head p,.casino-news-head p,.game-card-desc,.news-body p{color:var(--muted)!important}
+.game-card{
+  border-radius:18px!important; border:1px solid rgba(56,189,248,.35)!important;
+  background:linear-gradient(145deg,rgba(20,38,52,.95),rgba(16,23,33,.95))!important;
+  box-shadow:0 12px 30px rgba(0,0,0,.25)!important; transition:.24s ease!important;
+}
+.game-card:hover{transform:translateY(-4px);border-color:rgba(56,189,248,.8)!important;box-shadow:0 18px 38px rgba(56,189,248,.12)!important}
+.game-card-title{font-weight:850!important;font-size:1rem!important}
+.game-card-action{color:var(--cyan)!important;font-weight:800!important}
+.casino-news{padding:22px!important;margin-top:24px!important}
+.news-card{padding:16px!important;transition:.2s ease!important}
+.news-card:hover{transform:translateY(-2px);border-color:rgba(56,189,248,.32)!important}
+.news-live{padding:7px 11px!important;border-radius:999px!important;background:rgba(251,113,133,.08)!important;border:1px solid rgba(251,113,133,.35)!important}
+.dock{
+  left:50%!important;transform:translateX(-50%)!important;bottom:14px!important;
+  width:auto!important;min-width:118px!important;padding:9px!important;gap:8px!important;
+  background:rgba(10,18,28,.88)!important;border:1px solid rgba(56,189,248,.38)!important;
+  border-radius:18px!important;backdrop-filter:blur(16px)!important;box-shadow:0 15px 35px rgba(0,0,0,.4),0 0 22px rgba(56,189,248,.11)!important;
+}
+.dock-item{width:46px!important;height:46px!important;border-radius:14px!important;background:rgba(255,255,255,.05)!important;color:#fff!important;border:1px solid var(--line)!important}
+.dock-item:hover{background:rgba(56,189,248,.12)!important;border-color:rgba(56,189,248,.65)!important}
+/* internal pages */
+.game-page,.slot-page,.jet-page,.extra-game-page,.shop-page,.tasks-page,.businesses-page,.progress-page{background:transparent!important}
+.game-container,.slot-container,.jet-container,.extra-game-container{
+  background:linear-gradient(180deg,rgba(13,22,34,.96),rgba(8,13,22,.96))!important;
+  border:1px solid var(--line)!important;box-shadow:var(--shadow)!important;padding:26px!important;
+}
+.click-btn,.slot-spin,.jet-start,.extra-spin,.shop-buy,.task-claim,.business-action,.progress-action{
+  border-radius:15px!important;box-shadow:0 10px 25px rgba(0,0,0,.2)!important;font-weight:850!important;
+}
+.click-btn{background:linear-gradient(135deg,#14b8a6,#22c55e)!important}
+.slot-spin{background:linear-gradient(135deg,#f59e0b,#ef4444)!important}
+.jet-start{background:linear-gradient(135deg,#38bdf8,#6366f1)!important}
+.shop-buy,.business-action,.task-claim,.progress-action{background:linear-gradient(135deg,#0ea5e9,#2563eb)!important;color:#fff!important}
+.upgrade-card,.shop-card,.task-card,.business-card,.progress-card{border-radius:18px!important;transition:.22s ease!important}
+.upgrade-card:hover,.shop-card:hover,.task-card:hover,.business-card:hover,.progress-card:hover{transform:translateY(-3px);border-color:rgba(56,189,248,.32)!important}
+.upgrade-card.disabled{opacity:.48!important;filter:saturate(.7)}
+.stat-item{padding:16px!important}
+.stat-value{font-weight:900!important}
+.settings-panel{
+  background:rgba(10,17,27,.97)!important;border:1px solid var(--line)!important;
+  box-shadow:0 25px 80px rgba(0,0,0,.48)!important;
+}
+.settings-row{border-color:var(--line)!important}
+/* map */
+.progress-map,.business-map,.map-canvas{border-radius:22px!important;overflow:hidden!important;border:1px solid var(--line)!important;box-shadow:inset 0 0 50px rgba(0,0,0,.22)}
+/* light / blue themes */
+body.light-theme{
+  --bg:#f6f8fb;--panel:rgba(255,255,255,.88);--panel2:#fff;--line:rgba(15,23,42,.12);--text:#0f172a;--muted:#64748b;
+  background:linear-gradient(180deg,#eef5fb,#f8fafc)!important;
+}
+body.light-theme .top-bar{background:rgba(255,255,255,.82)!important}
+body.light-theme .sidebar{background:linear-gradient(180deg,#ffffff,#f3f7fb)!important}
+body.light-theme .sidebar-item{color:#334155!important}
+body.light-theme .games-showcase,body.light-theme .casino-news,body.light-theme .game-container,body.light-theme .shop-card,body.light-theme .task-card,body.light-theme .business-card,body.light-theme .progress-card{background:#fff!important;color:#0f172a!important}
+body.light-theme .info-btn{color:#0f172a!important;background:#fff!important}
+body.light-theme .dock{background:rgba(255,255,255,.88)!important}
+body.light-theme .dock-item{color:#0f172a!important;background:#f8fafc!important}
+body.light-theme .news-body p,body.light-theme .games-showcase-head p{color:#64748b!important}
+body.blue-theme{
+  --bg:#dff4ff;--panel:rgba(255,255,255,.62);--panel2:rgba(255,255,255,.78);--line:rgba(3,105,161,.18);--text:#082f49;--muted:#36566a;
+  background:linear-gradient(180deg,#bfe8fb,#e7f7ff)!important;
+}
+body.blue-theme .top-bar{background:rgba(186,230,253,.72)!important}
+body.blue-theme .sidebar{background:linear-gradient(180deg,rgba(255,255,255,.7),rgba(224,242,254,.76))!important}
+body.blue-theme .sidebar-item{color:#0c4a6e!important}
+body.blue-theme .games-showcase,body.blue-theme .casino-news,body.blue-theme .game-container,body.blue-theme .shop-card,body.blue-theme .task-card,body.blue-theme .business-card,body.blue-theme .progress-card{background:rgba(255,255,255,.56)!important;color:#082f49!important}
+body.blue-theme .info-btn{color:#082f49!important;background:rgba(255,255,255,.62)!important}
+body.blue-theme .dock{background:rgba(255,255,255,.62)!important}
+body.blue-theme .dock-item{color:#082f49!important;background:rgba(255,255,255,.58)!important}
+@media(max-width:900px){
+  .sidebar{width:255px!important}
+  .content{width:100%!important;margin-left:0!important;padding:86px 14px 118px!important}
+}
+@media(max-width:600px){
+  .top-bar{height:64px!important;padding:0 10px!important}
+  .menu-btn,.back-btn-top{width:40px!important;height:40px!important}
+  .info-btn{min-width:160px!important;height:42px!important;font-size:.82rem!important}
+  .games-showcase,.casino-news{padding:14px!important}
+  .game-card{border-radius:16px!important}
+  .dock{bottom:9px!important}
+  .dock-item{width:44px!important;height:44px!important}
+}
+</style>
+
+
+<style id="theme-contrast-fix">
+/* Финальная коррекция контраста светлой и голубой тем */
+body.light-theme{
+  --text:#0f172a!important;
+  --muted:#475569!important;
+}
+body.blue-theme{
+  --text:#082f49!important;
+  --muted:#36566a!important;
+}
+
+body.light-theme .games-showcase,
+body.light-theme .casino-news,
+body.light-theme .progress-card,
+body.light-theme .upgrade-card,
+body.light-theme .shop-card,
+body.light-theme .task-card,
+body.light-theme .business-card,
+body.light-theme .collection-card,
+body.light-theme .stat-item,
+body.light-theme .news-card,
+body.light-theme .employee-card,
+body.light-theme .market-card,
+body.light-theme .event-card,
+body.light-theme .game-container,
+body.light-theme .settings-panel,
+body.light-theme .game-page,
+body.light-theme .slot-page,
+body.light-theme .jet-page,
+body.light-theme .extra-game-page{
+  color:#0f172a!important;
+}
+
+body.blue-theme .games-showcase,
+body.blue-theme .casino-news,
+body.blue-theme .progress-card,
+body.blue-theme .upgrade-card,
+body.blue-theme .shop-card,
+body.blue-theme .task-card,
+body.blue-theme .business-card,
+body.blue-theme .collection-card,
+body.blue-theme .stat-item,
+body.blue-theme .news-card,
+body.blue-theme .employee-card,
+body.blue-theme .market-card,
+body.blue-theme .event-card,
+body.blue-theme .game-container,
+body.blue-theme .settings-panel,
+body.blue-theme .game-page,
+body.blue-theme .slot-page,
+body.blue-theme .jet-page,
+body.blue-theme .extra-game-page{
+  color:#082f49!important;
+}
+
+/* Карточки на светлых темах */
+body.light-theme .games-showcase,
+body.light-theme .casino-news,
+body.light-theme .progress-card,
+body.light-theme .upgrade-card,
+body.light-theme .shop-card,
+body.light-theme .task-card,
+body.light-theme .business-card,
+body.light-theme .collection-card,
+body.light-theme .stat-item,
+body.light-theme .news-card,
+body.light-theme .employee-card,
+body.light-theme .market-card,
+body.light-theme .event-card{
+  background:#ffffff!important;
+  border-color:rgba(15,23,42,.12)!important;
+}
+
+body.blue-theme .games-showcase,
+body.blue-theme .casino-news,
+body.blue-theme .progress-card,
+body.blue-theme .upgrade-card,
+body.blue-theme .shop-card,
+body.blue-theme .task-card,
+body.blue-theme .business-card,
+body.blue-theme .collection-card,
+body.blue-theme .stat-item,
+body.blue-theme .news-card,
+body.blue-theme .employee-card,
+body.blue-theme .market-card,
+body.blue-theme .event-card{
+  background:rgba(255,255,255,.82)!important;
+  border-color:rgba(8,47,73,.14)!important;
+}
+
+body.light-theme .game-card,
+body.blue-theme .game-card{
+  color:inherit!important;
+}
+body.light-theme .game-card{
+  background:linear-gradient(145deg,#ffffff,#f1f5f9)!important;
+}
+body.blue-theme .game-card{
+  background:linear-gradient(145deg,#eefaff,#d8f2ff)!important;
+}
+
+body.light-theme .game-card-title,
+body.light-theme .news-body h3,
+body.light-theme .games-showcase-head h2,
+body.light-theme .casino-news h2,
+body.light-theme .stat-item,
+body.light-theme .upgrade-name,
+body.light-theme .shop-card,
+body.light-theme .task-card,
+body.light-theme .business-card,
+body.blue-theme .game-card-title,
+body.blue-theme .news-body h3,
+body.blue-theme .games-showcase-head h2,
+body.blue-theme .casino-news h2,
+body.blue-theme .stat-item,
+body.blue-theme .upgrade-name,
+body.blue-theme .shop-card,
+body.blue-theme .task-card,
+body.blue-theme .business-card{
+  color:inherit!important;
+}
+
+body.light-theme .games-showcase-head p,
+body.light-theme .casino-news-head p,
+body.light-theme .game-card-desc,
+body.light-theme .news-body p,
+body.light-theme .news-date,
+body.blue-theme .games-showcase-head p,
+body.blue-theme .casino-news-head p,
+body.blue-theme .game-card-desc,
+body.blue-theme .news-body p,
+body.blue-theme .news-date{
+  color:var(--muted)!important;
+}
+
+body.light-theme .sidebar h2,
+body.blue-theme .sidebar h2{color:#334155!important}
+body.light-theme .sidebar-item{color:#0f172a!important}
+body.blue-theme .sidebar-item{color:#082f49!important}
+body.light-theme .sidebar-item:hover,
+body.light-theme .sidebar-item.active{color:#0f172a!important}
+body.blue-theme .sidebar-item:hover,
+body.blue-theme .sidebar-item.active{color:#082f49!important}
+
+body.light-theme .dock-item{color:#0f172a!important}
+body.blue-theme .dock-item{color:#082f49!important}
+
+body.light-theme .settings-row,
+body.blue-theme .settings-row{color:inherit!important}
+body.light-theme .settings-btn,
+body.blue-theme .settings-btn,
+body.light-theme .close-settings,
+body.blue-theme .close-settings{color:inherit!important}
+
+body.light-theme .click-btn,
+body.blue-theme .click-btn,
+body.light-theme .shop-buy,
+body.blue-theme .shop-buy,
+body.light-theme .business-action,
+body.blue-theme .business-action,
+body.light-theme .task-claim,
+body.blue-theme .task-claim{color:#ffffff!important}
+</style>
+
+
+<style id="main-home-center-fix">
+/* Центрирование главного экрана */
+.content{
+  width:min(1100px, calc(100vw - 40px)) !important;
+  max-width:1100px !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+  padding-left:20px !important;
+  padding-right:20px !important;
+}
+.games-showcase,.casino-news{
+  width:100% !important;
+  max-width:100% !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+}
+.games-showcase-head,.casino-news-head{
+  width:100% !important;
+}
+@media(max-width:900px){
+  .content{
+    width:100% !important;
+    max-width:none !important;
+    margin-left:0 !important;
+    margin-right:0 !important;
+    padding-left:14px !important;
+    padding-right:14px !important;
+  }
+}
+
+/* FIX: content must start below the fixed top bar */
+.content{
+    padding-top:88px !important;
+    box-sizing:border-box !important;
+}
+@media(max-width:600px){
+    .content{
+        padding-top:78px !important;
+    }
+}
+
+/* Небольшой сдвиг главного экрана ниже */
+.content{
+    transform:translateY(38px) !important;
+}
+@media(max-width:600px){
+    .content{transform:translateY(28px) !important;}
+}
+</style>
+
+
+<style id="map-placement-style">
+/* ===== ИНТЕРАКТИВНАЯ КАРТА: РАССТАНОВКА БИЗНЕСОВ ===== */
+.city-map{touch-action:manipulation}
+.map-placement-banner{display:none;margin:0 0 12px;padding:12px 14px;border-radius:14px;border:1px solid #38bdf8;background:rgba(56,189,248,.12);font-weight:800;box-shadow:0 0 18px rgba(56,189,248,.12)}
+.map-placement-banner.active{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.map-placement-banner small{font-weight:600;opacity:.72}
+.map-placement-cancel{border:1px solid #38bdf8;background:transparent;color:inherit;padding:7px 10px;border-radius:9px;font-weight:800;cursor:pointer}
+.map-plot{position:absolute;z-index:3;width:116px;height:82px;border-radius:15px;border:2px dashed rgba(56,189,248,.55);background:rgba(56,189,248,.06);display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;font-size:.72rem;font-weight:800;color:#bfefff;cursor:pointer;transition:.18s;box-shadow:inset 0 0 16px rgba(56,189,248,.05)}
+.map-plot:hover{transform:scale(1.04);border-color:#38bdf8;background:rgba(56,189,248,.12);box-shadow:0 0 18px rgba(56,189,248,.18)}
+.map-plot.occupied{border-style:solid;border-color:rgba(74,222,128,.7);background:rgba(74,222,128,.08);cursor:default}
+.map-plot.high{border-color:rgba(250,204,21,.8);background:rgba(250,204,21,.08)}
+.map-plot.low{border-color:rgba(148,163,184,.55);background:rgba(148,163,184,.06)}
+.map-plot-label{display:block;line-height:1.25}
+.traffic-chip{display:inline-flex;align-items:center;gap:5px;margin-top:5px;padding:3px 6px;border-radius:999px;background:rgba(255,255,255,.08);font-size:.64rem;border:1px solid rgba(255,255,255,.1)}
+.traffic-high{color:#86efac}.traffic-mid{color:#fde68a}.traffic-low{color:#cbd5e1}
+.city-building.movable{cursor:grab}
+.city-building.movable:active{cursor:grabbing}
+.city-building .traffic-mini{font-size:.65rem;margin-top:4px;opacity:.86}
+.city-building .move-hint{font-size:.6rem;opacity:.58;margin-top:2px}
+@media(max-width:800px){.map-plot{width:96px;height:72px;font-size:.64rem}.city-building{max-width:118px}.city-building.small{width:120px!important}.city-building.medium{width:125px!important}.city-building.large{width:132px!important}.city-building.mega{width:140px!important}}
+
+<style id="placement-advice-style">
+.placement-advice{position:fixed;inset:0;z-index:10050;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.62);backdrop-filter:blur(8px)}
+.placement-advice.active{display:flex}
+.placement-advice-box{width:min(460px,100%);background:var(--panel,#18222e);border:1px solid #38bdf8;border-radius:20px;padding:20px;box-shadow:0 0 30px rgba(56,189,248,.28),0 18px 60px rgba(0,0,0,.45)}
+.placement-advice-box h3{margin:0 0 8px;font-size:1.2rem}.placement-advice-box p{margin:8px 0;color:inherit;opacity:.9;line-height:1.45}.placement-advice-rule{display:flex;gap:9px;align-items:flex-start;padding:9px 0;border-top:1px solid rgba(128,128,128,.18)}
+.placement-advice-close{width:100%;margin-top:14px;padding:11px;border:1px solid #38bdf8;background:#38bdf8;color:#03131f;border-radius:12px;font-weight:900;cursor:pointer}
+</style>
 </style>
 </head>
 <body>
@@ -2721,6 +3215,8 @@ body.blue-theme .tasks-back{background:#7dd3fc;border-color:#38bdf8;color:#082f4
 <li class="sidebar-item" id="settingsMenuItem">⚙️ Настройки</li>
 <li class="sidebar-item" id="businessesMenuItem">💼 Мои бизнесы</li>
 <li class="sidebar-item" id="tasksMenuItem">📋 Задания</li>
+<li class="sidebar-item" id="progressMenuItem">🌟 Прогресс</li>
+<li class="sidebar-item" id="businessMapMenuItem">🗺️ Карта бизнесов</li>
 </ul>
 </div>
 <div class="game-page" id="gamePage">
@@ -2732,7 +3228,7 @@ body.blue-theme .tasks-back{background:#7dd3fc;border-color:#38bdf8;color:#082f4
 <div class="stat-item"><span>⚡ Доход/сек</span><span class="stat-value" id="incomeDisplay">0</span></div>
 <div class="stat-item"><span>🖱️ Кликов</span><span class="stat-value" id="clicksDisplay">0</span></div>
 </div>
-<button class="click-btn" id="clickBtn">💵 Получить USDT +1</button>
+<button class="click-btn" id="clickBtn">🖱️ Клик</button>
 <h3>⬆️ Апгрейды</h3>
 <div class="upgrades-grid" id="upgradesContainer"></div>
 <button class="back-btn" id="backFromGame">← Назад</button>
@@ -3013,7 +3509,7 @@ body.blue-theme .tasks-back{background:#7dd3fc;border-color:#38bdf8;color:#082f4
 
             <div class="slot-bet-controls">
                 <button id="slotBetMinus">−</button>
-                <input id="slotBet" type="number" min="1" value="10">
+                <input id="slotBet" type="number" min="10" value="10">
                 <button id="slotBetPlus">+</button>
             </div>
         </div>
@@ -3094,6 +3590,10 @@ body.blue-theme .tasks-back{background:#7dd3fc;border-color:#38bdf8;color:#082f4
 <div class="extra-paytable"><h3>🏆 ВЫИГРЫШИ</h3><div>🥯 🥯 🥯 <b>50x</b></div><div>🐰 🐰 🐰 <b>25x</b></div><div>🦊 🦊 🦊 <b>15x</b></div><div>🥯 🐰 🦊 <b>5x</b></div><div>Любые 2 одинаковых <b>2x</b></div></div>
 <button class="extra-back" id="kolobokBack">← Назад</button></div></div>
 
+
+<div class="progress-page" id="progressPage"><div class="progress-container"><div class="progress-top"><div><h1>🌟 Прогресс</h1><p style="opacity:.7;margin-top:3px">Развитие, награды, капитал и коллекция</p></div><button class="progress-back" id="progressBack" title="Назад">↶</button></div><div class="progress-grid"><div class="progress-card progress-wide"><h3>📈 Уровень игрока</h3><div class="progress-stat" id="progLevel">Уровень 1</div><p id="progXpText">0 / 100 XP</p><div class="progress-bar"><span id="progXpBar"></span></div></div><div class="progress-card"><h3>🎁 Ежедневная награда</h3><p id="dailyText">Награда за вход</p><div class="progress-stat" id="dailyReward">10 USDT</div><button class="progress-btn" id="dailyClaim">Получить</button></div><div class="progress-card"><h3>🏆 Достижения</h3><div class="progress-stat" id="achCount">0 / 0</div><div class="progress-list" id="achList"></div></div><div class="progress-card"><h3>🎁 Кейсы</h3><p>Случайные награды за USDT.</p><div class="case-grid"><div class="case">🥉<b>Бронза</b><small>100 USDT</small><br><button class="progress-btn" data-case="100">Открыть</button></div><div class="case">🥈<b>Серебро</b><small>1 000 USDT</small><br><button class="progress-btn" data-case="1000">Открыть</button></div><div class="case">🥇<b>Золото</b><small>10 000 USDT</small><br><button class="progress-btn" data-case="10000">Открыть</button></div></div><p id="caseResult"></p></div><div class="progress-card"><h3>🏦 Банк</h3><p>0.5% каждые 10 минут.</p><div class="progress-stat" id="bankBalance">0 USDT</div><input id="bankAmount" type="number" min="1" placeholder="Сумма" style="width:100%;padding:9px;border-radius:10px;border:1px solid #38bdf8;background:transparent;color:inherit;margin-top:8px"><div class="progress-actions"><button class="progress-btn" id="bankDeposit">Положить</button><button class="progress-btn" id="bankWithdraw">Снять</button></div></div><div class="progress-card"><h3>📈 Биржа</h3><p>Цена виртуальной акции меняется раз в минуту.</p><div class="progress-stat" id="marketPrice">100 USDT</div><p>Акции: <span id="marketShares">0</span></p><div class="progress-actions"><button class="progress-btn" id="marketBuy">Купить</button><button class="progress-btn" id="marketSell">Продать</button></div></div><div class="progress-card progress-wide"><h3>🔓 Новые открытия</h3><p>Ежедневная награда помогает прокачивать уровень. За уровни открываются новые бизнесы, предметы и VIP-статусы.</p><div class="unlock-grid" id="unlockGrid"></div></div>
+<div class="progress-card progress-wide"><h3>🗺️ Карта владений</h3><p>Зелёные объекты уже куплены.</p><div class="progress-map" id="progressMap"></div></div><div class="progress-card"><h3>⚡ Событие</h3><div class="progress-stat" id="eventTitle">Спокойный рынок</div><p id="eventDesc">Случайное событие.</p><p id="eventTimer"></p></div><div class="progress-card"><h3>🏆 Лидеры</h3><p>Локальный рейтинг браузера.</p><div class="progress-list" id="leaderList"></div></div><div class="progress-card progress-wide"><h3>🎒 Коллекция</h3><p id="collectionText">Собранные предметы</p><div class="progress-list" id="collectionList"></div></div></div></div></div>
+
 <div class="settings-overlay" id="settingsOverlay"></div>
 <div class="settings-panel" id="settingsPanel">
 <h2>⚙️ Настройки</h2>
@@ -3116,11 +3616,11 @@ body.blue-theme .tasks-back{background:#7dd3fc;border-color:#38bdf8;color:#082f4
 
 <script>
 const g={d:0,c:0,i:0,u:[
-{id:'click',n:'🖱️ Усиление клика',desc:'+1 USDT за клик',b:10,c:10,l:0,m:1,t:'click'},
-{id:'auto1',n:'🤖 Авто-USDT',desc:'+1 USDT/сек',b:50,c:50,l:0,m:1,t:'income'},
-{id:'auto2',n:'⚡ Турбо-USDT',desc:'+5 USDT/сек',b:200,c:200,l:0,m:5,t:'income'},
+{id:'click',n:'🖱️ Усиление клика',desc:'+0.10 USDT за клик',b:10,c:10,l:0,m:1,t:'click'},
+{id:'auto1',n:'🤖 Авто-USDT',desc:'+0.10 USDT/сек',b:50,c:50,l:0,m:0.10,t:'income'},
+{id:'auto2',n:'⚡ Турбо-USDT',desc:'+0.50 USDT/сек',b:200,c:200,l:0,m:0.50,t:'income'},
 {id:'bank',n:'🏦 Банковский бонус',desc:'+10% к доходу',b:500,c:500,l:0,m:0.1,t:'percent'}
-]};let iv=null;
+]};window.__LUCKY_G__=g;let iv=null;
 function getShopAccountState(){
   try{
     const u=localStorage.getItem('donatCurrentUser')||'';
@@ -3192,15 +3692,31 @@ function save(){localStorage.setItem('donatGame',JSON.stringify({d:g.d,c:g.c,i:g
 function upd(){document.getElementById('donatDisplay').textContent=Math.floor(g.d);document.getElementById('clicksDisplay').textContent=g.c;document.getElementById('incomeDisplay').textContent=effectiveIncome().toFixed(1);render()}
 function render(){const c=document.getElementById('upgradesContainer');c.innerHTML='';g.u.forEach((u,i)=>{const card=document.createElement('div');const disabled=g.d<u.c;card.className='upgrade-card'+(disabled?' disabled':'');card.innerHTML='<div class="upgrade-name">'+u.n+'</div><div class="upgrade-desc">'+u.desc+'</div><div class="upgrade-cost">💎 '+Math.floor(u.c)+'</div><div style="font-size:0.75rem;opacity:0.6;">Ур: '+u.l+'</div>';if(!disabled){card.onclick=function(){buy(i)}}c.appendChild(card)})}
 function buy(i){const u=g.u[i];if(g.d<u.c){playCasinoSound('error');return;}playCasinoSound('buy');g.d-=u.c;u.l++;u.c=Math.floor(u.b*Math.pow(1.15,u.l));if(u.t==='click')g.i+=u.m*0.5;else if(u.t==='income')g.i+=u.m;else if(u.t==='percent')g.i*=(1+u.m);save();upd()}
-function clickD(){playCasinoSound('click',.55);const b=1+(g.u[0].l*0.5);g.d+=b;g.c++;save();upd()}
+function clickD(){playCasinoSound('click',.55);const b=0.10*(1+(g.u[0].l*0.5));g.d+=b;g.c++;save();upd()}
 function loop(){
   processMaintenance();
   if(typeof processBusinessExpenses==='function')processBusinessExpenses();
-  const inc=effectiveIncome();
-  if(inc>0){g.d+=inc/10;upd();save();}
+  /* Доход начисляется глобальным startIncomeLoop(), а не только внутри игры. */
 }
-function start(){if(iv)clearInterval(iv);iv=setInterval(loop,100);load()}
+function start(){if(iv)clearInterval(iv);iv=setInterval(loop,100);load();}
 function stop(){if(iv){clearInterval(iv);iv=null}}
+
+/* Постоянный авто-доход работает независимо от того, открыта ли страница игры. */
+let incomeTimer=null;
+function startIncomeLoop(){
+  if(incomeTimer) return;
+  incomeTimer=setInterval(()=>{
+    processMaintenance();
+    if(typeof processBusinessExpenses==='function') processBusinessExpenses();
+    const inc=Math.max(0, Number(effectiveIncome())||0);
+    if(inc>0){
+      g.d += inc;
+      upd();
+      save();
+    }
+  },1000);
+}
+
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
 
 /* =========================
@@ -3820,8 +4336,9 @@ function spinSlot(){
 
     let bet = Math.floor(Number(slotBet.value));
 
-    if(!bet || bet < 1){
-        showToast('❌ Введи ставку');
+    if(!Number.isFinite(bet) || bet < 10){
+        slotBet.value = 10;
+        showToast('❌ Минимальная ставка — 10 USDT');
         return;
     }
 
@@ -3963,7 +4480,7 @@ slotSpin.onclick=spinSlot;
 slotBetMinus.onclick=function(){
 
     slotBet.value=Math.max(
-        1,
+        10,
         Number(slotBet.value)-10
     );
 };
@@ -4012,7 +4529,7 @@ function initExtraGame(x){
   g.d-=amount;save();upd();refresh();st.running=true;spin.disabled=true;playCasinoSound('spin');result.classList.remove('win');result.textContent='🎰 Крутим...';reels.forEach(r=>r.classList.add('spinning'));
   const timer=setInterval(()=>reels.forEach(r=>r.textContent=symbol()),80);
   setTimeout(()=>{clearInterval(timer);const a=symbol(),b=symbol(),c=symbol();reels[0].textContent=a;reels[1].textContent=b;reels[2].textContent=c;reels.forEach(r=>r.classList.remove('spinning'));const m=mult(a,b,c);
-   if(m){const win=Math.floor(amount*m);g.d+=win;playCasinoSound(m>=25?'jackpot':'win');save();upd();refresh();result.textContent='🎉 Выигрыш '+m+'x — +'+win+' USDT!';result.classList.add('win');showToast('🎉 '+x.key+' '+m+'x!')}else{playCasinoSound('lose');result.textContent=x.loseText;showToast('😵 Попробуй ещё раз!')}
+   if(m){const win=Math.floor(amount*m*0.2);g.d+=win;playCasinoSound(m>=25?'jackpot':'win');save();upd();refresh();result.textContent='🎉 Выигрыш '+m+'x — +'+win+' USDT!';result.classList.add('win');showToast('🎉 '+x.key+' '+m+'x!')}else{playCasinoSound('lose');result.textContent=x.loseText;showToast('😵 Попробуй ещё раз!')}
    st.running=false;spin.disabled=false;
   },1200);
  }
@@ -4167,7 +4684,7 @@ if(gamesSlider){
 
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){const active=extraGames.find(x=>document.getElementById(x.page).classList.contains('active'));if(active){if(!extraState[active.key].running){document.getElementById(active.page).classList.remove('active');document.querySelector('.content').style.display='flex';}}}});
 
-setInterval(dt2,1000);dt2();loadTheme();load();
+setInterval(dt2,1000);dt2();loadTheme();load();startIncomeLoop();
 
 
 /* ===== НАДЁЖНЫЕ СТРЕЛКИ КАРУСЕЛИ ===== */
@@ -4527,6 +5044,8 @@ setInterval(dt2,1000);dt2();loadTheme();load();
     updatePremiumProfile();
     if(window.refreshBusinessPage)window.refreshBusinessPage();
     showToast('✅ Покупка оформлена! Статус профиля обновлён.');
+    // После покупки нового бизнеса сразу предлагаем поставить его на карте.
+    if(window.openBusinessPlacement) setTimeout(()=>window.openBusinessPlacement(boughtIds),80);
   };
 
   /* Добавляем кнопку покупок в окно аккаунта */
@@ -4621,8 +5140,9 @@ setInterval(dt2,1000);dt2();loadTheme();load();
     const x=businessCatalog[id];
     const eff=efficiency(id,st);
     const operatingCost=staffCostPerMinute(id,st)+x[3]*0.0005;
-    /* Каждый работающий бизнес гарантированно приносит больше своих расходов. */
-    return Math.max(operatingCost+1, x[3]*0.0015*(1+eff));
+    /* Доход бизнеса заметно сложнее: базовая прибыль уменьшена в 5 раз,
+       но работающий бизнес всё равно остаётся в плюсе. */
+    return Math.max(operatingCost+1, x[3]*0.0003*(1+eff));
   }
   function totalBusinessNetProfitPerMinute(){
     const st=loadBusinessState();
@@ -4895,6 +5415,301 @@ setInterval(dt2,1000);dt2();loadTheme();load();
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&page.classList.contains('active'))closePage();});
   window.renderTasks=render;
   document.addEventListener('click',function(e){if(!page.classList.contains('active'))return;if(e.target.closest('#tasksList')){setTimeout(render,0);}});
+})();
+</script>
+
+<script>
+(()=>{
+const G=window.__LUCKY_G__,page=document.getElementById('progressPage'),menu=document.getElementById('progressMenuItem'),back=document.getElementById('progressBack');if(!G||!page||!menu||!back)return;
+const user=()=>((localStorage.getItem('donatCurrentUser')||'guest').toLowerCase()),KEY='luckyProgress_'+user();const D={streak:0,lastDaily:0,xp:0,bank:0,bankAt:0,shares:0,market:100,marketAt:0,eventAt:0,eventMult:1,eventTitle:'Спокойный рынок'};let S=load();const $=id=>document.getElementById(id);
+function load(){try{return {...D,...JSON.parse(localStorage.getItem(KEY)||'{}')}}catch{return {...D}}}function save(){localStorage.setItem(KEY,JSON.stringify(S))}function own(){try{const s=JSON.parse(localStorage.getItem('donatShopProfile_'+user())||'{}');return Array.isArray(s.owned)?s.owned:[]}catch{return []}}function add(n){G.d=Math.max(0,Number(G.d||0)+n);window.save&&window.save();window.upd&&window.upd()}function xp(n){S.xp+=n;save()}function lvl(){let l=1,n=100,c=S.xp;while(c>=n&&l<100){c-=n;l++;n=Math.floor(n*1.18)}return[l,c,n]}
+function getLevel(){return lvl()[0]}
+window.getLuckyLevel=getLevel;window.addLuckyXP=xp;
+const UNLOCKS=[{level:1,icon:'🏪',title:'Магазин',type:'Бизнес'},{level:2,icon:'☕',title:'Кофейня',type:'Бизнес'},{level:3,icon:'🚗',title:'Новые авто',type:'Предмет'},{level:4,icon:'🧼',title:'Автомойка',type:'Бизнес'},{level:5,icon:'🍽️',title:'Ресторан',type:'Бизнес'},{level:6,icon:'🏨',title:'Отель',type:'Бизнес'},{level:8,icon:'🏦',title:'Банк',type:'Бизнес'},{level:10,icon:'💻',title:'IT-компания',type:'Бизнес'},{level:12,icon:'⭐',title:'Золотой профиль',type:'VIP'},{level:15,icon:'🏢',title:'Корпорация',type:'Бизнес'},{level:18,icon:'🔥',title:'Премиум навсегда',type:'VIP'},{level:22,icon:'🎰',title:'Казино',type:'Бизнес'},{level:28,icon:'👑',title:'Королевский статус',type:'VIP'},{level:35,icon:'💠',title:'Алмазный профиль',type:'VIP'}];
+function renderUnlocks(level){const el=$('unlockGrid');if(!el)return;el.innerHTML=UNLOCKS.map(u=>{const ok=level>=u.level;return '<div class="unlock-item '+(ok?'unlocked':'locked')+'"><span class="unlock-status">'+(ok?'Открыто':'Ур. '+u.level)+'</span><div class="unlock-title">'+u.icon+' '+u.title+'</div><div class="unlock-meta">'+u.type+' · '+(ok?'Доступно':'Повышай уровень')+'</div></div>'}).join('')}
+
+const A=[['🖱️ 50 кликов',()=>G.c>=50],['💵 1 000 USDT',()=>G.d>=1000],['💰 10 000 USDT',()=>G.d>=10000],['💎 100 000 USDT',()=>G.d>=100000],['🏆 1 000 000 USDT',()=>G.d>=1000000],['⬆️ Первый апгрейд',()=>G.u.some(u=>u.l>0)],['🎒 5 покупок',()=>own().length>=5]];
+const N={c1:'🚗 Авто',c2:'🏎️ Спорткар',c3:'🚙 Кроссовер',c4:'🏁 Суперкар',c5:'🚕 Премиум авто',c6:'🚐 Минивэн',c7:'🚲 Электровелосипед',c8:'🚘 Люкс-седан',h1:'🏠 Квартира',h2:'🏡 Дом',h3:'🏰 Особняк',h4:'🏝️ Вилла',h5:'🏢 Пентхаус',h6:'💼 Офис',h7:'🏙️ Башня',bz1:'🏪 Магазин',bz2:'☕ Кофейня',bz3:'🧼 Автомойка',bz4:'🍽️ Ресторан',bz5:'🏨 Отель',bz6:'🏦 Банк',bz7:'💻 IT',bz8:'🛍️ ТЦ',bz9:'🏢 Корпорация',bz10:'🌆 Холдинг',bz11:'🏙️ Империя',bz12:'🌍 Конгломерат',bz13:'🎰 Казино',v1:'💎 VIP',v2:'👑 Королевский',v3:'⭐ Золотой',v4:'🔥 Премиум',v5:'💠 Алмазный'};
+function render(){const [l,c,n]=lvl();renderUnlocks(l);$('progLevel').textContent='Уровень '+l;$('progXpText').textContent=c+' / '+n+' XP';$('progXpBar').style.width=(c/n*100)+'%';let done=0;$('achList').innerHTML=A.map(a=>{const ok=a[1]();if(ok)done++;return '<div class="progress-item"><span>'+a[0]+'</span><span class="progress-tag">'+(ok?'✓':'—')+'</span></div>'}).join('');$('achCount').textContent=done+' / '+A.length;const now=Date.now(),day=86400000,ready=!S.lastDaily||now-S.lastDaily>=day;$('dailyClaim').disabled=!ready;$('dailyText').textContent=ready?'Награда доступна. Серия: '+(S.streak+1):'Следующая награда через '+Math.ceil((day-(now-S.lastDaily))/3600000)+' ч.';$('dailyReward').textContent=(10*Math.min(7,S.streak+1))+' USDT';if(S.bankAt&&now-S.bankAt>=600000){const k=Math.floor((now-S.bankAt)/600000);S.bank*=Math.pow(1.005,k);S.bankAt=now;save()}$('bankBalance').textContent=S.bank.toFixed(2)+' USDT';if(!S.marketAt)S.marketAt=now;if(now-S.marketAt>=60000){const k=Math.floor((now-S.marketAt)/60000);for(let i=0;i<k;i++)S.market*=1+(Math.random()*.06-.03);S.market=Math.max(10,Math.min(100000,S.market));S.marketAt=now;save()}$('marketPrice').textContent=S.market.toFixed(2)+' USDT';$('marketShares').textContent=S.shares;const nodes=[['🏪 Магазин',['bz1']],['☕ Кофейня',['bz2']],['🧼 Автомойка',['bz3']],['🍽️ Ресторан',['bz4']],['🏨 Отель',['bz5']],['🏦 Банк',['bz6']],['💻 IT',['bz7']],['🛍️ ТЦ',['bz8']],['🏢 Корпорация',['bz9']],['🌆 Холдинг',['bz10']],['🏙️ Империя',['bz11']],['🌍 Конгломерат',['bz12']],['🎰 Казино',['bz13']]];$('progressMap').innerHTML=nodes.map(x=>'<div class="map-node '+(x[1].some(k=>own().includes(k))?'owned':'')+'">'+x[0]+'<br><small>'+(x[1].some(k=>own().includes(k))?'✓ Куплено':'—')+'</small></div>').join('');const o=own();$('collectionText').textContent='Собрано: '+o.length+' предметов';$('collectionList').innerHTML=o.length?o.map(id=>'<div class="progress-item"><span>'+(N[id]||id)+'</span><span class="progress-tag">Собрано</span></div>').join(''):'<div class="progress-item"><span>Пока пусто</span></div>';const score=Math.floor(G.d+o.length*1000+l*5000);$('leaderList').innerHTML=[['🥇 Ты',score],['🥈 Алекс',Math.floor(score*.82)],['🥉 Макс',Math.floor(score*.61)]].map(x=>'<div class="progress-item"><span>'+x[0]+'</span><b>'+x[1].toLocaleString('ru-RU')+'</b></div>').join('');if(!S.eventAt||now-S.eventAt>=300000){const e=[['📈 Бум рынка',1.15],['🎉 Праздник',1.25],['🧊 Спокойный рынок',1]][Math.floor(Math.random()*3)];S.eventTitle=e[0];S.eventMult=e[1];S.eventAt=now;save()}$('eventTitle').textContent=S.eventTitle;$('eventDesc').textContent='Бонус дополнительного дохода: ×'+S.eventMult.toFixed(2);$('eventTimer').textContent='Осталось: '+Math.ceil((300000-(now-S.eventAt))/1000)+' сек.'}
+function open(){document.querySelector('.content')?.style.setProperty('display','none');page.classList.add('active');render()}function close(){page.classList.remove('active');document.querySelector('.content')?.style.removeProperty('display')}menu.onclick=e=>{e.stopPropagation();open()};back.onclick=close;
+$('dailyClaim').onclick=()=>{if($('dailyClaim').disabled)return;const now=Date.now();if(S.lastDaily&&now-S.lastDaily>172800000)S.streak=0;S.streak++;S.lastDaily=now;const r=10*Math.min(7,S.streak);add(r);xp(25);save();render();window.showToast&&window.showToast('🎁 +'+r+' USDT')};
+document.querySelectorAll('[data-case]').forEach(b=>b.onclick=()=>{const cost=+b.dataset.case;if(G.d<cost)return window.showToast&&window.showToast('❌ Не хватает USDT');add(-cost);const mult=[.25,.5,1,2,5][Math.floor(Math.random()*5)],r=Math.max(1,Math.floor(cost*mult));add(r);xp(Math.floor(cost/20));$('caseResult').textContent='🎉 +'+r+' USDT';render()});
+$('bankDeposit').onclick=()=>{const n=+$('bankAmount').value;if(!n||n<1||G.d<n)return window.showToast&&window.showToast('❌ Недостаточно USDT');add(-n);S.bank+=n;if(!S.bankAt)S.bankAt=Date.now();save();render()};$('bankWithdraw').onclick=()=>{const n=Math.min(S.bank,+$('bankAmount').value||0);if(n<=0)return;render();S.bank-=n;add(n);if(S.bank<=0)S.bankAt=0;save();render()};$('marketBuy').onclick=()=>{render();if(G.d<S.market)return window.showToast&&window.showToast('❌ Не хватает USDT');add(-S.market);S.shares++;save();render()};$('marketSell').onclick=()=>{if(S.shares<1)return;render();S.shares--;add(S.market);save();render()};
+setInterval(()=>{if(page.classList.contains('active'))render()},1000);
+})();
+</script>
+
+<div class="business-map-page" id="businessMapPage">
+  <div class="business-map-container game-city-map">
+    <div class="business-map-head">
+      <div>
+        <h1>🗺️ Карта бизнесов</h1>
+        <p style="opacity:.7">Город развивается вместе с тобой. Нажимай на здания, чтобы смотреть их статус.</p>
+      </div>
+      <button class="progress-back" id="businessMapBack" aria-label="Назад">↶</button>
+    </div>
+    <div class="city-legend">
+      <span><i class="dot owned-dot"></i> Куплено</span>
+      <span><i class="dot open-dot"></i> Свободный участок</span>
+      <span><i class="dot locked-dot"></i> Закрыто</span>
+    </div>
+    <div class="map-placement-banner" id="mapPlacementBanner">
+      <span id="mapPlacementText">🏗️ Выбери свободный участок для бизнеса</span>
+      <button class="map-placement-cancel" id="mapPlacementCancel">Отмена</button>
+    </div>
+    <div class="city-map" id="businessMapGrid"></div>
+    <div class="city-tip">💡 Повышай уровень, покупай здания и развивай свой город.</div>
+  </div>
+</div>
+<script>
+(()=>{
+ const page=document.getElementById('businessMapPage'),menu=document.getElementById('businessMapMenuItem'),back=document.getElementById('businessMapBack'),grid=document.getElementById('businessMapGrid');
+ if(!page||!menu||!back||!grid)return;
+ const C=[
+ ['bz1','🏪','Магазин',2,1, 'small'],['bz2','☕','Кофейня',4,2,'small'],['bz3','🧼','Автомойка',6,3,'small'],
+ ['bz4','🍽️','Ресторан',10,5,'medium'],['bz5','🏨','Отель',17,6,'medium'],['bz6','🏦','Банк',22,8,'medium'],
+ ['bz7','💻','IT-компания',28,10,'medium'],['bz8','🛍️','Торговый центр',35,12,'large'],['bz9','🏢','Корпорация',45,15,'large'],
+ ['bz10','🌆','Холдинг',50,18,'large'],['bz11','🏙️','Империя',60,20,'large'],['bz12','🌍','Конгломерат',70,22,'large'],['bz13','🎰','Казино',80,25,'mega']
+ ];
+ const pos=['p1','p2','p3','p4','p5','p6','p7','p8','p9','p10','p11','p12','p13'];
+ function U(){return(localStorage.getItem('donatCurrentUser')||'guest').toLowerCase()}
+ function own(){try{const s=JSON.parse(localStorage.getItem('donatShopProfile_'+U())||'{}');return Array.isArray(s.owned)?s.owned:[]}catch{return[]}}
+ function level(){return Number(localStorage.getItem('luckyLevel_'+U())||localStorage.getItem('playerLevel_'+U())||1)}
+ function render(){
+  const o=own(),lv=level();
+  grid.innerHTML='<div class="road road-a"></div><div class="road road-b"></div><div class="road road-c"></div><div class="park park-a">🌳</div><div class="park park-b">🌲</div><div class="fountain">⛲</div>'+
+   C.map((x,i)=>{const owned=o.includes(x[0]),locked=lv<x[4];return `<button class="city-building ${pos[i]} ${x[5]} ${owned?'owned':''} ${locked?'locked':''}" data-id="${x[0]}" title="${x[2]}"><div class="building-emoji">${x[1]}</div><div class="building-roof"></div><div class="building-name">${x[2]}</div><div class="building-bonus">+${x[3]}%</div><div class="building-status">${owned?'✅ Куплено':locked?'🔒 Ур. '+x[4]:'🟢 Доступно'}</div></button>`}).join('');
+  grid.querySelectorAll('.city-building').forEach(b=>b.addEventListener('click',()=>{const x=C.find(a=>a[0]===b.dataset.id); if(x) alert(`${x[1]} ${x[2]}\n\nБонус: +${x[3]}% к заработку\nОткрытие: уровень ${x[4]}\nСтатус: ${o.includes(x[0])?'Куплено':lv<x[4]?'Закрыто':'Можно купить в магазине'}`)}));
+ }
+ function open(){document.querySelector('.content')?.style.setProperty('display','none');page.classList.add('active');render();window.scrollTo({top:0})}
+ function close(){page.classList.remove('active');document.querySelector('.content')?.style.removeProperty('display')}
+ menu.onclick=e=>{e.stopPropagation();open()};back.onclick=close;document.addEventListener('keydown',e=>{if(e.key==='Escape'&&page.classList.contains('active'))close()});
+})();
+</script>
+
+<script>
+/* ===== РАССТАНОВКА БИЗНЕСОВ + ПРОХОДИМОСТЬ УЛИЦ ===== */
+(function(){
+  const page=document.getElementById('businessMapPage');
+  const menu=document.getElementById('businessMapMenuItem');
+  const back=document.getElementById('businessMapBack');
+  const grid=document.getElementById('businessMapGrid');
+  const banner=document.getElementById('mapPlacementBanner');
+  const bannerText=document.getElementById('mapPlacementText');
+  const cancel=document.getElementById('mapPlacementCancel');
+  const placementAdvice=document.getElementById('placementAdvice');
+  const placementAdviceTitle=document.getElementById('placementAdviceTitle');
+  const placementAdviceIntro=document.getElementById('placementAdviceIntro');
+  const placementAdviceRules=document.getElementById('placementAdviceRules');
+  const placementAdviceClose=document.getElementById('placementAdviceClose');
+  if(!page||!grid) return;
+
+  function showPlacementAdvice(bizId, phase, plot){
+    if(!placementAdvice || !bizById[bizId]) return;
+    const b=bizById[bizId];
+    const traffic=plot?.traffic || 1;
+    const pct=Math.round(traffic*100);
+    const rules=[];
+    if(traffic>=1.4){
+      rules.push('🔥 Это очень проходное место — отлично для казино, ресторана, магазина и других массовых бизнесов.');
+    }else if(traffic>=1.15){
+      rules.push('🚶 Хорошая проходимость — универсальный вариант почти для любого бизнеса.');
+    }else if(traffic>=1){
+      rules.push('⚖️ Средняя проходимость — подойдёт для спокойных и средних по цене бизнесов.');
+    }else{
+      rules.push('🌙 Низкая проходимость — лучше размещать здесь дешёвый или вспомогательный бизнес.');
+    }
+    if(b[0]==='bz13') rules.push('🎰 Казино лучше ставить на самом людном проспекте: высокий трафик сильнее влияет на его прибыль.');
+    if(['bz1','bz2','bz3'].includes(b[0])) rules.push('🏪 Для недорогих бизнесов можно выбирать хорошие улицы без переплаты за самый топовый участок.');
+    if(['bz8','bz9','bz10','bz11','bz12'].includes(b[0])) rules.push('🏙️ Дорогие крупные бизнесы выгоднее ставить ближе к центру и главным дорогам.');
+    if(b[0]==='bz6') rules.push('🏦 Банк лучше размещать рядом с центральными улицами и деловым районом.');
+    if(b[0]==='bz7') rules.push('💻 IT-компанию можно вынести на спокойную, но не слишком удалённую улицу.');
+    if(phase==='purchase') rules.unshift('📍 После покупки бизнес нужно установить на свободный участок. Выбирай место с учётом проходимости.');
+    if(phase==='install') rules.unshift('✅ Бизнес установлен. Его доход теперь учитывает проходимость этой улицы.');
+    if(phase==='move') rules.unshift('🔁 Ты переносишь бизнес. Новое место изменит его влияние на доход.');
+    placementAdviceTitle.textContent=`${b[1]} ${b[2]} — как лучше поставить`;
+    placementAdviceIntro.textContent=`Проходимость выбранного участка: ${pct}%. Чем выше показатель, тем выгоднее место для бизнеса.`;
+    placementAdviceRules.innerHTML=rules.map(r=>`<div class="placement-advice-rule">${r}</div>`).join('');
+    placementAdvice.classList.add('active');
+  }
+  placementAdviceClose?.addEventListener('click',()=>placementAdvice.classList.remove('active'));
+  placementAdvice?.addEventListener('click',e=>{if(e.target===placementAdvice) placementAdvice.classList.remove('active')});
+
+  const C=[
+   ['bz1','🏪','Магазин',2,1,'small'],['bz2','☕','Кофейня',4,2,'small'],['bz3','🧼','Автомойка',6,3,'small'],
+   ['bz4','🍽️','Ресторан',10,5,'medium'],['bz5','🏨','Отель',17,6,'medium'],['bz6','🏦','Банк',22,8,'medium'],
+   ['bz7','💻','IT-компания',28,10,'medium'],['bz8','🛍️','Торговый центр',35,12,'large'],['bz9','🏢','Корпорация',45,15,'large'],
+   ['bz10','🌆','Холдинг',50,18,'large'],['bz11','🏙️','Империя',60,20,'large'],['bz12','🌍','Конгломерат',70,22,'large'],['bz13','🎰','Казино',80,25,'mega']
+  ];
+
+  // Свободные участки вдоль дорог. traffic = множитель к доходу бизнеса.
+  const PLOTS=[
+   {id:'a1',left:4,top:22,traffic:1.45,name:'Главный проспект'},
+   {id:'a2',left:26,top:12,traffic:1.35,name:'Центральная улица'},
+   {id:'a3',left:62,top:12,traffic:1.50,name:'Главный проспект'},
+   {id:'a4',left:76,top:28,traffic:1.25,name:'Деловая улица'},
+   {id:'a5',left:7,top:49,traffic:1.15,name:'Большая улица'},
+   {id:'a6',left:30,top:47,traffic:1.30,name:'Центральная улица'},
+   {id:'a7',left:55,top:35,traffic:1.20,name:'Деловая улица'},
+   {id:'a8',left:77,top:51,traffic:1.40,name:'Главный проспект'},
+   {id:'a9',left:12,top:72,traffic:1.05,name:'Районная улица'},
+   {id:'a10',left:38,top:69,traffic:1.25,name:'Центральная улица'},
+   {id:'a11',left:62,top:76,traffic:1.10,name:'Районная улица'},
+   {id:'a12',left:82,top:73,traffic:.90,name:'Окраина'},
+   {id:'a13',left:46,top:22,traffic:1.55,name:'Площадь у метро'}
+  ];
+
+  const plotById=Object.fromEntries(PLOTS.map(p=>[p.id,p]));
+  const bizById=Object.fromEntries(C.map(x=>[x[0],x]));
+  const posClasses=['p1','p2','p3','p4','p5','p6','p7','p8','p9','p10','p11','p12','p13'];
+  let placementQueue=[];
+  let activeMove=null;
+
+  function U(){return(localStorage.getItem('donatCurrentUser')||'guest').toLowerCase()}
+  function state(){
+    const key='donatShopProfile_'+U();
+    try{
+      const st=JSON.parse(localStorage.getItem(key)||'{}');
+      st.cart=Array.isArray(st.cart)?st.cart:[]; st.owned=Array.isArray(st.owned)?st.owned:[];
+      st.mapPositions=(st.mapPositions&&typeof st.mapPositions==='object')?st.mapPositions:{};
+      return st;
+    }catch{return {cart:[],owned:[],mapPositions:{}}}
+  }
+  function saveState(st){localStorage.setItem('donatShopProfile_'+U(),JSON.stringify(st))}
+  function level(){return Number(localStorage.getItem('luckyLevel_'+U())||1)}
+  function posFor(st,bizId){return st.mapPositions[bizId]||null}
+  function occupiedPlotIds(st){return new Set(Object.values(st.mapPositions||{}))}
+
+  function trafficLabel(mult){
+    if(mult>=1.4) return ['Очень высокая','traffic-high'];
+    if(mult>=1.15) return ['Высокая','traffic-high'];
+    if(mult>=1.0) return ['Средняя','traffic-mid'];
+    return ['Низкая','traffic-low'];
+  }
+  function trafficForBusiness(id){
+    const st=state(), pid=st.mapPositions?.[id], p=pid?plotById[pid]:null;
+    return p?p.traffic:0.75; // бизнес без места работает заметно хуже
+  }
+  window.businessTrafficMultiplier=trafficForBusiness;
+  window.businessTrafficName=function(id){const p=plotById[state().mapPositions?.[id]];return p?p.name:'Нет участка'};
+
+  function setPlacementMode(ids){
+    const st=state();
+    placementQueue=(ids||[]).filter(id=>bizById[id]&&st.owned.includes(id)&&!st.mapPositions[id]);
+    if(!placementQueue.length){activeMove=null;banner.classList.remove('active');return;}
+    activeMove=null; banner.classList.add('active');
+    const b=bizById[placementQueue[0]];
+    bannerText.textContent='🏗️ Размести: '+b[1]+' '+b[2]+' — выбери свободный участок';
+    showPlacementAdvice(b[0], 'purchase', null);
+  }
+
+  function choosePlot(plotId){
+    const st=state();
+    const occupied=occupiedPlotIds(st);
+    if(occupied.has(plotId)) return;
+    const target=activeMove||placementQueue[0];
+    if(!target){return;}
+    st.mapPositions[target]=plotId; saveState(st);
+    showToast&&showToast('📍 '+bizById[target][2]+' поставлен на '+plotById[plotId].name+' · '+Math.round(plotById[plotId].traffic*100)+'% проходимости');
+    showPlacementAdvice(target, activeMove ? 'move' : 'install', plotById[plotId]);
+    activeMove=null;
+    placementQueue=placementQueue.filter(id=>id!==target);
+    render();
+    if(placementQueue.length){
+      const b=bizById[placementQueue[0]]; banner.classList.add('active');bannerText.textContent='🏗️ Размести: '+b[1]+' '+b[2]+' — выбери свободный участок';
+    }else banner.classList.remove('active');
+    if(window.refreshBusinessPage) window.refreshBusinessPage();
+    if(window.upd) window.upd();
+  }
+
+  function moveBusiness(id){
+    const st=state();
+    if(!st.owned.includes(id)) return;
+    activeMove=id; placementQueue=[]; banner.classList.add('active');
+    const b=bizById[id]; bannerText.textContent='🔁 Перемести: '+b[1]+' '+b[2]+' — выбери новый свободный участок';
+    render();
+  }
+  window.openBusinessPlacement=function(ids){
+    const fresh=(ids||[]).filter(id=>bizById[id]);
+    if(!fresh.length) return;
+    const st=state();
+    const unplaced=fresh.filter(id=>st.owned.includes(id)&&!st.mapPositions[id]);
+    if(!unplaced.length) return;
+    document.querySelector('.content')?.style.setProperty('display','none');
+    page.classList.add('active');
+    window.scrollTo({top:0});
+    setPlacementMode(unplaced); render();
+  };
+
+  function render(){
+    const st=state(), lv=level(), occ=occupiedPlotIds(st);
+    const placedByPlot={}; Object.entries(st.mapPositions||{}).forEach(([biz,plot])=>{if(bizById[biz])placedByPlot[plot]=biz});
+    let html='<div class="road road-a"></div><div class="road road-b"></div><div class="road road-c"></div><div class="park park-a">🌳</div><div class="park park-b">🌲</div><div class="fountain">⛲</div>';
+    // Свободные участки показываются поверх города.
+    html+=PLOTS.map(p=>{
+      const placed=placedByPlot[p.id]; const [tl,tc]=trafficLabel(p.traffic);
+      return `<button class="map-plot ${placed?'occupied':''} ${p.traffic>=1.35?'high':p.traffic<1?'low':''}" data-plot="${p.id}" ${placed?'disabled':''}><span class="map-plot-label">${placed?'🏢 Занято':'📍 Свободный участок'}<br>${p.name}<span class="traffic-chip ${tc}">🚶 ${Math.round(p.traffic*100)}%</span></span></button>`;
+    }).join('');
+
+    html+=C.map((x,i)=>{
+      const owned=st.owned.includes(x[0]), locked=lv<x[4], pid=st.mapPositions[x[0]], plot=pid?plotById[pid]:null;
+      if(!owned || !plot){return '';} // купленный, но ещё не размещён — баннер предлагает выбрать участок
+      const [tl,tc]=trafficLabel(plot.traffic);
+      return `<button class="city-building ${posClasses[i]} ${x[5]} owned movable" data-id="${x[0]}" title="Нажми, чтобы переместить\n${plot.name}: ${Math.round(plot.traffic*100)}% проходимости" style="left:${plot.left}%;top:${plot.top}%;">
+        <div class="building-emoji">${x[1]}</div><div class="building-roof"></div><div class="building-name">${x[2]}</div><div class="building-bonus">+${x[3]}%</div><div class="traffic-mini ${tc}">🚶 ${Math.round(plot.traffic*100)}% · ${tl}</div><div class="move-hint">↔ Нажми для переноса</div>
+      </button>`;
+    }).join('');
+
+    // Показываем закрытые/доступные бизнесы справа/внизу как мини-инфо, но не как здания до покупки.
+    grid.innerHTML=html;
+
+    grid.querySelectorAll('.map-plot:not(.occupied)').forEach(b=>b.addEventListener('click',()=>choosePlot(b.dataset.plot)));
+    grid.querySelectorAll('.city-building.movable').forEach(b=>b.addEventListener('click',()=>moveBusiness(b.dataset.id)));
+  }
+
+  function open(){document.querySelector('.content')?.style.setProperty('display','none');page.classList.add('active');render();window.scrollTo({top:0})}
+  function close(){page.classList.remove('active');banner.classList.remove('active');placementQueue=[];activeMove=null;document.querySelector('.content')?.style.removeProperty('display')}
+  menu?.addEventListener('click',e=>{e.stopPropagation();open()});
+  back?.addEventListener('click',close);
+  cancel?.addEventListener('click',()=>{placementQueue=[];activeMove=null;banner.classList.remove('active');render()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&page.classList.contains('active'))close()});
+
+  // Пересчитываем доход бизнеса по проходимости улицы.
+  const originalBonus=window.totalBusinessBonusStaffed;
+  const originalNet=window.totalBusinessNetProfitPerMinute;
+  window.totalBusinessBonusStaffed=function(){
+    const base=originalBonus?Number(originalBonus()||0):0;
+    const st=state();
+    return Object.keys(st.mapPositions||{}).reduce((sum,id)=>{
+      if(!bizById[id]||!st.owned.includes(id)) return sum;
+      const p=plotById[st.mapPositions[id]]; if(!p) return sum;
+      // Бизнес-бонус умножается на проходимость участка.
+      const b=bizById[id][3]/100;
+      return sum + b*Math.max(0,p.traffic-1);
+    },base);
+  };
+  window.totalBusinessNetProfitPerMinute=function(){
+    const base=originalNet?Number(originalNet()||0):0;
+    const st=state();
+    return Object.keys(st.mapPositions||{}).reduce((sum,id)=>{
+      if(!bizById[id]||!st.owned.includes(id)) return sum;
+      const p=plotById[st.mapPositions[id]]; if(!p) return sum;
+      return sum + base*(p.traffic-1)*0.20/Math.max(1,Object.keys(st.mapPositions).length);
+    },base);
+  };
+  window.getTrafficMultiplierForBusiness=trafficForBusiness;
+
+  render();
+})();
+
+/* Сохраняем в профиле карту, даже если она была создана старой версией. */
+(function(){
+  try{
+    const u=(localStorage.getItem('donatCurrentUser')||'guest').toLowerCase();
+    const k='donatShopProfile_'+u;
+    const st=JSON.parse(localStorage.getItem(k)||'{}');
+    if(!st.mapPositions || typeof st.mapPositions!=='object'){st.mapPositions={};localStorage.setItem(k,JSON.stringify(st));}
+  }catch(e){}
 })();
 </script>
 </body>
