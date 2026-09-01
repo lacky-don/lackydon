@@ -1158,7 +1158,7 @@ body.blue-theme .news-card{
 
 
 /* ===== В НИЖНЕЙ ПАНЕЛИ ОСТАЮТСЯ ТОЛЬКО MUSIC И SETTINGS ===== */
-.dock .dock-item:not(#dockMusicBtn):not(#dockSettingsBtn),
+.dock .dock-item:not(#dockMusicBtn):not(#dockShopBtn):not(#dockSettingsBtn),
 .dock .dock-divider{
     display:none !important;
 }
@@ -2333,17 +2333,86 @@ html,body{
 
 
 /* ===== ПРОФИЛЬ ПОСЛЕ ВХОДА ===== */
-.auth-profile{display:none;align-items:center;gap:10px;margin-bottom:20px;padding:10px 12px;border-bottom:1px solid #444;cursor:pointer}
+.auth-profile{display:none;align-items:center;gap:10px;margin-bottom:20px;padding:10px 12px;border-bottom:1px solid #444;cursor:pointer;position:relative}
 .auth-profile.show{display:flex}
+.auth-avatar-wrap{width:52px;min-width:52px;display:flex;flex-direction:column;align-items:center;gap:3px}
 .auth-avatar{width:42px;height:42px;min-width:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#20bfff,#087fb3);color:#fff;font-weight:900;font-size:1rem;border:2px solid #111;box-shadow:0 0 12px rgba(32,191,255,.35)}
 .auth-profile-info{min-width:0;flex:1}
 .auth-profile-name{font-weight:900;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.auth-profile-status{font-size:.72rem;opacity:.65;margin-top:2px}
+.auth-profile-status{font-size:.68rem;color:#22c55e;font-weight:800;line-height:1;white-space:nowrap}
+.auth-premium-badge{position:absolute;top:0px;right:28px;display:inline-flex;align-items:center;width:max-content;margin:0;padding:3px 7px;border-radius:999px;background:linear-gradient(90deg,#fbbf24,#f59e0b);color:#211300;font-size:.62rem;font-weight:900;box-shadow:0 0 10px rgba(251,191,36,.35)}
+body.light-theme .auth-premium-badge,body.blue-theme .auth-premium-badge{color:#211300}
 .auth-profile-logout{border:0;background:transparent;color:#aaa;font-size:1.1rem;cursor:pointer;padding:5px}
 body.light-theme .auth-profile{border-color:#bbb}
 body.light-theme .auth-profile-name{color:#111}
 body.blue-theme .auth-profile{border-color:rgba(18,48,71,.25)}
 body.blue-theme .auth-profile-name{color:#123047}
+
+/* ===== МОИ БИЗНЕСЫ / СОТРУДНИКИ ===== */
+.businesses-page{
+    display:none;position:fixed;inset:0;z-index:290;overflow-y:auto;
+    padding:78px 16px 115px;background:#0d1117;color:#fff;
+}
+.businesses-page.active{display:block}
+.businesses-container{width:100%;max-width:900px;margin:auto}
+.businesses-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:18px}
+.businesses-head h1{font-size:2rem;margin-bottom:5px}
+.businesses-subtitle{opacity:.68;font-size:.9rem;line-height:1.4}
+.businesses-balance{flex:0 0 auto;padding:10px 14px;border:1px solid #38bdf8;border-radius:14px;background:rgba(56,189,248,.08);font-weight:800}
+.businesses-status{display:none;padding:13px 15px;border-radius:14px;margin-bottom:12px;font-weight:700}
+.businesses-status.active{display:block}
+.businesses-status.paused{border:1px solid #ef4444;background:rgba(239,68,68,.10);color:#ef4444}
+.businesses-status.ok{border:1px solid #4ade80;background:rgba(74,222,128,.10);color:#166534}
+.businesses-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.business-summary-card{padding:14px;border-radius:16px;border:1px solid rgba(56,189,248,.35);background:rgba(255,255,255,.05)}
+.business-summary-card span{display:block;opacity:.6;font-size:.76rem;margin-bottom:5px}
+.business-summary-card strong{font-size:1.1rem}
+.businesses-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.business-card{padding:16px;border-radius:18px;border:1px solid rgba(56,189,248,.35);background:rgba(255,255,255,.055);box-shadow:0 7px 24px rgba(0,0,0,.16)}
+.business-card h3{margin:0 0 5px;font-size:1.12rem}
+.business-card .business-desc{opacity:.62;font-size:.78rem;line-height:1.35;margin-bottom:10px}
+.business-metrics{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:10px 0}
+.business-metric{padding:9px;border-radius:11px;background:rgba(255,255,255,.045);font-size:.76rem}
+.business-metric b{display:block;margin-top:3px;font-size:.95rem}
+.employee-count{color:#38bdf8}
+.business-profit{color:#4ade80}
+.business-expense{color:#fbbf24}
+.business-paused{color:#ef4444}
+.business-card button{width:100%;padding:11px;border-radius:12px;border:1px solid #38bdf8;background:rgba(56,189,248,.10);color:inherit;font-weight:800;cursor:pointer}
+.business-card button:hover{background:rgba(56,189,248,.18)}
+.businesses-back{width:100%;margin-top:16px;padding:13px;border-radius:13px;border:1px solid #444;background:#222;color:inherit;cursor:pointer}
+.employee-modal{position:fixed;inset:0;z-index:550;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(0,0,0,.65);backdrop-filter:blur(7px)}
+.employee-modal.active{display:flex}
+.employee-modal-box{width:min(520px,100%);max-height:84vh;overflow-y:auto;border-radius:20px;padding:18px;background:#1b1f26;border:1px solid #38bdf8;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.employee-modal-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.employee-modal-head h2{margin:0}
+.employee-close{width:38px;height:38px;border-radius:50%;border:1px solid #555;background:transparent;color:inherit;font-size:24px;cursor:pointer}
+.employee-target{margin:10px 0 14px;opacity:.7;font-size:.85rem}
+.employee-list{display:flex;flex-direction:column;gap:9px}
+.employee-row{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;padding:12px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
+.employee-icon{font-size:28px}.employee-row h4{margin:0 0 3px}.employee-row p{margin:0;font-size:.73rem;opacity:.62;line-height:1.35}
+.employee-row button{padding:9px 12px;border-radius:10px;border:1px solid #4ade80;background:rgba(74,222,128,.10);color:inherit;font-weight:800;cursor:pointer}
+.employee-row button:disabled{opacity:.4;cursor:not-allowed}
+body.light-theme .businesses-page{background:#f5f5f5;color:#222}
+body.light-theme .business-card,body.light-theme .business-summary-card{background:rgba(0,0,0,.045)}
+body.blue-theme .businesses-page{background:#bae6fd;color:#082f49}
+body.blue-theme .business-card,body.blue-theme .business-summary-card{background:rgba(255,255,255,.28)}
+@media(max-width:700px){
+  .businesses-head{flex-direction:column}
+  .businesses-balance{align-self:flex-start}
+  .businesses-summary{grid-template-columns:1fr}
+  .businesses-list{grid-template-columns:1fr}
+}
+
+</style>
+
+<style id="shop-dock-fix">
+/* ===== КНОПКА МАГАЗИНА В НИЖНЕЙ ПАНЕЛИ ===== */
+.dock #dockShopBtn {
+    display:flex !important;
+    visibility:visible !important;
+    opacity:1 !important;
+}
 </style>
 
 <style id="page-scroll-fix">
@@ -2436,6 +2505,61 @@ body.blue-theme .auth-modal{background:#b8e5f8;color:#123047}
 body.blue-theme .auth-form input{background:#d9f2ff;color:#123047;border-color:#75c7e8}
 @media(max-width:600px){.auth-modal{padding:20px;border-radius:18px}.auth-modal h2{font-size:1.35rem}}
 </style>
+
+<style id="shop-styles">
+/* ===== БОЛЬШОЙ МАГАЗИН ===== */
+#dockShopBtn{display:flex !important;}
+.shop-page{display:none;position:fixed;inset:0;z-index:90;overflow-y:auto;padding:82px 16px 130px;background:#111;box-sizing:border-box;}
+.shop-page.active{display:block;}
+.shop-container{max-width:1120px;margin:0 auto;}
+.shop-head{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;margin-bottom:18px;position:sticky;top:0;z-index:5;padding:8px 0 14px;background:linear-gradient(#111 80%,transparent);}
+.shop-head h1{margin:0;font-size:1.8rem;}
+.shop-subtitle{opacity:.72;margin-top:5px;}
+.shop-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end;}
+.shop-balance,.shop-cart-btn{padding:10px 14px;border:1px solid #38bdf8;border-radius:14px;background:rgba(56,189,248,.1);font-weight:900;white-space:nowrap;color:inherit;cursor:pointer;}
+.shop-cart-btn{background:#38bdf8;color:#07131a;}
+.shop-categories{display:flex;gap:8px;overflow-x:auto;padding:4px 0 14px;scrollbar-width:none;}
+.shop-categories::-webkit-scrollbar{display:none;}
+.shop-cat{border:1px solid #444;background:#202020;color:inherit;border-radius:999px;padding:8px 13px;white-space:nowrap;cursor:pointer;font-weight:800;}
+.shop-cat.active{background:#38bdf8;color:#07131a;border-color:#38bdf8;}
+.shop-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;}
+.shop-card{background:#202020;border:1px solid #3b3b3b;border-radius:18px;padding:15px;box-shadow:0 8px 25px rgba(0,0,0,.18);display:flex;flex-direction:column;min-height:220px;}
+.shop-icon{font-size:44px;margin-bottom:8px;}
+.shop-card h3{margin:0 0 5px;font-size:1rem;}
+.shop-card p{margin:0 0 12px;opacity:.7;font-size:.8rem;line-height:1.35;min-height:42px;}
+.shop-price{font-weight:900;margin-top:auto;margin-bottom:10px;}
+.shop-buy{width:100%;border:1px solid #38bdf8;background:#38bdf8;color:#07131a;padding:10px 12px;border-radius:11px;font-weight:900;cursor:pointer;}
+.shop-buy.in-cart{background:#1f2937;color:#fff;border-color:#38bdf8;}
+.shop-buy.owned{background:#22c55e;color:#062b12;border-color:#22c55e;}
+.shop-back{width:100%;margin-top:18px;border:1px solid #38bdf8;background:transparent;color:inherit;padding:11px;border-radius:12px;font-weight:800;cursor:pointer;}
+.shop-modal{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.68);backdrop-filter:blur(7px);display:none;align-items:center;justify-content:center;padding:16px;}
+.shop-modal.active{display:flex;}
+.shop-modal-box{width:min(650px,100%);max-height:85vh;overflow:auto;background:#202020;border:1px solid #38bdf8;border-radius:20px;padding:20px;box-shadow:0 0 35px rgba(56,189,248,.25);}
+.shop-modal-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:15px;}
+.shop-modal-head h2{margin:0;}
+.shop-close{border:0;background:transparent;color:inherit;font-size:1.5rem;cursor:pointer;}
+.cart-list,.owned-list{display:flex;flex-direction:column;gap:9px;}
+.cart-row,.owned-row{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid #3b3b3b;border-radius:13px;background:rgba(255,255,255,.03);}
+.cart-row-icon,.owned-row-icon{font-size:28px;width:40px;text-align:center;}
+.cart-row-info,.owned-row-info{flex:1;min-width:0;}
+.cart-row-name,.owned-row-name{font-weight:900;}
+.cart-row-price,.owned-row-date{font-size:.75rem;opacity:.65;margin-top:2px;}
+.cart-remove{border:1px solid #ef4444;background:transparent;color:#ef4444;border-radius:8px;padding:6px 8px;cursor:pointer;}
+.cart-summary{margin-top:15px;padding-top:14px;border-top:1px solid #444;display:flex;justify-content:space-between;align-items:center;gap:12px;font-weight:900;}
+.checkout-btn{border:0;background:#22c55e;color:#062b12;border-radius:11px;padding:11px 15px;font-weight:900;cursor:pointer;}
+.owned-empty,.cart-empty{opacity:.6;text-align:center;padding:20px;}
+.profile-shop-link{margin-top:12px;width:100%;border:1px solid #38bdf8;background:transparent;color:inherit;border-radius:11px;padding:10px;font-weight:800;cursor:pointer;}
+body.light-theme .shop-page{background:#f5f5f5;color:#111;}
+body.light-theme .shop-head{background:linear-gradient(#f5f5f5 80%,transparent);}
+body.light-theme .shop-card,.body.light-theme .shop-modal-box{background:#fff;border-color:#d0d0d0;}
+body.light-theme .shop-cat{background:#fff;border-color:#ccc;}
+body.blue-theme .shop-page{background:#b8e5f8;color:#111;}
+body.blue-theme .shop-head{background:linear-gradient(#b8e5f8 80%,transparent);}
+body.blue-theme .shop-card,.body.blue-theme .shop-modal-box{background:#d9f2ff;border-color:#75c7e8;}
+@media(max-width:900px){.shop-grid{grid-template-columns:repeat(3,minmax(0,1fr));}}
+@media(max-width:650px){.shop-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.shop-page{padding:75px 10px 120px}.shop-head{align-items:center}.shop-head h1{font-size:1.4rem}.shop-subtitle{font-size:.75rem}.shop-card{padding:12px;min-height:205px}.shop-icon{font-size:36px}.shop-card h3{font-size:.9rem}.shop-card p{font-size:.72rem}.shop-actions{gap:5px}.shop-balance,.shop-cart-btn{padding:8px 10px;font-size:.78rem}}
+@media(max-width:430px){.shop-grid{gap:8px}.shop-card{min-height:195px}.shop-card p{min-height:48px}.shop-buy{padding:9px 5px;font-size:.76rem}}
+</style>
 </head>
 <body>
 <div class="toast" id="toast"></div>
@@ -2467,11 +2591,14 @@ body.blue-theme .auth-form input{background:#d9f2ff;color:#123047;border-color:#
 <button class="auth-btn register" id="registerBtn">📝 Регистрация</button>
 </div>
 <div class="auth-profile" id="authProfile">
-  <div class="auth-avatar" id="authAvatar">A</div>
-  <div class="auth-profile-info">
-    <div class="auth-profile-name" id="authProfileName">Пользователь</div>
+  <div class="auth-avatar-wrap">
+    <div class="auth-avatar" id="authAvatar">A</div>
     <div class="auth-profile-status">● В сети</div>
   </div>
+  <div class="auth-profile-info">
+    <div class="auth-profile-name" id="authProfileName">Пользователь</div>
+  </div>
+  <div class="auth-premium-badge" id="authPremiumBadge" style="display:none">💎 PREMIUM</div>
   <button class="auth-profile-logout" id="authProfileLogout" title="Выйти">↪</button>
 </div>
 <h2>📱 Меню</h2>
@@ -2484,6 +2611,7 @@ body.blue-theme .auth-form input{background:#d9f2ff;color:#123047;border-color:#
 </ul>
 </li>
 <li class="sidebar-item" id="settingsMenuItem">⚙️ Настройки</li>
+<li class="sidebar-item" id="businessesMenuItem">💼 Мои бизнесы</li>
 </ul>
 </div>
 <div class="game-page" id="gamePage">
@@ -2506,7 +2634,7 @@ body.blue-theme .auth-form input{background:#d9f2ff;color:#123047;border-color:#
 <h1>♫ Музыка</h1>
 <p>Нажми на кнопку чтобы включить/выключить трек</p>
 <div class="music-grid">
-<div class="music-card" data-track="https://lacky-don.github.io/lackydon/type london.mp3" data-name="göttlich · type london">▶</div>
+<div class="music-card" data-track="https://lacky-don.github.io/lackydon/type%20london.mp3" data-name="göttlich · type london">▶</div>
 <div class="music-card" data-track="https://lacky-don.github.io/lackydon/serega-pirat.mp3" data-name="СЕРЕГА ПИРАТ · прости я не знаю">▶</div>
 <div class="music-card" data-track="https://lacky-don.github.io/lackydon/lost-song.mp3" data-name="The Cat Empire — The Lost Song">▶</div>
 <div class="music-card" data-track="https://lacky-don.github.io/lackydon/yarche.mp3" data-name="пообещай">▶</div>
@@ -2623,8 +2751,57 @@ body.blue-theme .auth-form input{background:#d9f2ff;color:#123047;border-color:#
         </div>
     </section>
 </div>
+
+
+<div class="businesses-page" id="businessesPage">
+  <div class="businesses-container">
+    <div class="businesses-head">
+      <div>
+        <h1>💼 Мои бизнесы</h1>
+        <div class="businesses-subtitle">Нанимай сотрудников, плати зарплаты и налоги — чем лучше команда, тем выше доход.</div>
+      </div>
+      <div class="businesses-balance">💎 <span id="businessesBalance">0</span></div>
+    </div>
+
+    <div class="businesses-status" id="businessesStatus"></div>
+    <div class="businesses-summary" id="businessesSummary"></div>
+    <div class="businesses-list" id="businessesList"></div>
+
+    <button class="businesses-back" id="businessesBack">← Назад</button>
+  </div>
+</div>
+
+<div class="employee-modal" id="employeeModal">
+  <div class="employee-modal-box">
+    <div class="employee-modal-head">
+      <h2>👥 Нанять сотрудников</h2>
+      <button class="employee-close" id="employeeClose">×</button>
+    </div>
+    <div class="employee-target" id="employeeTarget"></div>
+    <div class="employee-list" id="employeeList"></div>
+  </div>
+</div>
+<div class="shop-page" id="shopPage">
+  <div class="shop-container">
+    <div class="shop-head">
+      <div><h1>🛍️ Магазин</h1><div class="shop-subtitle">Машины, дома, путешествия, техника и многое другое</div></div>
+      <div class="shop-actions"><div class="shop-balance">💎 <span id="shopBalance">0</span></div><button class="shop-cart-btn" id="shopCartBtn">🛒 Корзина <span id="shopCartCount">0</span></button></div>
+    </div>
+    <div class="shop-categories" id="shopCategories">
+      <button class="shop-cat active" data-cat="all">🔥 Всё</button><button class="shop-cat" data-cat="cars">🚗 Машины</button><button class="shop-cat" data-cat="homes">🏠 Дома</button><button class="shop-cat" data-cat="business">💼 Бизнес</button><button class="shop-cat" data-cat="travel">✈️ Отпуск</button><button class="shop-cat" data-cat="boats">🛥️ Яхты</button><button class="shop-cat" data-cat="tech">📱 Техника</button><button class="shop-cat" data-cat="style">👕 Стиль</button><button class="shop-cat" data-cat="vip">💎 VIP</button>
+    </div>
+    <div class="shop-grid" id="shopGrid"></div>
+    <button class="shop-back" id="shopBack">← Назад</button>
+  </div>
+</div>
+
+<div class="shop-modal" id="shopCartModal"><div class="shop-modal-box"><div class="shop-modal-head"><h2>🛒 Корзина</h2><button class="shop-close" data-close-shop-modal>×</button></div><div class="cart-list" id="shopCartList"></div><div class="cart-summary"><span>Итого: 💎 <span id="shopCartTotal">0</span></span><button class="checkout-btn" id="shopCheckout">Купить всё</button></div></div></div>
+
+<div class="shop-modal" id="shopOwnedModal"><div class="shop-modal-box"><div class="shop-modal-head"><h2>👤 Мои покупки</h2><button class="shop-close" data-close-shop-modal>×</button></div><div class="owned-list" id="shopOwnedList"></div></div></div>
+
 <div class="dock">
 <button class="dock-item" id="dockMusicBtn">♫</button>
+<button class="dock-item" id="dockShopBtn" title="Магазин">🛍️</button>
 <button class="dock-item" id="dockSettingsBtn">⚙️</button>
 </div>
 
@@ -2817,16 +2994,93 @@ const g={d:0,c:0,i:0,u:[
 {id:'auto2',n:'⚡ Турбо-донат',desc:'+5 донатов/сек',b:200,c:200,l:0,m:5,t:'income'},
 {id:'bank',n:'🏦 Банковский бонус',desc:'+10% к доходу',b:500,c:500,l:0,m:0.1,t:'percent'}
 ]};let iv=null;
-function load(){const s=localStorage.getItem('donatGame');if(s){try{const d=JSON.parse(s);g.d=d.d||0;g.c=d.c||0;g.i=d.i||0;if(d.u){d.u.forEach((u,i)=>{if(g.u[i]){g.u[i].l=u.l||0;g.u[i].c=u.c||g.u[i].b}})}}catch(e){}}upd()}
+function getShopAccountState(){
+  try{
+    const u=localStorage.getItem('donatCurrentUser')||'';
+    const k='donatShopProfile_'+(u?u.toLowerCase():'guest');
+    const st=JSON.parse(localStorage.getItem(k)||'{"cart":[],"owned":[],"activeVip":null,"lastMaintenance":0}');
+    st.cart=Array.isArray(st.cart)?st.cart:[];
+    st.owned=Array.isArray(st.owned)?st.owned:[];
+    st.lastMaintenance=Number(st.lastMaintenance)||0;
+    return st;
+  }catch(e){return {cart:[],owned:[],activeVip:null,lastMaintenance:0};}
+}
+function shopPrice(id){
+  const prices={c1:500,c2:2500,c3:1200,c4:3500,c5:1800,c6:900,c7:350,c8:4200,h1:2500,h2:5500,h3:15000,h4:9000,h5:12000,h6:6500,h7:25000,t1:800,t2:2200,t3:1900,t4:3000,t5:1600,t6:1400,t7:3200,t8:50000,b1:5000,b2:2800,b3:7500,b4:18000,x1:650,x2:1800,x3:3200,x4:450,x5:700,x6:1600,x7:1200,x8:1500,s1:250,s2:600,s3:900,s4:400,s5:2200,s6:5000,bz1:1500,bz2:4000,bz3:8000,bz4:12000,bz5:20000,bz6:35000,bz7:60000,bz8:100000,bz9:160000,bz10:250000,bz11:500000,bz12:1000000,v1:10000,v2:25000,v3:7500,v4:18000,v5:40000};
+  return prices[id]||0;
+}
+function officeOwned(){return getShopAccountState().owned.includes('h6');}
+function businessBonus(id){
+  const bonuses={bz1:.02,bz2:.04,bz3:.06,bz4:.08,bz5:.10,bz6:.13,bz7:.17,bz8:.22,bz9:.28,bz10:.35,bz11:.45,bz12:.60};
+  return bonuses[id]||0;
+}
+function totalBusinessBonus(){
+  const st=getShopAccountState();
+  return st.owned.reduce((sum,id)=>sum+businessBonus(id),0);
+}
+function businessExpensesPerMinute(){ let total=maintenancePerMinute(); if(typeof totalBusinessExpenses==='function') total+=Number(totalBusinessExpenses()||0); return total; }
+function canMaintainBusiness(){ const cost=businessExpensesPerMinute(); return cost<=0 || g.d>=cost; }
+function effectiveIncome(){let mult=1+(officeOwned()?0.35:0)+totalBusinessBonus(); if(!canMaintainBusiness()) return 0; if(typeof businessesIncomePaused==='function'&&businessesIncomePaused()) return 0; if(typeof totalBusinessBonusStaffed==='function'){mult=1+(officeOwned()?0.35:0)+totalBusinessBonusStaffed();} return g.i*mult;}
+function maintenancePerMinute(){
+  const st=getShopAccountState();
+  return st.owned.reduce((sum,id)=>sum+shopPrice(id)*0.01,0);
+}
+function processMaintenance(){
+  const now=Date.now();
+  const st=getShopAccountState();
+  if(!st.owned.length){st.lastMaintenance=now;return;}
+  if(!st.lastMaintenance) st.lastMaintenance=now;
+  const mins=Math.floor((now-st.lastMaintenance)/60000);
+  if(mins<=0)return;
+  const fee=Math.floor(maintenancePerMinute()*mins);
+  if(fee>0){g.d=Math.max(0,g.d-fee);showToast('🧾 Обслуживание: −'+fee+' 💎');}
+  st.lastMaintenance=now;
+  const u=localStorage.getItem('donatCurrentUser')||'';
+  localStorage.setItem('donatShopProfile_'+(u?u.toLowerCase():'guest'),JSON.stringify(st));
+}
+function load(){const s=localStorage.getItem('donatGame');if(s){try{const d=JSON.parse(s);g.d=d.d||0;g.c=d.c||0;g.i=d.i||0;if(d.u){d.u.forEach((u,i)=>{if(g.u[i]){g.u[i].l=u.l||0;g.u[i].c=u.c||g.u[i].b}})}}catch(e){}}processMaintenance();upd()}
 function save(){localStorage.setItem('donatGame',JSON.stringify({d:g.d,c:g.c,i:g.i,u:g.u.map(u=>({l:u.l,c:u.c}))}))}
-function upd(){document.getElementById('donatDisplay').textContent=Math.floor(g.d);document.getElementById('clicksDisplay').textContent=g.c;document.getElementById('incomeDisplay').textContent=g.i.toFixed(1);render()}
+function upd(){document.getElementById('donatDisplay').textContent=Math.floor(g.d);document.getElementById('clicksDisplay').textContent=g.c;document.getElementById('incomeDisplay').textContent=effectiveIncome().toFixed(1);render()}
 function render(){const c=document.getElementById('upgradesContainer');c.innerHTML='';g.u.forEach((u,i)=>{const card=document.createElement('div');const disabled=g.d<u.c;card.className='upgrade-card'+(disabled?' disabled':'');card.innerHTML='<div class="upgrade-name">'+u.n+'</div><div class="upgrade-desc">'+u.desc+'</div><div class="upgrade-cost">💎 '+Math.floor(u.c)+'</div><div style="font-size:0.75rem;opacity:0.6;">Ур: '+u.l+'</div>';if(!disabled){card.onclick=function(){buy(i)}}c.appendChild(card)})}
-function buy(i){const u=g.u[i];if(g.d<u.c)return;g.d-=u.c;u.l++;u.c=Math.floor(u.b*Math.pow(1.15,u.l));if(u.t==='click')g.i+=u.m*0.5;else if(u.t==='income')g.i+=u.m;else if(u.t==='percent')g.i*=(1+u.m);save();upd()}
-function clickD(){const b=1+(g.u[0].l*0.5);g.d+=b;g.c++;save();upd()}
-function loop(){if(g.i>0){g.d+=g.i/10;upd();save()}}
+function buy(i){const u=g.u[i];if(g.d<u.c){playCasinoSound('error');return;}playCasinoSound('buy');g.d-=u.c;u.l++;u.c=Math.floor(u.b*Math.pow(1.15,u.l));if(u.t==='click')g.i+=u.m*0.5;else if(u.t==='income')g.i+=u.m;else if(u.t==='percent')g.i*=(1+u.m);save();upd()}
+function clickD(){playCasinoSound('click',.55);const b=1+(g.u[0].l*0.5);g.d+=b;g.c++;save();upd()}
+function loop(){
+  processMaintenance();
+  if(typeof processBusinessExpenses==='function')processBusinessExpenses();
+  const inc=effectiveIncome();
+  if(inc>0){g.d+=inc/10;upd();save();}
+}
 function start(){if(iv)clearInterval(iv);iv=setInterval(loop,100);load()}
 function stop(){if(iv){clearInterval(iv);iv=null}}
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
+
+/* =========================
+   ЗВУКИ КАЗИНО
+   Файлы: sounds/*.wav
+========================= */
+const casinoSounds = {
+  click: 'https://lacky-don.github.io/lackydon/click.wav',
+  spin: 'https://lacky-don.github.io/lackydon/spin.wav',
+  win: 'https://lacky-don.github.io/lackydon/win.wav',
+  jackpot: 'https://lacky-don.github.io/lackydon/jackpot.wav',
+  lose: 'https://lacky-don.github.io/lackydon/lose.wav',
+  jetStart: 'https://lacky-don.github.io/lackydon/jet_start.wav',
+  jetCashout: 'https://lacky-don.github.io/lackydon/jet_cashout.wav',
+  jetCrash: 'https://lacky-don.github.io/lackydon/jet_crash.wav',
+  buy: 'https://lacky-don.github.io/lackydon/buy.wav',
+  error: 'https://lacky-don.github.io/lackydon/error.wav',
+  open: 'https://lacky-don.github.io/lackydon/open.wav'
+};
+let casinoSoundEnabled = localStorage.getItem('casinoSoundEnabled') !== '0';
+function playCasinoSound(name, volume=1){
+  if(!casinoSoundEnabled) return;
+  try{
+    const a = new Audio(casinoSounds[name]);
+    a.volume = Math.max(0, Math.min(1, currentVolume * volume));
+    a.play().catch(()=>{});
+  }catch(e){}
+}
+
 const volumeSlider=document.getElementById('volumeSlider');
 const volumeValue=document.getElementById('volumeValue');
 let currentVolume=0.8;
@@ -2834,6 +3088,7 @@ function updateVolume(val){currentVolume=val/100;volumeValue.textContent=Math.ro
 volumeSlider.addEventListener('input',function(){updateVolume(this.value);localStorage.setItem('musicVolume',this.value)});
 function loadVolume(){const saved=localStorage.getItem('musicVolume');if(saved!==null){const val=parseInt(saved);volumeSlider.value=val;updateVolume(val)}}
 const tb=document.getElementById('themeBtn'),mb=document.getElementById('menuBtn'),sb=document.getElementById('sidebar'),ov=document.getElementById('overlay'),dt=document.getElementById('donatTab'),dl=document.getElementById('donatLink'),gl=document.getElementById('gameLink'),gp=document.getElementById('gamePage'),bf=document.getElementById('backFromGame'),hm=document.getElementById('homeLink'),cb=document.getElementById('clickBtn'),lb=document.getElementById('loginBtn'),rb=document.getElementById('registerBtn'),dp=document.getElementById('dockPlayBtn'),ds=document.getElementById('dockSettingsBtn'),dm=document.getElementById('dockMusicBtn'),so=document.getElementById('settingsOverlay'),sp=document.getElementById('settingsPanel'),cs=document.getElementById('closeSettings'),rp=document.getElementById('resetProgress'),ex=document.getElementById('exportData'),im=document.getElementById('importData'),st=document.getElementById('soundToggle'),mt=document.getElementById('musicToggle'),td=document.querySelectorAll('.theme-dot'),sm=document.getElementById('settingsMenuItem'),mp=document.getElementById('musicPage'),bfm=document.getElementById('backFromMusic'),mc=document.querySelectorAll('.music-card'),bd=document.body,jb=document.getElementById('dockJetBtn');
+if(st){st.classList.toggle('active', casinoSoundEnabled)}
 jb.onclick=function(){
     showToast('✈️ Lucky Jet скоро будет доступен!');
 }
@@ -2933,6 +3188,7 @@ const authSection=document.querySelector('.auth-section');
 const authProfile=document.getElementById('authProfile');
 const authAvatar=document.getElementById('authAvatar');
 const authProfileName=document.getElementById('authProfileName');
+const authPremiumBadge=document.getElementById('authPremiumBadge');
 const authProfileLogout=document.getElementById('authProfileLogout');
 let authMode='login';
 
@@ -2952,11 +3208,36 @@ function updateAuthUI(){
         authProfile.classList.add('show');
         authProfileName.textContent=logged;
         authAvatar.textContent=(logged.trim()[0]||'A').toUpperCase();
+        if(typeof window.updateCurrentPremiumProfile === 'function'){
+            window.updateCurrentPremiumProfile();
+        }
     }else{
         authSection.style.display='flex';
         authProfile.classList.remove('show');
+        if(authPremiumBadge){
+            authPremiumBadge.style.display='none';
+            authPremiumBadge.textContent='💎 PREMIUM';
+        }
     }
 }
+window.addEventListener('premiumStatusChanged', function(e){
+    if(!authPremiumBadge) return;
+
+    const active = !!(e.detail && e.detail.active && currentUser());
+
+    authPremiumBadge.style.display = active ? 'inline-flex' : 'none';
+
+    if(active && e.detail.label){
+        authPremiumBadge.textContent = e.detail.label;
+    }else{
+        authPremiumBadge.textContent = '💎 PREMIUM';
+    }
+});
+window.addEventListener('premiumStatusRefresh', function(){
+    if(typeof window.updateCurrentPremiumProfile === 'function'){
+        window.updateCurrentPremiumProfile();
+    }
+});
 function setAuthMode(mode){
     updateAuthUI();
     authMode=mode; setAuthError(''); authForm.reset();
@@ -3038,7 +3319,7 @@ bfm.onclick=function(){closeMusic()}
 tb.onclick=function(){toggleT((ci+1)%3)}
 mb.onclick=toggleS
 td.forEach(d=>{d.onclick=function(){toggleT(['dark','light','blue'].indexOf(this.dataset.theme))}})
-st.onclick=function(){this.classList.toggle('active');showToast(this.classList.contains('active')?'🔔 Звук включен':'🔇 Звук выключен')}
+st.onclick=function(){this.classList.toggle('active');casinoSoundEnabled=this.classList.contains('active');localStorage.setItem('casinoSoundEnabled',casinoSoundEnabled?'1':'0');playCasinoSound(casinoSoundEnabled?'open':'error',.35);showToast(casinoSoundEnabled?'🔔 Звук включен':'🔇 Звук выключен')}
 mt.onclick=function(){this.classList.toggle('active');showToast(this.classList.contains('active')?'🎵 Музыка включена':'🎵 Музыка выключена')}
 rp.onclick=function(){if(confirm('❌ Сбросить весь прогресс?')){localStorage.removeItem('donatGame');g.d=0;g.c=0;g.i=0;g.u.forEach(u=>{u.l=0;u.c=u.b});save();upd();showToast('🗑️ Прогресс сброшен!')}}
 ex.onclick=function(){const data=localStorage.getItem('donatGame');if(data){const blob=new Blob([data],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='donat_save_'+new Date().toISOString().slice(0,10)+'.json';a.click();showToast('📤 Данные экспортированы!')}else{showToast('❌ Нет данных для экспорта')}}
@@ -3153,6 +3434,7 @@ function startJet(){
     jetMultiplier.textContent='1.00x';
     jetMultiplier.classList.remove('jet-crashed');
 
+    playCasinoSound('jetStart');
     jetStatus.textContent='✈️ Самолёт взлетел!';
     jetPlane.classList.add('flying');
 
@@ -3196,6 +3478,7 @@ function crashJet(){
     jetMultiplier.textContent='💥 '+jetCrashAt.toFixed(2)+'x';
     jetMultiplier.classList.add('jet-crashed');
 
+    playCasinoSound('jetCrash');
     jetStatus.textContent='Самолёт улетел! Ставка потеряна 😵';
 
     jetPlane.classList.remove('flying');
@@ -3227,6 +3510,7 @@ function cashoutJet(){
 
     jetRunning=false;
 
+    playCasinoSound('jetCashout');
     jetStatus.textContent=
         '🎉 Вы забрали '+win+' Donat!';
 
@@ -3406,6 +3690,7 @@ function spinSlot(){
     slotRunning = true;
     slotSpin.disabled = true;
 
+    playCasinoSound('spin');
     slotResult.textContent='🎰 Крутим...';
     slotResult.classList.remove(
         'slot-win',
@@ -3468,6 +3753,7 @@ function finishSlot(bet,a,b,c){
 
         if(multiplier===1000){
 
+            playCasinoSound('jackpot');
             slotResult.textContent=
                 '💎💎💎 ДЖЕКПОТ! +'+
                 win+
@@ -3485,6 +3771,7 @@ function finishSlot(bet,a,b,c){
 
         }else{
 
+            playCasinoSound('win');
             slotResult.textContent=
                 '🎉 Выигрыш '+
                 multiplier+
@@ -3505,6 +3792,7 @@ function finishSlot(bet,a,b,c){
 
     }else{
 
+        playCasinoSound('lose');
         slotResult.textContent=
             '😵 Не повезло! Ставка потеряна';
 
@@ -3572,10 +3860,10 @@ function initExtraGame(x){
   if(st.running)return;const amount=Math.floor(Number(bet.value));
   if(!amount||amount<1){showToast('❌ Введи ставку');return}
   if(amount>g.d){showToast('❌ Недостаточно Donat');return}
-  g.d-=amount;save();upd();refresh();st.running=true;spin.disabled=true;result.classList.remove('win');result.textContent='🎰 Крутим...';reels.forEach(r=>r.classList.add('spinning'));
+  g.d-=amount;save();upd();refresh();st.running=true;spin.disabled=true;playCasinoSound('spin');result.classList.remove('win');result.textContent='🎰 Крутим...';reels.forEach(r=>r.classList.add('spinning'));
   const timer=setInterval(()=>reels.forEach(r=>r.textContent=symbol()),80);
   setTimeout(()=>{clearInterval(timer);const a=symbol(),b=symbol(),c=symbol();reels[0].textContent=a;reels[1].textContent=b;reels[2].textContent=c;reels.forEach(r=>r.classList.remove('spinning'));const m=mult(a,b,c);
-   if(m){const win=Math.floor(amount*m);g.d+=win;save();upd();refresh();result.textContent='🎉 Выигрыш '+m+'x — +'+win+' Donat!';result.classList.add('win');showToast('🎉 '+x.key+' '+m+'x!')}else{result.textContent=x.loseText;showToast('😵 Попробуй ещё раз!')}
+   if(m){const win=Math.floor(amount*m);g.d+=win;playCasinoSound(m>=25?'jackpot':'win');save();upd();refresh();result.textContent='🎉 Выигрыш '+m+'x — +'+win+' Donat!';result.classList.add('win');showToast('🎉 '+x.key+' '+m+'x!')}else{playCasinoSound('lose');result.textContent=x.loseText;showToast('😵 Попробуй ещё раз!')}
    st.running=false;spin.disabled=false;
   },1200);
  }
@@ -3828,6 +4116,228 @@ setInterval(dt2,1000);dt2();loadTheme();load();
     }, {passive:false});
 })();
 
+</script>
+
+<script id="shop-script">
+/* ===== БОЛЬШОЙ МАГАЗИН + КОРЗИНА + СОХРАНЕНИЕ В ПРОФИЛЕ ===== */
+(function(){
+  const page=document.getElementById('shopPage');
+  const open=document.getElementById('dockShopBtn');
+  const back=document.getElementById('shopBack');
+  const balance=document.getElementById('shopBalance');
+  const grid=document.getElementById('shopGrid');
+  const cats=document.getElementById('shopCategories');
+  const cartBtn=document.getElementById('shopCartBtn');
+  const cartCount=document.getElementById('shopCartCount');
+  const cartModal=document.getElementById('shopCartModal');
+  const ownedModal=document.getElementById('shopOwnedModal');
+  const cartList=document.getElementById('shopCartList');
+  const cartTotal=document.getElementById('shopCartTotal');
+  const ownedList=document.getElementById('shopOwnedList');
+  const checkout=document.getElementById('shopCheckout');
+  if(!page||!open||!grid) return;
+
+  const items=[
+   ['c1','🚗','Спортивная машина','Быстрый автомобиль для твоего профиля.','cars',500],
+   ['c2','🏎️','Гоночный болид','Машина для тех, кто любит скорость.','cars',2500],
+   ['c3','🚙','Премиум внедорожник','Большой автомобиль для богатого владельца.','cars',1200],
+   ['c4','🚘','Люксовый седан','Комфорт и статус в одном автомобиле.','cars',3500],
+   ['c5','🚐','Премиум минивэн','Просторный транспорт для компании.','cars',1800],
+   ['c6','🏍️','Спортивный мотоцикл','Манёвренный байк для города.','cars',900],
+   ['c7','🛵','Городской скутер','Небольшой и удобный транспорт.','cars',350],
+   ['c8','🚓','Полицейская машина','Коллекционная машина для профиля.','cars',4200],
+   ['h1','🏠','Уютный дом','Свой первый дом в виртуальном мире.','homes',2500],
+   ['h2','🏡','Большой коттедж','Коттедж с большим двором.','homes',5500],
+   ['h3','🏰','Замок','Огромный замок для настоящего владельца.','homes',15000],
+   ['h4','🏙️','Пентхаус','Роскошная квартира с видом на город.','homes',9000],
+   ['h5','🌴','Вилла у моря','Большая вилла на побережье.','homes',12000],
+   ['h6','🏢','Офис','Собственный офис для бизнеса.','homes',6500],
+   ['h7','🏘️','Посёлок','Большая недвижимость для коллекции.','homes',25000],
+   ['bz1','🏪','Продуктовый магазин','Небольшой магазин с постоянным потоком клиентов.','business',1500],
+   ['bz2','☕','Кофейня','Уютная кофейня в центре города.','business',4000],
+   ['bz3','🧼','Автомойка','Автомойка с постоянными клиентами.','business',8000],
+   ['bz4','💇','Салон красоты','Премиальный салон с хорошей прибылью.','business',12000],
+   ['bz5','🍽️','Ресторан','Популярный ресторан для богатого владельца.','business',20000],
+   ['bz6','🎵','Ночной клуб','Клуб с высокой ежедневной выручкой.','business',35000],
+   ['bz7','🏨','Отель','Большой отель с постоянным потоком гостей.','business',60000],
+   ['bz8','🏦','Банк','Серьёзный бизнес с большой прибылью.','business',100000],
+   ['bz9','💻','IT-компания','Технологическая компания с высокой доходностью.','business',160000],
+   ['bz10','🛍️','Торговый центр','Огромный торговый центр с множеством арендаторов.','business',250000],
+   ['bz11','🏢','Корпорация','Крупная корпорация с большим оборотом.','business',500000],
+   ['bz12','🌆','Бизнес-империя','Максимальный уровень бизнеса и дохода.','business',1000000],
+   ['t1','✈️','Билет в Париж','Путешествие в столицу Франции.','travel',800],
+   ['t2','🗼','Тур в Токио','Яркое путешествие в Японию.','travel',2200],
+   ['t3','🗽','Тур в Нью-Йорк','Путешествие в город небоскрёбов.','travel',1900],
+   ['t4','🏝️','VIP-отпуск','Премиальный отдых на острове.','travel',3000],
+   ['t5','🏖️','Отдых на море','Неделя отдыха на солнечном побережье.','travel',1600],
+   ['t6','🏔️','Горный тур','Путешествие в горы и снег.','travel',1400],
+   ['t7','🌋','Экспедиция','Экстремальное путешествие к вулкану.','travel',3200],
+   ['t8','🌌','Космический тур','Фантастическое путешествие за пределы Земли.','travel',50000],
+   ['b1','🛥️','Яхта','Личная яхта для морских путешествий.','boats',5000],
+   ['b2','🚤','Скоростной катер','Быстрый катер для отдыха.','boats',2800],
+   ['b3','⛵','Парусная яхта','Классика для морских путешествий.','boats',7500],
+   ['b4','🚢','Круизный лайнер','Роскошный круиз на неделю.','boats',18000],
+   ['x1','📱','Премиум телефон','Стильный смартфон для профиля.','tech',650],
+   ['x2','💻','Игровой ноутбук','Мощный ноутбук для игр.','tech',1800],
+   ['x3','🖥️','Игровой компьютер','Топовый ПК для твоей коллекции.','tech',3200],
+   ['x4','🎧','Премиум наушники','Качественный звук везде.','tech',450],
+   ['x5','⌚','Умные часы','Стильные часы с современными функциями.','tech',700],
+   ['x6','📷','Профессиональная камера','Камера для коллекционера.','tech',1600],
+   ['x7','🎮','Игровая консоль','Новая консоль для домашней коллекции.','tech',1200],
+   ['x8','🕶️','VR-шлем','Погружение в виртуальный мир.','tech',1500],
+   ['s1','👕','Премиум футболка','Стильная вещь для профиля.','style',250],
+   ['s2','👟','Дизайнерские кроссовки','Редкая пара обуви.','style',600],
+   ['s3','🧥','Люксовая куртка','Премиальная одежда.','style',900],
+   ['s4','🕶️','Солнцезащитные очки','Стильный аксессуар.','style',400],
+   ['s5','⌚','Золотые часы','Дорогой аксессуар для профиля.','style',2200],
+   ['s6','💍','Алмазное кольцо','Эксклюзивное украшение.','style',5000],
+   ['v1','💎','VIP-статус','Особый статус в твоём профиле.','vip',10000],
+   ['v2','👑','Королевский статус','Максимальный уровень престижа.','vip',25000],
+   ['v3','⭐','Золотой профиль','Эксклюзивное оформление профиля.','vip',7500],
+   ['v4','🔥','Премиум навсегда','Премиум-доступ без ограничений.','vip',18000],
+   ['v5','💠','Алмазный профиль','Самый редкий вариант профиля.','vip',40000]
+  ];
+  let category='all';
+
+  function current(){return localStorage.getItem('donatCurrentUser')||'';}
+  function key(){const u=current();return 'donatShopProfile_'+(u?u.toLowerCase():'guest');}
+  function state(){
+    try{
+      const raw=JSON.parse(localStorage.getItem(key())||'{"cart":[],"owned":[],"activeVip":null}');
+      raw.cart=Array.isArray(raw.cart)?raw.cart:[];
+      raw.owned=Array.isArray(raw.owned)?raw.owned:[];
+      if(!Object.prototype.hasOwnProperty.call(raw,'activeVip')) raw.activeVip=null;
+      return raw;
+    }catch(e){return {cart:[],owned:[],activeVip:null};}
+  }
+  function saveState(st){localStorage.setItem(key(),JSON.stringify(st));}
+  function item(id){return items.find(x=>x[0]===id);}
+  function updatePremiumProfile(){
+    const st=state();
+
+    const vipRanks = {
+      v3: {rank: 1, label: '⭐ ЗОЛОТОЙ ПРОФИЛЬ'},
+      v1: {rank: 2, label: '💎 VIP-СТАТУС'},
+      v4: {rank: 3, label: '🔥 ПРЕМИУМ'},
+      v2: {rank: 4, label: '👑 КОРОЛЕВСКИЙ СТАТУС'},
+      v5: {rank: 5, label: '💠 АЛМАЗНЫЙ ПРОФИЛЬ'}
+    };
+
+    let best = null;
+
+    // Всегда показываем самый высокий реально купленный VIP-статус.
+    st.owned.forEach(id=>{
+      const vip = vipRanks[id];
+      if(!vip) return;
+      if(!best || vip.rank > best.rank){
+        best = {rank:vip.rank,label:vip.label,id:id};
+      }
+    });
+
+    // Если старого activeVip уже нет в покупках, очищаем его.
+    if(st.activeVip && !st.owned.includes(st.activeVip)) st.activeVip=null;
+    if(best) st.activeVip=best.id;
+    saveState(st);
+
+    window.dispatchEvent(new CustomEvent('premiumStatusChanged',{
+      detail:{active:!!best,label:best?best.label:'',id:best?best.id:null,rank:best?best.rank:0}
+    }));
+
+    const badge=document.getElementById('authPremiumBadge');
+    if(badge){
+      badge.style.display = best ? 'inline-flex' : 'none';
+      badge.textContent = best ? best.label : '💎 PREMIUM';
+    }
+  }
+  window.updateCurrentPremiumProfile = updatePremiumProfile;
+  function money(n){return Number(n).toLocaleString('ru-RU');}
+
+  function updateShopBalance(){if(typeof g!=='undefined'&&balance) balance.textContent=Math.floor(g.d||0);}
+  function render(){
+    const st=state();
+    const visible=items.filter(x=>category==='all'||x[4]===category);
+    grid.innerHTML=visible.map(x=>{
+      const inCart=st.cart.includes(x[0]); const owned=st.owned.includes(x[0]);
+      let text=owned?'✓ Куплено':inCart?'✓ В корзине':'В корзину';
+      const extra=x[0]==='h6'?'🏢 +35% к заработку · 🧾 '+money(Math.ceil(x[5]*0.01))+' 💎/мин':x[4]==='business'?'💼 +'+Math.round(businessBonus(x[0])*100)+'% к заработку · 🧾 '+money(Math.ceil(x[5]*0.01))+' 💎/мин':'🧾 Обслуживание: '+money(Math.ceil(x[5]*0.01))+' 💎/мин'; return '<article class="shop-card"><div class="shop-icon">'+x[1]+'</div><h3>'+x[2]+'</h3><p>'+x[3]+'<br><small>'+extra+'</small></p><div class="shop-price">💎 '+money(x[5])+'</div><button class="shop-buy '+(owned?'owned':inCart?'in-cart':'')+'" data-id="'+x[0]+'" '+(owned?'disabled':'')+'>'+text+'</button></article>';
+    }).join('');
+    cartCount.textContent=st.cart.length;
+    grid.querySelectorAll('.shop-buy').forEach(btn=>btn.onclick=()=>{
+      const st=state(), id=btn.dataset.id;
+      if(!st.cart.includes(id)&&!st.owned.includes(id)){st.cart.push(id);saveState(st);render();showToast('🛒 Добавлено в корзину');}
+    });
+  }
+
+  function renderCart(){
+    const st=state();
+    if(!st.cart.length){cartList.innerHTML='<div class="cart-empty">Корзина пуста. Добавь товары из магазина.</div>';cartTotal.textContent='0';return;}
+    let total=0;
+    cartList.innerHTML=st.cart.map(id=>{const x=item(id);if(!x)return '';total+=x[5];return '<div class="cart-row"><div class="cart-row-icon">'+x[1]+'</div><div class="cart-row-info"><div class="cart-row-name">'+x[2]+'</div><div class="cart-row-price">💎 '+money(x[5])+'</div></div><button class="cart-remove" data-remove="'+id+'">Удалить</button></div>';}).join('');
+    cartTotal.textContent=money(total);
+    cartList.querySelectorAll('[data-remove]').forEach(b=>b.onclick=()=>{const st=state();st.cart=st.cart.filter(id=>id!==b.dataset.remove);saveState(st);render();renderCart();});
+  }
+
+  function renderOwned(){
+    const st=state();
+    if(!st.owned.length){ownedList.innerHTML='<div class="owned-empty">Пока нет покупок.</div>';return;}
+    ownedList.innerHTML=st.owned.map(id=>{const x=item(id);return x?'<div class="owned-row"><div class="owned-row-icon">'+x[1]+'</div><div class="owned-row-info"><div class="owned-row-name">'+x[2]+'</div><div class="owned-row-date">'+(x[4]==='business'?'💼 Бонус к заработку: +'+Math.round(businessBonus(x[0])*100)+'%':x[0]==='h6'?'🏢 Бонус к заработку: +35% · 🧾 обслуживание '+money(Math.ceil(x[5]*0.01))+' 💎/мин':'Куплено и сохранено в профиле')+'</div></div><strong>💎 '+money(x[5])+'</strong></div>':'';}).join('');
+  }
+
+  function openShop(){
+    if(typeof ig!=='undefined'&&ig&&typeof closeG==='function')closeG();
+    if(typeof im2!=='undefined'&&im2&&typeof closeMusic==='function')closeMusic();
+    if(typeof is2!=='undefined'&&is2&&typeof closeSet==='function')closeSet();
+    page.classList.add('active');updateShopBalance();render();window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function closeShop(){page.classList.remove('active');}
+  open.onclick=e=>{e.preventDefault();e.stopPropagation();openShop();};
+  back.onclick=closeShop;
+  cats.querySelectorAll('.shop-cat').forEach(b=>b.onclick=()=>{category=b.dataset.cat;cats.querySelectorAll('.shop-cat').forEach(x=>x.classList.remove('active'));b.classList.add('active');render();});
+  cartBtn.onclick=()=>{renderCart();cartModal.classList.add('active');};
+  document.querySelectorAll('[data-close-shop-modal]').forEach(b=>b.onclick=()=>b.closest('.shop-modal').classList.remove('active'));
+  document.querySelectorAll('.shop-modal').forEach(m=>m.onclick=e=>{if(e.target===m)m.classList.remove('active');});
+
+  checkout.onclick=()=>{
+    const u=current();
+    if(!u){showToast('🔐 Сначала войди в аккаунт — тогда покупки сохранятся в профиле');return;}
+    const st=state(); if(!st.cart.length){showToast('🛒 Корзина пуста');return;}
+    const total=st.cart.reduce((sum,id)=>sum+(item(id)?.[5]||0),0);
+    if(typeof g==='undefined'||(g.d||0)<total){showToast('❌ Не хватает донатов');return;}
+    const boughtIds = [...st.cart];
+    g.d-=total;
+    st.owned=[...new Set(st.owned.concat(boughtIds))];
+
+    // Если среди купленных товаров есть VIP-статус, сразу переключаем профиль
+    // на самый высокий из купленных статусов.
+    const vipRanks = {v3:1,v1:2,v4:3,v2:4,v5:5};
+    const boughtVip = boughtIds
+      .filter(id=>vipRanks[id])
+      .sort((a,b)=>vipRanks[b]-vipRanks[a]);
+    if(boughtVip.length) st.activeVip=boughtVip[0];
+
+    st.cart=[];
+    saveState(st);
+    if(typeof save==='function')save();
+    if(typeof upd==='function')upd();
+    updateShopBalance();
+    render();
+    renderCart();
+    renderOwned();
+    cartModal.classList.remove('active');
+    updatePremiumProfile();
+    if(window.refreshBusinessPage)window.refreshBusinessPage();
+    showToast('✅ Покупка оформлена! Статус профиля обновлён.');
+  };
+
+  /* Добавляем кнопку покупок в окно аккаунта */
+  if(authProfile){
+    const b=document.createElement('button'); b.className='profile-shop-link';b.textContent='🛍️ Мои покупки';
+    b.onclick=e=>{e.stopPropagation();openShop();setTimeout(()=>{renderOwned();ownedModal.classList.add('active');},100);};
+    authProfile.appendChild(b);
+  }
+  render();
+  updatePremiumProfile();
+})();
 </script>
 </body>
 </html>
