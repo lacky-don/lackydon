@@ -2363,7 +2363,7 @@ body.blue-theme .auth-profile-name{color:#123047}
 .businesses-status.active{display:block}
 .businesses-status.paused{border:1px solid #ef4444;background:rgba(239,68,68,.10);color:#ef4444}
 .businesses-status.ok{border:1px solid #4ade80;background:rgba(74,222,128,.10);color:#166534}
-.businesses-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.businesses-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
 .business-summary-card{padding:14px;border-radius:16px;border:1px solid rgba(56,189,248,.35);background:rgba(255,255,255,.05)}
 .business-summary-card span{display:block;opacity:.6;font-size:.76rem;margin-bottom:5px}
 .business-summary-card strong{font-size:1.1rem}
@@ -2402,6 +2402,22 @@ body.blue-theme .business-card,body.blue-theme .business-summary-card{background
   .businesses-balance{align-self:flex-start}
   .businesses-summary{grid-template-columns:1fr}
   .businesses-list{grid-template-columns:1fr}
+}
+
+
+
+/* ===== MUSIC DISABLED WITHOUT BREAKING THE SITE ===== */
+.music-page,
+#dockMusicBtn,
+#musicToggle{
+    display:none !important;
+}
+#musicToggle{
+    pointer-events:none !important;
+}
+/* Hide the settings row that contains the music toggle. */
+.settings-row:has(#musicToggle){
+    display:none !important;
 }
 
 </style>
@@ -2560,6 +2576,43 @@ body.blue-theme .shop-card,.body.blue-theme .shop-modal-box{background:#d9f2ff;b
 @media(max-width:650px){.shop-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.shop-page{padding:75px 10px 120px}.shop-head{align-items:center}.shop-head h1{font-size:1.4rem}.shop-subtitle{font-size:.75rem}.shop-card{padding:12px;min-height:205px}.shop-icon{font-size:36px}.shop-card h3{font-size:.9rem}.shop-card p{font-size:.72rem}.shop-actions{gap:5px}.shop-balance,.shop-cart-btn{padding:8px 10px;font-size:.78rem}}
 @media(max-width:430px){.shop-grid{gap:8px}.shop-card{min-height:195px}.shop-card p{min-height:48px}.shop-buy{padding:9px 5px;font-size:.76rem}}
 </style>
+<style id="tasks-styles">
+/* ===== ЗАДАНИЯ ===== */
+.tasks-page{display:none;position:fixed;inset:0;z-index:290;overflow-y:auto;padding:76px 16px 120px;background:#111;color:#fff;}
+.tasks-page.active{display:block;}
+.tasks-container{width:min(100%,900px);margin:0 auto;}
+.tasks-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px;}
+.tasks-head h1{margin:0 0 6px;font-size:2rem;}
+.tasks-subtitle{opacity:.68;font-size:.9rem;}
+.tasks-reward-total{padding:10px 14px;border:1px solid #38bdf8;border-radius:999px;background:rgba(56,189,248,.08);font-weight:800;white-space:nowrap;}
+.tasks-progress-wrap{padding:14px 16px;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);margin-bottom:16px;}
+.tasks-progress-text{display:flex;justify-content:space-between;gap:10px;margin-bottom:8px;font-size:.85rem;}
+.tasks-progress-text strong{color:#38bdf8;}
+.tasks-progress{height:8px;border-radius:999px;background:rgba(255,255,255,.12);overflow:hidden;}
+.tasks-progress>div{height:100%;width:0;background:linear-gradient(90deg,#38bdf8,#22d3ee);transition:width .25s ease;}
+.tasks-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}
+.task-card{display:flex;flex-direction:column;gap:10px;padding:16px;border-radius:18px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.1);box-shadow:0 8px 24px rgba(0,0,0,.12);}
+.task-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;}
+.task-icon{font-size:30px;}
+.task-reward{font-weight:900;color:#38bdf8;white-space:nowrap;}
+.task-title{font-size:1rem;font-weight:900;}
+.task-desc{font-size:.8rem;opacity:.64;line-height:1.35;}
+.task-progress-mini{font-size:.75rem;opacity:.62;}
+.task-actions{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.task-claim{border:0;border-radius:10px;padding:9px 13px;font-weight:900;background:#38bdf8;color:#07111f;cursor:pointer;}
+.task-claim:disabled{opacity:.38;cursor:not-allowed;}
+.task-card.done{border-color:rgba(74,222,128,.45);background:rgba(74,222,128,.06);}
+.task-card.claimed{opacity:.55;}
+.task-status{font-size:.72rem;font-weight:800;}
+.tasks-back{width:100%;margin-top:16px;padding:13px 16px;border-radius:12px;border:1px solid #444;background:#222;color:inherit;font-weight:800;cursor:pointer;}
+body.light-theme .tasks-page{background:#f5f5f5;color:#222;}
+body.light-theme .task-card,body.light-theme .tasks-progress-wrap{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.1);}
+body.light-theme .tasks-back{background:#ddd;border-color:#bbb;color:#222;}
+body.blue-theme .tasks-page{background:#bae6fd;color:#082f49;}
+body.blue-theme .task-card,body.blue-theme .tasks-progress-wrap{background:rgba(255,255,255,.3);border-color:rgba(8,47,73,.12);}
+body.blue-theme .tasks-back{background:#7dd3fc;border-color:#38bdf8;color:#082f49;}
+@media(max-width:700px){.tasks-page{padding:74px 10px 120px}.tasks-head h1{font-size:1.55rem}.tasks-subtitle{font-size:.78rem}.tasks-list{grid-template-columns:1fr}.task-card{padding:14px;}}
+</style>
 </head>
 <body>
 <div class="toast" id="toast"></div>
@@ -2612,18 +2665,19 @@ body.blue-theme .shop-card,.body.blue-theme .shop-modal-box{background:#d9f2ff;b
 </li>
 <li class="sidebar-item" id="settingsMenuItem">⚙️ Настройки</li>
 <li class="sidebar-item" id="businessesMenuItem">💼 Мои бизнесы</li>
+<li class="sidebar-item" id="tasksMenuItem">📋 Задания</li>
 </ul>
 </div>
 <div class="game-page" id="gamePage">
 <div class="game-container">
 <h1>💎 Donat</h1>
-<p style="opacity:.7;margin-bottom:20px;">Собирай донаты и апгрейди доход!</p>
+<p style="opacity:.7;margin-bottom:20px;">Собирай USDT и апгрейди доход!</p>
 <div class="game-stats">
-<div class="stat-item"><span>💎 Донаты</span><span class="stat-value donat" id="donatDisplay">0</span></div>
+<div class="stat-item"><span>💵 USDT</span><span class="stat-value donat" id="donatDisplay">0</span></div>
 <div class="stat-item"><span>⚡ Доход/сек</span><span class="stat-value" id="incomeDisplay">0</span></div>
 <div class="stat-item"><span>🖱️ Кликов</span><span class="stat-value" id="clicksDisplay">0</span></div>
 </div>
-<button class="click-btn" id="clickBtn">💎 Получить донат +1</button>
+<button class="click-btn" id="clickBtn">💵 Получить USDT +1</button>
 <h3>⬆️ Апгрейды</h3>
 <div class="upgrades-grid" id="upgradesContainer"></div>
 <button class="back-btn" id="backFromGame">← Назад</button>
@@ -2753,12 +2807,30 @@ body.blue-theme .shop-card,.body.blue-theme .shop-modal-box{background:#d9f2ff;b
 </div>
 
 
+<div class="tasks-page" id="tasksPage">
+  <div class="tasks-container">
+    <div class="tasks-head">
+      <div>
+        <h1>📋 Задания</h1>
+        <div class="tasks-subtitle">Выполняй задания, развивай аккаунт и получай 💵 USDT</div>
+      </div>
+      <div class="tasks-reward-total">💎 <span id="tasksTotalReward">0</span></div>
+    </div>
+    <div class="tasks-progress-wrap">
+      <div class="tasks-progress-text"><span>Прогресс</span><strong id="tasksProgressText">0 / 0</strong></div>
+      <div class="tasks-progress"><div id="tasksProgressBar"></div></div>
+    </div>
+    <div class="tasks-list" id="tasksList"></div>
+    <button class="tasks-back" id="tasksBack">← Назад</button>
+  </div>
+</div>
+
 <div class="businesses-page" id="businessesPage">
   <div class="businesses-container">
     <div class="businesses-head">
       <div>
         <h1>💼 Мои бизнесы</h1>
-        <div class="businesses-subtitle">Нанимай сотрудников, плати зарплаты и налоги — чем лучше команда, тем выше доход.</div>
+        <div class="businesses-subtitle">Нанимай сотрудников, плати расходы и развивай бизнес — каждый работающий бизнес приносит чистую прибыль.</div>
       </div>
       <div class="businesses-balance">💎 <span id="businessesBalance">0</span></div>
     </div>
@@ -2989,9 +3061,9 @@ body.blue-theme .shop-card,.body.blue-theme .shop-modal-box{background:#d9f2ff;b
 
 <script>
 const g={d:0,c:0,i:0,u:[
-{id:'click',n:'🖱️ Усиление клика',desc:'+1 донат за клик',b:10,c:10,l:0,m:1,t:'click'},
-{id:'auto1',n:'🤖 Авто-донат',desc:'+1 донат/сек',b:50,c:50,l:0,m:1,t:'income'},
-{id:'auto2',n:'⚡ Турбо-донат',desc:'+5 донатов/сек',b:200,c:200,l:0,m:5,t:'income'},
+{id:'click',n:'🖱️ Усиление клика',desc:'+1 USDT за клик',b:10,c:10,l:0,m:1,t:'click'},
+{id:'auto1',n:'🤖 Авто-USDT',desc:'+1 USDT/сек',b:50,c:50,l:0,m:1,t:'income'},
+{id:'auto2',n:'⚡ Турбо-USDT',desc:'+5 USDT/сек',b:200,c:200,l:0,m:5,t:'income'},
 {id:'bank',n:'🏦 Банковский бонус',desc:'+10% к доходу',b:500,c:500,l:0,m:0.1,t:'percent'}
 ]};let iv=null;
 function getShopAccountState(){
@@ -3006,12 +3078,12 @@ function getShopAccountState(){
   }catch(e){return {cart:[],owned:[],activeVip:null,lastMaintenance:0};}
 }
 function shopPrice(id){
-  const prices={c1:500,c2:2500,c3:1200,c4:3500,c5:1800,c6:900,c7:350,c8:4200,h1:2500,h2:5500,h3:15000,h4:9000,h5:12000,h6:6500,h7:25000,t1:800,t2:2200,t3:1900,t4:3000,t5:1600,t6:1400,t7:3200,t8:50000,b1:5000,b2:2800,b3:7500,b4:18000,x1:650,x2:1800,x3:3200,x4:450,x5:700,x6:1600,x7:1200,x8:1500,s1:250,s2:600,s3:900,s4:400,s5:2200,s6:5000,bz1:1500,bz2:4000,bz3:8000,bz4:12000,bz5:20000,bz6:35000,bz7:60000,bz8:100000,bz9:160000,bz10:250000,bz11:500000,bz12:1000000,v1:10000,v2:25000,v3:7500,v4:18000,v5:40000};
+  const prices={c1:500,c2:2500,c3:1200,c4:3500,c5:1800,c6:900,c7:350,c8:4200,h1:2500,h2:5500,h3:15000,h4:9000,h5:12000,h6:6500,h7:25000,t1:800,t2:2200,t3:1900,t4:3000,t5:1600,t6:1400,t7:3200,t8:50000,b1:5000,b2:2800,b3:7500,b4:18000,x1:650,x2:1800,x3:3200,x4:450,x5:700,x6:1600,x7:1200,x8:1500,s1:250,s2:600,s3:900,s4:400,s5:2200,s6:5000,bz1:1500,bz2:4000,bz3:8000,bz4:12000,bz5:20000,bz6:35000,bz7:60000,bz8:100000,bz9:160000,bz10:250000,bz11:500000,bz12:1000000,bz13:2000000,v1:10000,v2:25000,v3:7500,v4:18000,v5:40000};
   return prices[id]||0;
 }
 function officeOwned(){return getShopAccountState().owned.includes('h6');}
 function businessBonus(id){
-  const bonuses={bz1:.02,bz2:.04,bz3:.06,bz4:.08,bz5:.10,bz6:.13,bz7:.17,bz8:.22,bz9:.28,bz10:.35,bz11:.45,bz12:.60};
+  const bonuses={bz1:.02,bz2:.04,bz3:.06,bz4:.08,bz5:.10,bz6:.13,bz7:.17,bz8:.22,bz9:.28,bz10:.35,bz11:.45,bz12:.60,bz13:.80};
   return bonuses[id]||0;
 }
 function totalBusinessBonus(){
@@ -3020,7 +3092,7 @@ function totalBusinessBonus(){
 }
 function businessExpensesPerMinute(){ let total=maintenancePerMinute(); if(typeof totalBusinessExpenses==='function') total+=Number(totalBusinessExpenses()||0); return total; }
 function canMaintainBusiness(){ const cost=businessExpensesPerMinute(); return cost<=0 || g.d>=cost; }
-function effectiveIncome(){let mult=1+(officeOwned()?0.35:0)+totalBusinessBonus(); if(!canMaintainBusiness()) return 0; if(typeof businessesIncomePaused==='function'&&businessesIncomePaused()) return 0; if(typeof totalBusinessBonusStaffed==='function'){mult=1+(officeOwned()?0.35:0)+totalBusinessBonusStaffed();} return g.i*mult;}
+function effectiveIncome(){let mult=1+(officeOwned()?0.35:0); if(!canMaintainBusiness()) return 0; if(typeof businessesIncomePaused==='function'&&businessesIncomePaused()) return 0; if(typeof totalBusinessBonusStaffed==='function') mult += totalBusinessBonusStaffed(); const businessNet=(typeof totalBusinessNetProfitPerMinute==='function'?totalBusinessNetProfitPerMinute()/60:0); return g.i*mult + businessNet;}
 function maintenancePerMinute(){
   const st=getShopAccountState();
   return st.owned.reduce((sum,id)=>sum+shopPrice(id)*0.01,0);
@@ -3415,7 +3487,7 @@ function startJet(){
     }
 
     if(jetBetValue > g.d){
-        showToast('❌ Недостаточно Donat');
+        showToast('❌ Недостаточно USDT');
         return;
     }
 
@@ -3512,7 +3584,7 @@ function cashoutJet(){
 
     playCasinoSound('jetCashout');
     jetStatus.textContent=
-        '🎉 Вы забрали '+win+' Donat!';
+        '🎉 Вы забрали '+win+' USDT!';
 
     jetPlane.classList.remove('flying');
 
@@ -3522,7 +3594,7 @@ function cashoutJet(){
 
     showToast(
         '💰 Выигрыш: '+win+
-        ' Donat ('+
+        ' USDT ('+
         jetMultiplierValue.toFixed(2)+
         'x)'
     );
@@ -3677,7 +3749,7 @@ function spinSlot(){
     }
 
     if(bet > g.d){
-        showToast('❌ Недостаточно Donat');
+        showToast('❌ Недостаточно USDT');
         return;
     }
 
@@ -3757,7 +3829,7 @@ function finishSlot(bet,a,b,c){
             slotResult.textContent=
                 '💎💎💎 ДЖЕКПОТ! +'+
                 win+
-                ' Donat!';
+                ' USDT!';
 
             slotResult.classList.add(
                 'slot-jackpot'
@@ -3766,7 +3838,7 @@ function finishSlot(bet,a,b,c){
             showToast(
                 '💎 ДЖЕКПОТ 1000x! +' +
                 win +
-                ' Donat!'
+                ' USDT!'
             );
 
         }else{
@@ -3777,7 +3849,7 @@ function finishSlot(bet,a,b,c){
                 multiplier+
                 'x — +'+
                 win+
-                ' Donat!';
+                ' USDT!';
 
             slotResult.classList.add(
                 'slot-win'
@@ -3859,11 +3931,11 @@ function initExtraGame(x){
  function spinGame(){
   if(st.running)return;const amount=Math.floor(Number(bet.value));
   if(!amount||amount<1){showToast('❌ Введи ставку');return}
-  if(amount>g.d){showToast('❌ Недостаточно Donat');return}
+  if(amount>g.d){showToast('❌ Недостаточно USDT');return}
   g.d-=amount;save();upd();refresh();st.running=true;spin.disabled=true;playCasinoSound('spin');result.classList.remove('win');result.textContent='🎰 Крутим...';reels.forEach(r=>r.classList.add('spinning'));
   const timer=setInterval(()=>reels.forEach(r=>r.textContent=symbol()),80);
   setTimeout(()=>{clearInterval(timer);const a=symbol(),b=symbol(),c=symbol();reels[0].textContent=a;reels[1].textContent=b;reels[2].textContent=c;reels.forEach(r=>r.classList.remove('spinning'));const m=mult(a,b,c);
-   if(m){const win=Math.floor(amount*m);g.d+=win;playCasinoSound(m>=25?'jackpot':'win');save();upd();refresh();result.textContent='🎉 Выигрыш '+m+'x — +'+win+' Donat!';result.classList.add('win');showToast('🎉 '+x.key+' '+m+'x!')}else{playCasinoSound('lose');result.textContent=x.loseText;showToast('😵 Попробуй ещё раз!')}
+   if(m){const win=Math.floor(amount*m);g.d+=win;playCasinoSound(m>=25?'jackpot':'win');save();upd();refresh();result.textContent='🎉 Выигрыш '+m+'x — +'+win+' USDT!';result.classList.add('win');showToast('🎉 '+x.key+' '+m+'x!')}else{playCasinoSound('lose');result.textContent=x.loseText;showToast('😵 Попробуй ещё раз!')}
    st.running=false;spin.disabled=false;
   },1200);
  }
@@ -4165,6 +4237,7 @@ setInterval(dt2,1000);dt2();loadTheme();load();
    ['bz10','🛍️','Торговый центр','Огромный торговый центр с множеством арендаторов.','business',250000],
    ['bz11','🏢','Корпорация','Крупная корпорация с большим оборотом.','business',500000],
    ['bz12','🌆','Бизнес-империя','Максимальный уровень бизнеса и дохода.','business',1000000],
+   ['bz13','🎰','Казино','Премиальное казино с огромным потоком клиентов.','business',2000000],
    ['t1','✈️','Билет в Париж','Путешествие в столицу Франции.','travel',800],
    ['t2','🗼','Тур в Токио','Яркое путешествие в Японию.','travel',2200],
    ['t3','🗽','Тур в Нью-Йорк','Путешествие в город небоскрёбов.','travel',1900],
@@ -4302,7 +4375,7 @@ setInterval(dt2,1000);dt2();loadTheme();load();
     if(!u){showToast('🔐 Сначала войди в аккаунт — тогда покупки сохранятся в профиле');return;}
     const st=state(); if(!st.cart.length){showToast('🛒 Корзина пуста');return;}
     const total=st.cart.reduce((sum,id)=>sum+(item(id)?.[5]||0),0);
-    if(typeof g==='undefined'||(g.d||0)<total){showToast('❌ Не хватает донатов');return;}
+    if(typeof g==='undefined'||(g.d||0)<total){showToast('❌ Не хватает USDT');return;}
     const boughtIds = [...st.cart];
     g.d-=total;
     st.owned=[...new Set(st.owned.concat(boughtIds))];
@@ -4387,7 +4460,8 @@ setInterval(dt2,1000);dt2();loadTheme();load();
     bz9:['💻','IT-компания',.28,160000],
     bz10:['🛍️','Торговый центр',.35,250000],
     bz11:['🏢','Корпорация',.45,500000],
-    bz12:['🌆','Бизнес-империя',.60,1000000]
+    bz12:['🌆','Бизнес-империя',.60,1000000],
+    bz13:['🎰','Казино',.80,2000000]
   };
 
   function ownedBusinesses(){
@@ -4414,13 +4488,30 @@ setInterval(dt2,1000);dt2();loadTheme();load();
   }
   function totalBusinessExpenses(){
     const st=loadBusinessState();
-    return ownedBusinesses().reduce((sum,id)=>sum+staffCostPerMinute(id,st)+businessCatalog[id][3]*0.001,0);
+    return ownedBusinesses().reduce((sum,id)=>sum+staffCostPerMinute(id,st)+businessCatalog[id][3]*0.0005,0);
+  }
+  function businessGrossPerMinute(id, st){
+    const x=businessCatalog[id];
+    const eff=efficiency(id,st);
+    const operatingCost=staffCostPerMinute(id,st)+x[3]*0.0005;
+    /* Каждый работающий бизнес гарантированно приносит больше своих расходов. */
+    return Math.max(operatingCost+1, x[3]*0.0015*(1+eff));
+  }
+  function totalBusinessNetProfitPerMinute(){
+    const st=loadBusinessState();
+    return ownedBusinesses().reduce((sum,id)=>{
+      if(staffCount(id,st)<=0) return sum;
+      const expense=staffCostPerMinute(id,st)+businessCatalog[id][3]*0.0005;
+      return sum + Math.max(0, businessGrossPerMinute(id,st)-expense);
+    },0);
   }
   function businessesIncomePaused(){
     const owns=ownedBusinesses();
     if(!owns.length) return false;
     const st=loadBusinessState();
-    return owns.some(id=>staffCount(id,st)<=0) || (totalBusinessExpenses()>0 && g.d < totalBusinessExpenses());
+    /* Без сотрудников бизнес не работает. Сам бизнес при этом рассчитан так,
+       чтобы после запуска его валовая прибыль всегда превышала расходы. */
+    return owns.some(id=>staffCount(id,st)<=0);
   }
   function processBusinessExpenses(){
     const owns=ownedBusinesses();
@@ -4443,6 +4534,7 @@ setInterval(dt2,1000);dt2();loadTheme();load();
   }
   window.totalBusinessBonusStaffed=totalBusinessBonusStaffed;
   window.totalBusinessExpenses=totalBusinessExpenses;
+  window.totalBusinessNetProfitPerMinute=totalBusinessNetProfitPerMinute;
   window.businessesIncomePaused=businessesIncomePaused;
   window.processBusinessExpenses=processBusinessExpenses;
 
@@ -4487,7 +4579,8 @@ setInterval(dt2,1000);dt2();loadTheme();load();
     summary.innerHTML=`
       <div class="business-summary-card"><span>📊 Бонус бизнеса</span><strong>+${Math.round(bonus*100)}%</strong></div>
       <div class="business-summary-card"><span>👥 Сотрудники</span><strong>${owns.reduce((n,id)=>n+staffCount(id,st),0)}</strong></div>
-      <div class="business-summary-card"><span>🧾 Расходы/мин</span><strong>${money(Math.ceil(exp))} 💎</strong></div>`;
+      <div class="business-summary-card"><span>🧾 Расходы/мин</span><strong>${money(Math.ceil(exp))} 💎</strong></div>
+      <div class="business-summary-card"><span>📈 Чистая прибыль/мин</span><strong>+${money(Math.ceil(totalBusinessNetProfitPerMinute()))} 💎</strong></div>`;
     balance.textContent=Math.floor(g.d||0);
 
     list.innerHTML=owns.map(id=>{
@@ -4502,6 +4595,7 @@ setInterval(dt2,1000);dt2();loadTheme();load();
           <div class="business-metric">📈 Бонус сейчас<b class="business-profit">+${Math.round(bonusNow*100)}%</b></div>
           <div class="business-metric">💰 Расходы<b class="business-expense">${money(Math.ceil(expense))} 💎/мин</b></div>
           <div class="business-metric">🏷️ Владелец<b>${money(x[3])} 💎</b></div>
+          <div class="business-metric">📈 Чистая прибыль<b class="business-profit">+${money(Math.ceil(Math.max(0,businessGrossPerMinute(id,st)-expense)))} 💎/мин</b></div>
         </div>
         <button type="button" data-manage-business="${id}">👥 Управлять сотрудниками</button>
       </article>`;
@@ -4545,7 +4639,7 @@ setInterval(dt2,1000);dt2();loadTheme();load();
   function hireEmployee(type){
     if(!currentBusinessId) return;
     const emp=EMPLOYEES.find(e=>e.id===type); if(!emp) return;
-    if((g.d||0)<emp.hire){ showToast('❌ Не хватает донатов на найм'); return; }
+    if((g.d||0)<emp.hire){ showToast('❌ Не хватает USDT на найм'); return; }
     const st=loadBusinessState();
     if(!st.staff[currentBusinessId]) st.staff[currentBusinessId]={};
     st.staff[currentBusinessId][type]=(Number(st.staff[currentBusinessId][type])||0)+1;
@@ -4560,6 +4654,111 @@ setInterval(dt2,1000);dt2();loadTheme();load();
   /* Если страница была открыта/перезагружена — сразу восстановить состояние. */
   window.addEventListener('storage', ()=>renderPage());
 
+})();
+</script>
+<script id="tasks-script">
+/* ===== ЗАДАНИЯ ===== */
+(function(){
+  const page=document.getElementById('tasksPage');
+  const menu=document.getElementById('tasksMenuItem');
+  const back=document.getElementById('tasksBack');
+  const list=document.getElementById('tasksList');
+  const bar=document.getElementById('tasksProgressBar');
+  const progressText=document.getElementById('tasksProgressText');
+  const totalReward=document.getElementById('tasksTotalReward');
+  if(!page||!menu||!back||!list)return;
+
+  const TASKS=[
+    {id:'click50',icon:'🖱️',title:'Первые 50 кликов',desc:'Нажми кнопку USDT 50 раз.',goal:50,reward:100,type:'clicks'},
+    {id:'click250',icon:'⚡',title:'Активный игрок',desc:'Сделай 250 кликов.',goal:250,reward:300,type:'clicks'},
+    {id:'earn1000',icon:'💵',title:'Накопить 1 000 USDT',desc:'Накопи 1 000 USDT на балансе.',goal:1000,reward:250,type:'balance'},
+    {id:'earn10000',icon:'💵',title:'Накопить 10 000 USDT',desc:'Накопи 10 000 USDT на балансе.',goal:10000,reward:1000,type:'balance'},
+    {id:'earn100000',icon:'💰',title:'Накопить 100 000 USDT',desc:'Накопи 100 000 USDT на балансе.',goal:100000,reward:5000,type:'balance'},
+    {id:'earn1000000',icon:'🏆',title:'Накопить 1 000 000 USDT',desc:'Накопи 1 000 000 USDT на балансе.',goal:1000000,reward:25000,type:'balance'},
+    {id:'earn10000000',icon:'💎',title:'Накопить 10 000 000 USDT',desc:'Накопи 10 000 000 USDT на балансе.',goal:10000000,reward:100000,type:'balance'},
+    {id:'earn100000000',icon:'👑',title:'Накопить 100 000 000 USDT',desc:'Накопи 100 000 000 USDT на балансе.',goal:100000000,reward:500000,type:'balance'},
+    {id:'earn1000000000',icon:'🌟',title:'Накопить 1 000 000 000 USDT',desc:'Накопи 1 000 000 000 USDT на балансе.',goal:1000000000,reward:2000000,type:'balance'},
+    {id:'earn10000000000',icon:'🚀',title:'Накопить 10 000 000 000 USDT',desc:'Накопи 10 000 000 000 USDT на балансе.',goal:10000000000,reward:10000000,type:'balance'},
+    {id:'earn100000000000',icon:'🌌',title:'Накопить 100 000 000 000 USDT',desc:'Накопи 100 000 000 000 USDT на балансе.',goal:100000000000,reward:50000000,type:'balance'},
+    {id:'earn1000000000000',icon:'👑',title:'Накопить 1 000 000 000 000 USDT',desc:'Накопи 1 000 000 000 000 USDT на балансе.',goal:1000000000000,reward:250000000,type:'balance'},
+    {id:'upgrade1',icon:'⬆️',title:'Первый апгрейд',desc:'Купи хотя бы один апгрейд.',goal:1,reward:200,type:'upgrades'},
+    {id:'upgrade5',icon:'🚀',title:'Развитие',desc:'Купи 5 уровней апгрейдов.',goal:5,reward:500,type:'upgrades'},
+    {id:'business1',icon:'🏢',title:'Первый бизнес',desc:'Купи любой бизнес в магазине.',goal:1,reward:500,type:'businesses'},
+    {id:'business3',icon:'🏙️',title:'Предприниматель',desc:'Владей 3 бизнесами.',goal:3,reward:1200,type:'businesses'},
+    {id:'staff5',icon:'👥',title:'Команда',desc:'Найми 5 сотрудников.',goal:5,reward:800,type:'staff'},
+    {id:'premium',icon:'💎',title:'Премиум-статус',desc:'Купи любой премиум/VIP-статус.',goal:1,reward:1000,type:'premium'},
+    {id:'shop3',icon:'🛍️',title:'Шопоголик',desc:'Купи 3 разных товара в магазине.',goal:3,reward:700,type:'owned'},
+    {id:'shop10',icon:'🛒',title:'Большая коллекция',desc:'Собери 10 покупок.',goal:10,reward:2000,type:'owned'}
+  ];
+
+  function userKey(){return (localStorage.getItem('donatCurrentUser')||'guest').toLowerCase();}
+  function stateKey(){return 'donatTasks_'+userKey();}
+  function loadState(){try{const s=JSON.parse(localStorage.getItem(stateKey())||'{}');return s&&typeof s==='object'?s:{}}catch(e){return {}}}
+  function saveState(st){localStorage.setItem(stateKey(),JSON.stringify(st));}
+  function safeNum(v){return Number.isFinite(Number(v))?Number(v):0;}
+  function shopState(){try{const k='donatShopProfile_'+userKey();const s=JSON.parse(localStorage.getItem(k)||'{}');return s&&typeof s==='object'?s:{}}catch(e){return {}}}
+  function ownedCount(){const s=shopState();return Array.isArray(s.owned)?s.owned.length:0;}
+  function hasPremium(){const s=shopState();return Array.isArray(s.owned)&&s.owned.some(id=>/^v\d+$/i.test(String(id)));}
+  function businessesCount(){const s=shopState();const known=new Set(['bz1','bz2','bz3','bz4','bz5','bz6','bz7','bz8','bz9','bz10','bz11','bz12','bz13']);return Array.isArray(s.owned)?s.owned.filter(id=>known.has(id)).length:0;}
+  function staffCount(){try{const s=JSON.parse(localStorage.getItem('donatBusinessState_'+userKey())||'{}');return Object.values(s.staff||{}).reduce((a,v)=>a+safeNum(v),0)}catch(e){return 0;}}
+  function upgradesCount(){try{return (window.g?.u||[]).reduce((a,u)=>a+safeNum(u.l),0)}catch(e){return 0;}}
+  function getValue(task){
+    switch(task.type){
+      case 'clicks': return safeNum(window.g?.c);
+      case 'balance': return Math.floor(safeNum(window.g?.d));
+      case 'upgrades': return upgradesCount();
+      case 'businesses': return businessesCount();
+      case 'staff': return staffCount();
+      case 'premium': return hasPremium()?1:0;
+      case 'owned': return ownedCount();
+      default:return 0;
+    }
+  }
+  function award(reward){
+    if(!window.g)return;
+    window.g.d=Math.max(0,safeNum(window.g.d)+reward);
+    if(typeof window.save==='function') window.save();
+    if(typeof window.upd==='function') window.upd();
+    if(typeof window.showToast==='function') window.showToast('🎉 Задание выполнено! +'+reward+' 💎');
+  }
+  function render(){
+    const st=loadState();
+    let completed=0; let availableReward=0;
+    list.innerHTML='';
+    TASKS.forEach(t=>{
+      const value=getValue(t);
+      const done=Math.max(0,value)>=t.goal;
+      const claimed=!!st[t.id];
+      if(done)completed++;
+      if(done&&!claimed)availableReward+=t.reward;
+      const pct=Math.min(100,Math.round(value/t.goal*100));
+      const card=document.createElement('div');
+      card.className='task-card'+(done?' done':'')+(claimed?' claimed':'');
+      const status=claimed?'✓ Получено':done?'🎁 Готово':'В процессе';
+      card.innerHTML=`<div class="task-top"><div class="task-icon">${t.icon}</div><div class="task-reward">+${t.reward} 💎</div></div><div class="task-title">${t.title}</div><div class="task-desc">${t.desc}</div><div class="task-progress-mini">${Math.min(value,t.goal).toLocaleString('ru-RU')} / ${t.goal.toLocaleString('ru-RU')} · ${pct}%</div><div class="task-actions"><span class="task-status">${status}</span><button class="task-claim" ${(!done||claimed)?'disabled':''}>Забрать</button></div>`;
+      const btn=card.querySelector('.task-claim');
+      if(done&&!claimed)btn.onclick=()=>{const latest=loadState();if(latest[t.id])return;latest[t.id]=Date.now();saveState(latest);award(t.reward);render();};
+      list.appendChild(card);
+    });
+    progressText.textContent=`${completed} / ${TASKS.length}`;
+    bar.style.width=(completed/TASKS.length*100).toFixed(1)+'%';
+    totalReward.textContent=availableReward.toLocaleString('ru-RU');
+  }
+  function openPage(){
+    try{if(typeof closeS==='function')closeS();}catch(e){}
+    try{if(typeof closeG==='function')closeG();}catch(e){}
+    try{if(typeof closeSet==='function')closeSet();}catch(e){}
+    try{if(typeof closeShop==='function')closeShop();}catch(e){}
+    try{document.querySelector('.content').style.display='none';}catch(e){}
+    page.classList.add('active');
+    render();
+  }
+  function closePage(){page.classList.remove('active');try{document.querySelector('.content').style.display='';}catch(e){}}
+  menu.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();openPage();});
+  back.addEventListener('click',function(e){e.preventDefault();closePage();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&page.classList.contains('active'))closePage();});
+  window.renderTasks=render;
+  document.addEventListener('click',function(e){if(!page.classList.contains('active'))return;if(e.target.closest('#tasksList')){setTimeout(render,0);}});
 })();
 </script>
 </body>
