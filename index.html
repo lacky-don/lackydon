@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html>
 <head>
 <meta charset="UTF-8">
@@ -572,7 +572,8 @@ body.blue-theme .game-card{
 .theme-dot.active{border-color:#fff}
 .theme-dot.dark{background:#121212}
 .theme-dot.light{background:#f5f5f5;border-color:#ccc}
-.theme-dot.blue{background:#bae6fd}
+.theme-dot.blue{background:#bae6fd;border-color:#111}
+.theme-dot.blue.active{border-color:#111}
 /* ===== ТЕМЫ ===== */
 
 /* Светлая */
@@ -2330,6 +2331,19 @@ html,body{
     }
 }
 
+
+/* ===== ПРОФИЛЬ ПОСЛЕ ВХОДА ===== */
+.auth-profile{display:none;align-items:center;gap:10px;margin-bottom:20px;padding:10px 12px;border-bottom:1px solid #444;cursor:pointer}
+.auth-profile.show{display:flex}
+.auth-avatar{width:42px;height:42px;min-width:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#20bfff,#087fb3);color:#fff;font-weight:900;font-size:1rem;border:2px solid #111;box-shadow:0 0 12px rgba(32,191,255,.35)}
+.auth-profile-info{min-width:0;flex:1}
+.auth-profile-name{font-weight:900;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.auth-profile-status{font-size:.72rem;opacity:.65;margin-top:2px}
+.auth-profile-logout{border:0;background:transparent;color:#aaa;font-size:1.1rem;cursor:pointer;padding:5px}
+body.light-theme .auth-profile{border-color:#bbb}
+body.light-theme .auth-profile-name{color:#111}
+body.blue-theme .auth-profile{border-color:rgba(18,48,71,.25)}
+body.blue-theme .auth-profile-name{color:#123047}
 </style>
 
 <style id="page-scroll-fix">
@@ -2397,10 +2411,51 @@ body { width:100%; min-height:100vh; height:auto !important; overflow-x:hidden !
         font-size: 17px !important;
     }
 }
+
+/* ===== АВТОРИЗАЦИЯ ===== */
+.auth-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:10000;padding:16px}
+.auth-modal-overlay.active{display:flex}
+.auth-modal{width:min(420px,100%);background:#202020;border:1px solid #20bfff;border-radius:22px;box-shadow:0 0 35px rgba(32,191,255,.3);padding:24px;color:#fff}
+.auth-modal h2{margin:0 0 8px;text-align:center;font-size:1.55rem}
+.auth-modal-sub{margin:0 0 20px;text-align:center;opacity:.65;font-size:.9rem}
+.auth-form{display:flex;flex-direction:column;gap:12px}
+.auth-form label{font-size:.85rem;font-weight:700;opacity:.8}
+.auth-form input{width:100%;box-sizing:border-box;padding:12px 14px;border-radius:12px;border:1px solid #555;background:#151515;color:#fff;font-size:1rem;outline:none}
+.auth-form input:focus{border-color:#20bfff;box-shadow:0 0 0 2px rgba(32,191,255,.12)}
+.auth-submit{margin-top:4px;width:100%;padding:13px;border:0;border-radius:12px;background:#20bfff;color:#06131a;font-weight:900;font-size:1rem;cursor:pointer}
+.auth-close{width:100%;margin-top:9px;padding:10px;border:1px solid #555;border-radius:12px;background:transparent;color:#fff;cursor:pointer}
+.auth-switch{margin-top:13px;text-align:center;font-size:.85rem;opacity:.8}
+.auth-switch button{border:0;background:none;color:#20bfff;font-weight:800;cursor:pointer}
+.auth-error{min-height:18px;color:#ff6b6b;font-size:.82rem;text-align:center}
+.auth-user{display:none;margin:0 0 15px;padding:11px 12px;border-radius:12px;background:rgba(32,191,255,.1);border:1px solid rgba(32,191,255,.35);font-size:.9rem}
+.auth-user.show{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.auth-logout{border:1px solid #555;border-radius:9px;background:transparent;color:#fff;padding:6px 9px;cursor:pointer}
+body.light-theme .auth-modal{background:#f7f7f7;color:#111;border-color:#20aeea}
+body.light-theme .auth-form input{background:#fff;color:#111;border-color:#bbb}
+body.blue-theme .auth-modal{background:#b8e5f8;color:#123047}
+body.blue-theme .auth-form input{background:#d9f2ff;color:#123047;border-color:#75c7e8}
+@media(max-width:600px){.auth-modal{padding:20px;border-radius:18px}.auth-modal h2{font-size:1.35rem}}
 </style>
 </head>
 <body>
 <div class="toast" id="toast"></div>
+<div class="auth-modal-overlay" id="authModalOverlay">
+  <div class="auth-modal" role="dialog" aria-modal="true" aria-labelledby="authModalTitle">
+    <h2 id="authModalTitle">🔑 Вход</h2>
+    <p class="auth-modal-sub" id="authModalSub">Войди в свой аккаунт</p>
+    <div class="auth-user" id="authUserBox"><span id="authUserText"></span><button class="auth-logout" id="authLogout">Выйти</button></div>
+    <form class="auth-form" id="authForm" autocomplete="on">
+      <div><label for="authUsername">Логин</label><input id="authUsername" name="username" type="text" minlength="3" maxlength="24" autocomplete="username" required placeholder="Придумай логин"></div>
+      <div><label for="authPassword">Пароль</label><input id="authPassword" name="password" type="password" minlength="6" autocomplete="current-password" required placeholder="Минимум 6 символов"></div>
+      <div id="authConfirmWrap"><label for="authConfirm">Повтори пароль</label><input id="authConfirm" name="confirm" type="password" minlength="6" autocomplete="new-password" placeholder="Повтори пароль"></div>
+      <div class="auth-error" id="authError"></div>
+      <button class="auth-submit" id="authSubmit" type="submit">Войти</button>
+    </form>
+    <div class="auth-switch"><span id="authSwitchText">Нет аккаунта?</span> <button type="button" id="authSwitchBtn">Зарегистрироваться</button></div>
+    <button class="auth-close" id="authClose" type="button">Закрыть</button>
+  </div>
+</div>
+
 <div class="overlay" id="overlay"></div>
 <div class="top-bar">
 <button class="menu-btn" id="menuBtn"><span></span><span></span><span></span></button>
@@ -2410,6 +2465,14 @@ body { width:100%; min-height:100vh; height:auto !important; overflow-x:hidden !
 <div class="auth-section">
 <button class="auth-btn login" id="loginBtn">🔑 Войти</button>
 <button class="auth-btn register" id="registerBtn">📝 Регистрация</button>
+</div>
+<div class="auth-profile" id="authProfile">
+  <div class="auth-avatar" id="authAvatar">A</div>
+  <div class="auth-profile-info">
+    <div class="auth-profile-name" id="authProfileName">Пользователь</div>
+    <div class="auth-profile-status">● В сети</div>
+  </div>
+  <button class="auth-profile-logout" id="authProfileLogout" title="Выйти">↪</button>
 </div>
 <h2>📱 Меню</h2>
 <ul style="list-style:none;padding:0">
@@ -2847,8 +2910,116 @@ function openSet(){so.classList.add('active');sp.classList.add('open');is2=!0;do
 function closeSet(){so.classList.remove('active');sp.classList.remove('open');is2=!1;document.body.style.overflow=''}
 function updateMusicButtons(){mc.forEach(card=>{const track=card.dataset.track;if(currentAudio && currentAudio.src && currentAudio.src.includes(track) && !currentAudio.paused){card.textContent='⏹';card.classList.add('playing');card.classList.remove('active')}else{card.textContent='▶';card.classList.remove('playing');card.classList.remove('active')}})}
 mc.forEach(card=>{card.onclick=function(){const track=this.dataset.track;const name=this.dataset.name;if(currentCard===this && currentAudio && !currentAudio.paused){currentAudio.pause();this.textContent='▶';this.classList.remove('playing');this.classList.remove('active');currentAudio=null;currentCard=null;currentTrackName='';showToast('⏹ Трек остановлен: '+name);return}if(currentAudio){currentAudio.pause();if(currentCard){currentCard.textContent='▶';currentCard.classList.remove('playing');currentCard.classList.remove('active')}}if(!window.audioPlayer){const audio=document.createElement('audio');audio.id='hiddenAudioPlayer';document.body.appendChild(audio);window.audioPlayer=audio}window.audioPlayer.src=track;window.audioPlayer.volume=currentVolume;window.audioPlayer.play();this.textContent='⏹';this.classList.add('playing');this.classList.remove('active');currentAudio=window.audioPlayer;currentCard=this;currentTrackName=name;showToast('▶ Сейчас играет: '+name);window.audioPlayer.onended=function(){if(currentCard){currentCard.textContent='▶';currentCard.classList.remove('playing');currentCard.classList.remove('active')}currentAudio=null;currentCard=null;currentTrackName=''}}});
-lb.onclick=function(e){e.stopPropagation();showToast('🔑 Вход: admin / 123456');closeS()}
-rb.onclick=function(e){e.stopPropagation();showToast('📝 Регистрация создана!');closeS()}
+/* ===== РЕАЛЬНАЯ ЛОКАЛЬНАЯ РЕГИСТРАЦИЯ И ВХОД =====
+   Для статического HTML аккаунты сохраняются в localStorage этого браузера.
+   Пароли сохраняются не в открытом виде, а как SHA-256. */
+const authOverlay=document.getElementById('authModalOverlay');
+const authForm=document.getElementById('authForm');
+const authTitle=document.getElementById('authModalTitle');
+const authSub=document.getElementById('authModalSub');
+const authSubmit=document.getElementById('authSubmit');
+const authConfirmWrap=document.getElementById('authConfirmWrap');
+const authConfirm=document.getElementById('authConfirm');
+const authError=document.getElementById('authError');
+const authSwitchBtn=document.getElementById('authSwitchBtn');
+const authSwitchText=document.getElementById('authSwitchText');
+const authClose=document.getElementById('authClose');
+const authUserBox=document.getElementById('authUserBox');
+const authUserText=document.getElementById('authUserText');
+const authLogout=document.getElementById('authLogout');
+const authUsername=document.getElementById('authUsername');
+const authPassword=document.getElementById('authPassword');
+const authSection=document.querySelector('.auth-section');
+const authProfile=document.getElementById('authProfile');
+const authAvatar=document.getElementById('authAvatar');
+const authProfileName=document.getElementById('authProfileName');
+const authProfileLogout=document.getElementById('authProfileLogout');
+let authMode='login';
+
+function getUsers(){try{return JSON.parse(localStorage.getItem('donatUsers')||'{}')}catch(e){return {}}}
+function saveUsers(users){localStorage.setItem('donatUsers',JSON.stringify(users))}
+async function hashPassword(password){
+    const data=new TextEncoder().encode(password);
+    const hash=await crypto.subtle.digest('SHA-256',data);
+    return Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+function currentUser(){return localStorage.getItem('donatCurrentUser')||''}
+function setAuthError(msg){authError.textContent=msg||''}
+function updateAuthUI(){
+    const logged=currentUser();
+    if(logged){
+        authSection.style.display='none';
+        authProfile.classList.add('show');
+        authProfileName.textContent=logged;
+        authAvatar.textContent=(logged.trim()[0]||'A').toUpperCase();
+    }else{
+        authSection.style.display='flex';
+        authProfile.classList.remove('show');
+    }
+}
+function setAuthMode(mode){
+    updateAuthUI();
+    authMode=mode; setAuthError(''); authForm.reset();
+    const logged=currentUser();
+    if(logged){
+        authTitle.textContent='👤 Аккаунт';
+        authSub.textContent='Ты уже вошёл в аккаунт';
+        authForm.style.display='none';
+        authSwitchBtn.parentElement.style.display='none';
+        authUserBox.classList.add('show');
+        authUserText.textContent='👤 '+logged;
+        return;
+    }
+    authForm.style.display='flex'; authSwitchBtn.parentElement.style.display='block'; authUserBox.classList.remove('show');
+    if(mode==='register'){
+        authTitle.textContent='📝 Регистрация'; authSub.textContent='Создай аккаунт — данные сохранятся в этом браузере';
+        authSubmit.textContent='Зарегистрироваться'; authConfirmWrap.style.display='block'; authConfirm.required=true;
+        authSwitchText.textContent='Уже есть аккаунт?'; authSwitchBtn.textContent='Войти'; authPassword.autocomplete='new-password';
+    }else{
+        authTitle.textContent='🔑 Вход'; authSub.textContent='Войди в свой аккаунт';
+        authSubmit.textContent='Войти'; authConfirmWrap.style.display='none'; authConfirm.required=false;
+        authSwitchText.textContent='Нет аккаунта?'; authSwitchBtn.textContent='Зарегистрироваться'; authPassword.autocomplete='current-password';
+    }
+}
+function openAuth(mode){closeS();authOverlay.classList.add('active');setAuthMode(mode);setTimeout(()=>authUsername.focus(),50)}
+function closeAuth(){authOverlay.classList.remove('active');setAuthError('')}
+
+authForm.addEventListener('submit',async function(e){
+    e.preventDefault(); setAuthError('');
+    const username=authUsername.value.trim(); const password=authPassword.value;
+    if(!/^[a-zA-Zа-яА-ЯёЁ0-9_\-]{3,24}$/.test(username)){setAuthError('Логин: 3–24 символа, только буквы, цифры, _ или -.');return}
+    if(password.length<6){setAuthError('Пароль должен содержать минимум 6 символов.');return}
+    const users=getUsers(); const key=username.toLowerCase();
+    if(authMode==='register'){
+        if(users[key]){setAuthError('Такой логин уже зарегистрирован.');return}
+        if(password!==authConfirm.value){setAuthError('Пароли не совпадают.');return}
+        const hash=await hashPassword(password);
+        users[key]={username:username,passwordHash:hash,createdAt:new Date().toISOString()}; saveUsers(users);
+        localStorage.setItem('donatCurrentUser',username);
+        updateAuthUI();
+        showToast('✅ Регистрация успешна!'); setAuthMode('login');
+        setTimeout(closeAuth,500);
+    }else{
+        const user=users[key];
+        if(!user){setAuthError('Пользователь не найден. Сначала зарегистрируйся.');return}
+        const hash=await hashPassword(password);
+        if(hash!==user.passwordHash){setAuthError('Неверный логин или пароль.');return}
+        localStorage.setItem('donatCurrentUser',user.username);
+        updateAuthUI();
+        showToast('👋 Вход выполнен!'); setAuthMode('login');
+        setTimeout(closeAuth,500);
+    }
+});
+authSwitchBtn.onclick=function(){setAuthMode(authMode==='login'?'register':'login');authUsername.focus()};
+authClose.onclick=closeAuth;
+authOverlay.onclick=function(e){if(e.target===authOverlay)closeAuth()};
+authLogout.onclick=function(){localStorage.removeItem('donatCurrentUser');updateAuthUI();showToast('👋 Ты вышел из аккаунта');setAuthMode('login')};
+authProfileLogout.onclick=function(e){e.stopPropagation();localStorage.removeItem('donatCurrentUser');updateAuthUI();showToast('👋 Ты вышел из аккаунта')};
+authProfile.onclick=function(){openAuth('login')};
+updateAuthUI();
+lb.onclick=function(e){e.stopPropagation();openAuth('login')};
+rb.onclick=function(e){e.stopPropagation();openAuth('register')};
+
 hm.onclick=function(e){e.stopPropagation();if(ig)closeG();if(im2)closeMusic();closeS()}
 dl.onclick=function(e){e.stopPropagation();if(e.target.classList.contains('arrow')||e.target.closest('.arrow')){dt.classList.toggle('active');return}openG();dt.classList.remove('active')}
 gl.onclick=function(e){e.preventDefault();e.stopPropagation();openG();dt.classList.remove('active')}
@@ -2856,7 +3027,7 @@ dt.onclick=function(e){if(e.target.classList.contains('arrow')||e.target.closest
 bf.onclick=closeG
 cb.onclick=clickD
 ov.onclick=function(){if(ig)closeG();else if(im2)closeMusic();else if(so2)closeS();else if(is2)closeSet()}
-document.onkeydown=function(e){if(e.key==='Escape'){if(ig)closeG();else if(im2)closeMusic();else if(so2)closeS();else if(is2)closeSet()}}
+document.onkeydown=function(e){if(e.key==='Escape'){if(authOverlay.classList.contains('active')){closeAuth();return}if(ig)closeG();else if(im2)closeMusic();else if(so2)closeS();else if(is2)closeSet()}}
 dp.onclick=openG
 dm.onclick=function(){if(im2){closeMusic()}else{openMusic();setTimeout(updateMusicButtons,100)}}
 ds.onclick=function(){openSet()}
