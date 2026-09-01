@@ -853,6 +853,35 @@ body,
     text-shadow:0 0 15px #ef4444 !important;
 }
 
+
+/* =========================
+   EXTRA CASINO GAMES
+========================= */
+.extra-game-page{display:none;position:fixed;inset:0;z-index:280;padding:70px 20px 110px;overflow-y:auto;background:#100b0a;color:#fff}
+.extra-game-page.active{display:block}
+.extra-game-container{width:100%;max-width:500px;margin:auto;text-align:center}
+.extra-game-container h1{font-size:2.25rem;margin-bottom:6px}
+.extra-subtitle{opacity:.75;margin-bottom:20px}
+.extra-balance{border-radius:15px;padding:14px;margin-bottom:18px;font-size:1rem}
+.extra-balance span{font-weight:800;font-size:1.15rem}
+.extra-machine{padding:22px 15px;border-radius:25px;background:#17110f;border:2px solid currentColor;box-shadow:0 0 18px rgba(255,255,255,.12),inset 0 0 35px rgba(255,255,255,.04)}
+.extra-reels{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.extra-reel{height:105px;display:flex;align-items:center;justify-content:center;background:#090807;border:2px solid rgba(255,255,255,.2);border-radius:18px;font-size:3.1rem;box-shadow:inset 0 0 20px rgba(255,255,255,.05)}
+.extra-reel.spinning{animation:extraSpin .12s linear infinite}
+@keyframes extraSpin{0%{transform:translateY(-5px)}50%{transform:translateY(5px)}100%{transform:translateY(-5px)}}
+.extra-result{min-height:28px;margin-top:18px;font-weight:800}
+.extra-result.win{text-shadow:0 0 10px #4ade80;color:#4ade80!important}
+.extra-bet{margin-top:18px}.extra-bet label{display:block;margin-bottom:8px;opacity:.7}
+.extra-bet-controls{display:flex;gap:8px}.extra-bet-controls button{width:55px;border:none;border-radius:12px;background:rgba(255,255,255,.1);color:#fff;font-size:25px;cursor:pointer}.extra-bet-controls input{flex:1;min-width:0;text-align:center;border:1px solid currentColor;border-radius:12px;background:#0b0908;color:#fff;font-size:20px;outline:none}
+.extra-spin{width:100%;border:none;border-radius:15px;padding:17px;margin-top:14px;color:#fff;font-size:1.1rem;font-weight:900;cursor:pointer;box-shadow:0 0 15px rgba(255,255,255,.12)}
+.extra-spin:disabled{opacity:.4;cursor:not-allowed}.extra-paytable{margin-top:20px;padding:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.14);border-radius:18px;text-align:left}.extra-paytable h3{text-align:center;margin-bottom:12px}.extra-paytable div{padding:7px 0;border-bottom:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between}.extra-paytable div:last-child{border-bottom:none}.extra-paytable b{font-weight:900}.extra-back{width:100%;background:#2d211d;color:#fff;border:1px solid #59453b;padding:14px;border-radius:13px;cursor:pointer;margin-top:18px}
+#dogPage{background:#160b08;color:#f59e0b}#dogPage .extra-balance{background:rgba(245,158,11,.08);border:1px solid #f59e0b;box-shadow:0 0 18px rgba(245,158,11,.2)}#dogPage .extra-balance span,#dogPage .extra-paytable b{color:#fbbf24}#dogPage .extra-machine{border-color:#f59e0b;box-shadow:0 0 18px rgba(245,158,11,.25),inset 0 0 35px rgba(245,158,11,.06)}#dogPage .extra-reel{border-color:#7c4a09}#dogPage .extra-result{color:#fbbf24}#dogPage .extra-spin{background:linear-gradient(135deg,#d97706,#fbbf24,#f59e0b);color:#211000}
+#spiderPage{background:#080b18;color:#ef4444}#spiderPage .extra-balance{background:rgba(239,68,68,.08);border:1px solid #ef4444}#spiderPage .extra-balance span,#spiderPage .extra-paytable b{color:#60a5fa}#spiderPage .extra-machine{border-color:#ef4444;box-shadow:0 0 18px rgba(239,68,68,.25),inset 0 0 35px rgba(59,130,246,.06)}#spiderPage .extra-reel{border-color:#2563eb}#spiderPage .extra-result{color:#60a5fa}#spiderPage .extra-spin{background:linear-gradient(135deg,#b91c1c,#ef4444,#2563eb)}
+#kolobokPage{background:#171008;color:#f59e0b}#kolobokPage .extra-balance{background:rgba(245,158,11,.08);border:1px solid #f59e0b}#kolobokPage .extra-balance span,#kolobokPage .extra-paytable b{color:#fbbf24}#kolobokPage .extra-machine{border-color:#f59e0b;box-shadow:0 0 18px rgba(245,158,11,.25),inset 0 0 35px rgba(245,158,11,.06)}#kolobokPage .extra-reel{border-color:#b45309}#kolobokPage .extra-result{color:#fbbf24}#kolobokPage .extra-spin{background:linear-gradient(135deg,#d97706,#fbbf24,#f59e0b);color:#321500}
+@media(max-width:700px){.extra-game-page{padding-left:12px;padding-right:12px}.extra-reel{height:82px;font-size:2.55rem}.dock{max-width:calc(100vw - 12px);overflow-x:auto;justify-content:flex-start;scrollbar-width:none}.dock::-webkit-scrollbar{display:none}.dock-item{flex:0 0 48px;width:48px;height:48px;font-size:21px}.dock{gap:8px;padding:10px 12px}}
+
+
+.hero-visual{width:min(100%,360px);margin:10px auto 18px;display:flex;justify-content:center;filter:drop-shadow(0 0 18px rgba(59,130,246,.28));}.hero-visual svg{width:100%;height:auto;max-height:330px;display:block}.spider-hero{filter:drop-shadow(0 0 22px rgba(239,68,68,.3))}.kolobok-hero{filter:drop-shadow(0 0 22px rgba(245,158,11,.28))}.extra-game-container{position:relative}.hero-visual text{fill:#fbbf24;font-family:Arial,sans-serif;}
 </style>
 </head>
 <body>
@@ -925,6 +954,10 @@ body,
 <button class="dock-item" id="dockMusicBtn">♫</button>
 <div class="dock-divider"></div>
 <button class="dock-item" id="dockJetBtn">✈️</button>
+<div class="dock-divider"></div>
+<button class="dock-item" id="dockDogBtn" title="The Dog House">🐶</button>
+<button class="dock-item" id="dockSpiderBtn" title="Spider-Man">🕷️</button>
+<button class="dock-item" id="dockKolobokBtn" title="Колобок">🥯</button>
 <div class="dock-divider"></div>
 <button class="dock-item" id="dockSettingsBtn">⚙️</button>
 </div>
@@ -1027,6 +1060,59 @@ body,
 
     </div>
 </div>
+
+<div class="extra-game-page" id="dogPage"><div class="extra-game-container">
+<h1>🐶 The Dog House</h1><p class="extra-subtitle">Лови лапки и собирай выигрыш!</p>
+<div class="extra-balance">💎 Баланс: <span id="dogBalance">0</span></div>
+<div class="extra-machine"><div class="extra-reels"><div class="extra-reel" id="dogReel1">🐶</div><div class="extra-reel" id="dogReel2">🦴</div><div class="extra-reel" id="dogReel3">🐾</div></div><div class="extra-result" id="dogResult">Сделай ставку и крути!</div></div>
+<div class="extra-bet"><label>💎 Ставка</label><div class="extra-bet-controls"><button id="dogBetMinus">−</button><input id="dogBet" type="number" min="1" value="10"><button id="dogBetPlus">+</button></div></div>
+<button class="extra-spin" id="dogSpin">🐶 КРУТИТЬ</button>
+<div class="extra-paytable"><h3>🏆 ВЫИГРЫШИ</h3><div>🐶 🐶 🐶 <b>50x</b></div><div>🦴 🦴 🦴 <b>25x</b></div><div>🐾 🐾 🐾 <b>15x</b></div><div>🐶 🦴 🐾 <b>5x</b></div><div>Любые 2 одинаковых <b>2x</b></div></div>
+<button class="extra-back" id="dogBack">← Назад</button></div></div>
+
+<div class="extra-game-page" id="spiderPage"><div class="extra-game-container">
+<h1>🕷️ SPIDER-MAN</h1><div class="hero-visual spider-hero" aria-label="Spider-Man">
+<svg viewBox="0 0 320 330" role="img" aria-label="Человек-паук">
+<defs><radialGradient id="spiderGlow"><stop offset="0"/><stop offset="1" stop-opacity="0"/></radialGradient></defs>
+<circle cx="160" cy="150" r="145" fill="url(#spiderGlow)" opacity=".45"/>
+<path d="M80 310 C88 250 103 222 125 205 L125 165 L195 165 L195 205 C217 222 232 250 240 310 Z" fill="#164e9a" stroke="#ef4444" stroke-width="8"/>
+<path d="M125 205 L105 300 M195 205 L215 300" stroke="#ef4444" stroke-width="7"/>
+<ellipse cx="160" cy="105" rx="61" ry="73" fill="#d92b32" stroke="#111827" stroke-width="7"/>
+<path d="M105 92 Q160 55 215 92 M103 116 Q160 82 217 116 M112 141 Q160 112 208 141" fill="none" stroke="#111827" stroke-width="4"/>
+<path d="M160 32 V177 M120 48 L160 177 L200 48 M103 75 L160 177 L217 75 M96 113 L160 177 L224 113" fill="none" stroke="#111827" stroke-width="4"/>
+<path d="M124 88 Q101 83 94 99 Q106 108 126 103 Z" fill="white" stroke="#111827" stroke-width="6"/>
+<path d="M196 88 Q219 83 226 99 Q214 108 194 103 Z" fill="white" stroke="#111827" stroke-width="6"/>
+<path d="M160 183 C147 201 140 216 160 228 C180 216 173 201 160 183 Z" fill="#111827"/>
+<path d="M160 190 L160 225 M148 199 L172 211 M172 199 L148 211" stroke="#ef4444" stroke-width="3"/>
+</svg></div><p class="extra-subtitle">Сила паутины решает всё!</p>
+<div class="extra-balance">💎 Баланс: <span id="spiderBalance">0</span></div>
+<div class="extra-machine"><div class="extra-reels"><div class="extra-reel" id="spiderReel1">🕷️</div><div class="extra-reel" id="spiderReel2">🕸️</div><div class="extra-reel" id="spiderReel3">🦸</div></div><div class="extra-result" id="spiderResult">Сделай ставку и крути!</div></div>
+<div class="extra-bet"><label>💎 Ставка</label><div class="extra-bet-controls"><button id="spiderBetMinus">−</button><input id="spiderBet" type="number" min="1" value="10"><button id="spiderBetPlus">+</button></div></div>
+<button class="extra-spin" id="spiderSpin">🕷️ КРУТИТЬ</button>
+<div class="extra-paytable"><h3>🏆 ВЫИГРЫШИ</h3><div>🕷️ 🕷️ 🕷️ <b>50x</b></div><div>🕸️ 🕸️ 🕸️ <b>25x</b></div><div>🦸 🦸 🦸 <b>15x</b></div><div>🕷️ 🕸️ 🦸 <b>5x</b></div><div>Любые 2 одинаковых <b>2x</b></div></div>
+<button class="extra-back" id="spiderBack">← Назад</button></div></div>
+
+<div class="extra-game-page" id="kolobokPage"><div class="extra-game-container">
+<h1>🥯 КОЛОБОК</h1><div class="hero-visual kolobok-hero" aria-label="Колобок">
+<svg viewBox="0 0 320 330" role="img" aria-label="Колобок">
+<defs><radialGradient id="kGlow"><stop offset="0"/><stop offset="1" stop-opacity="0"/></radialGradient><linearGradient id="kBody" x1="0" y1="0" x2="1" y2="1"><stop offset="0"/><stop offset="1"/></linearGradient></defs>
+<circle cx="160" cy="150" r="145" fill="url(#kGlow)" opacity=".5"/>
+<circle cx="160" cy="158" r="92" fill="url(#kBody)" stroke="#92400e" stroke-width="8"/>
+<path d="M91 148 Q160 92 229 148" fill="none" stroke="#fef3c7" stroke-width="7" opacity=".6"/>
+<circle cx="130" cy="145" r="10" fill="#1f2937"/><circle cx="190" cy="145" r="10" fill="#1f2937"/>
+<path d="M125 180 Q160 207 195 180" fill="none" stroke="#7c2d12" stroke-width="8" stroke-linecap="round"/>
+<circle cx="107" cy="170" r="13" fill="#fb7185" opacity=".7"/><circle cx="213" cy="170" r="13" fill="#fb7185" opacity=".7"/>
+<path d="M85 238 Q160 270 235 238" fill="none" stroke="#f59e0b" stroke-width="10" stroke-linecap="round"/>
+<path d="M90 240 Q75 258 68 278 M230 240 Q245 258 252 278" stroke="#92400e" stroke-width="9" stroke-linecap="round"/>
+<text x="160" y="310" text-anchor="middle" font-size="25" font-weight="900">КОЛОБОК</text>
+</svg></div><p class="extra-subtitle">От бабушки ушёл — выигрыш забрал!</p>
+<div class="extra-balance">💎 Баланс: <span id="kolobokBalance">0</span></div>
+<div class="extra-machine"><div class="extra-reels"><div class="extra-reel" id="kolobokReel1">🥯</div><div class="extra-reel" id="kolobokReel2">🐰</div><div class="extra-reel" id="kolobokReel3">🦊</div></div><div class="extra-result" id="kolobokResult">Сделай ставку и крути!</div></div>
+<div class="extra-bet"><label>💎 Ставка</label><div class="extra-bet-controls"><button id="kolobokBetMinus">−</button><input id="kolobokBet" type="number" min="1" value="10"><button id="kolobokBetPlus">+</button></div></div>
+<button class="extra-spin" id="kolobokSpin">🥯 КРУТИТЬ</button>
+<div class="extra-paytable"><h3>🏆 ВЫИГРЫШИ</h3><div>🥯 🥯 🥯 <b>50x</b></div><div>🐰 🐰 🐰 <b>25x</b></div><div>🦊 🦊 🦊 <b>15x</b></div><div>🥯 🐰 🦊 <b>5x</b></div><div>Любые 2 одинаковых <b>2x</b></div></div>
+<button class="extra-back" id="kolobokBack">← Назад</button></div></div>
+
 <div class="settings-overlay" id="settingsOverlay"></div>
 <div class="settings-panel" id="settingsPanel">
 <h2>⚙️ Настройки</h2>
@@ -1665,6 +1751,54 @@ slotBetPlus.onclick=function(){
     slotBet.value=
         Number(slotBet.value)+10;
 };
+
+/* =========================
+   EXTRA CASINO GAMES
+========================= */
+const extraGames=[
+ {key:'dog',page:'dogPage',button:'dockDogBtn',back:'dogBack',spin:'dogSpin',bet:'dogBet',minus:'dogBetMinus',plus:'dogBetPlus',balance:'dogBalance',result:'dogResult',reels:['dogReel1','dogReel2','dogReel3'],symbols:['🐶','🦴','🐾','🏠','⭐'],payouts:{'🐶':50,'🦴':25,'🐾':15},combo:['🐶','🦴','🐾'],winText:'🎉 Выигрыш',loseText:'😵 Не повезло!'},
+ {key:'spider',page:'spiderPage',button:'dockSpiderBtn',back:'spiderBack',spin:'spiderSpin',bet:'spiderBet',minus:'spiderBetMinus',plus:'spiderBetPlus',balance:'spiderBalance',result:'spiderResult',reels:['spiderReel1','spiderReel2','spiderReel3'],symbols:['🕷️','🕸️','🦸','🏙️','⭐'],payouts:{'🕷️':50,'🕸️':25,'🦸':15},combo:['🕷️','🕸️','🦸'],winText:'🎉 Выигрыш',loseText:'😵 Не повезло!'},
+ {key:'kolobok',page:'kolobokPage',button:'dockKolobokBtn',back:'kolobokBack',spin:'kolobokSpin',bet:'kolobokBet',minus:'kolobokBetMinus',plus:'kolobokBetPlus',balance:'kolobokBalance',result:'kolobokResult',reels:['kolobokReel1','kolobokReel2','kolobokReel3'],symbols:['🥯','🐰','🦊','🐺','⭐'],payouts:{'🥯':50,'🐰':25,'🦊':15},combo:['🥯','🐰','🦊'],winText:'🎉 Выигрыш',loseText:'🦊 Лиса съела выигрыш!'}
+];
+const extraState={};
+function closeExtraGames(){
+ extraGames.forEach(x=>{const p=document.getElementById(x.page);if(p)p.classList.remove('active');if(extraState[x.key])extraState[x.key].running=false;});
+ document.querySelector('.content').style.display='flex';
+}
+function openExtraGame(x){
+ closeS();
+ if(ig)closeG();
+ if(im2)closeMusic();
+ if(typeof jetPage!=='undefined'&&jetPage.classList.contains('active'))closeJet();
+ if(typeof slotPage!=='undefined'&&slotPage.classList.contains('active'))closeSlot();
+ closeExtraGames();
+ document.querySelector('.content').style.display='none';
+ document.getElementById(x.page).classList.add('active');
+ document.getElementById(x.balance).textContent=Math.floor(g.d);
+}
+function initExtraGame(x){
+ const st={running:false};extraState[x.key]=st;
+ const page=document.getElementById(x.page),btn=document.getElementById(x.button),back=document.getElementById(x.back),spin=document.getElementById(x.spin),bet=document.getElementById(x.bet),minus=document.getElementById(x.minus),plus=document.getElementById(x.plus),balance=document.getElementById(x.balance),result=document.getElementById(x.result),reels=x.reels.map(id=>document.getElementById(id));
+ function symbol(){return x.symbols[Math.floor(Math.random()*x.symbols.length)]}
+ function mult(a,b,c){if(a===b&&b===c&&x.payouts[a])return x.payouts[a];if(a===x.combo[0]&&b===x.combo[1]&&c===x.combo[2])return 5;if(a===b||a===c||b===c)return 2;return 0}
+ function refresh(){balance.textContent=Math.floor(g.d)}
+ function close(){if(st.running)return;page.classList.remove('active');document.querySelector('.content').style.display='flex'}
+ function spinGame(){
+  if(st.running)return;const amount=Math.floor(Number(bet.value));
+  if(!amount||amount<1){showToast('❌ Введи ставку');return}
+  if(amount>g.d){showToast('❌ Недостаточно Donat');return}
+  g.d-=amount;save();upd();refresh();st.running=true;spin.disabled=true;result.classList.remove('win');result.textContent='🎰 Крутим...';reels.forEach(r=>r.classList.add('spinning'));
+  const timer=setInterval(()=>reels.forEach(r=>r.textContent=symbol()),80);
+  setTimeout(()=>{clearInterval(timer);const a=symbol(),b=symbol(),c=symbol();reels[0].textContent=a;reels[1].textContent=b;reels[2].textContent=c;reels.forEach(r=>r.classList.remove('spinning'));const m=mult(a,b,c);
+   if(m){const win=Math.floor(amount*m);g.d+=win;save();upd();refresh();result.textContent='🎉 Выигрыш '+m+'x — +'+win+' Donat!';result.classList.add('win');showToast('🎉 '+x.key+' '+m+'x!')}else{result.textContent=x.loseText;showToast('😵 Попробуй ещё раз!')}
+   st.running=false;spin.disabled=false;
+  },1200);
+ }
+ btn.onclick=()=>openExtraGame(x);back.onclick=close;spin.onclick=spinGame;minus.onclick=()=>bet.value=Math.max(1,Number(bet.value)-10);plus.onclick=()=>bet.value=Number(bet.value)+10;
+}
+extraGames.forEach(initExtraGame);
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){const active=extraGames.find(x=>document.getElementById(x.page).classList.contains('active'));if(active){if(!extraState[active.key].running){document.getElementById(active.page).classList.remove('active');document.querySelector('.content').style.display='flex';}}}});
+
 setInterval(dt2,1000);dt2();loadTheme();load();
 
 </script>
