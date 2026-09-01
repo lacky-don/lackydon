@@ -4338,6 +4338,229 @@ setInterval(dt2,1000);dt2();loadTheme();load();
   render();
   updatePremiumProfile();
 })();
+
+
+/* ===== ИСПРАВЛЕНИЕ СТРАНИЦЫ "МОИ БИЗНЕСЫ" ===== */
+(function(){
+  const page = document.getElementById('businessesPage');
+  const menu = document.getElementById('businessesMenuItem');
+  const back = document.getElementById('businessesBack');
+  const list = document.getElementById('businessesList');
+  const summary = document.getElementById('businessesSummary');
+  const status = document.getElementById('businessesStatus');
+  const balance = document.getElementById('businessesBalance');
+  const employeeModal = document.getElementById('employeeModal');
+  const employeeClose = document.getElementById('employeeClose');
+  const employeeTarget = document.getElementById('employeeTarget');
+  const employeeList = document.getElementById('employeeList');
+
+  if(!page || !menu || !list) return;
+
+  const EMPLOYEES = [
+    {id:'trainee', icon:'🧑‍💼', name:'Стажёр', desc:'+10% эффективности бизнеса', hire:250, salary:8, bonus:.10},
+    {id:'specialist', icon:'👨‍💻', name:'Специалист', desc:'+22% эффективности бизнеса', hire:700, salary:18, bonus:.22},
+    {id:'manager', icon:'🧑‍💼', name:'Менеджер', desc:'+40% эффективности бизнеса', hire:1800, salary:40, bonus:.40},
+    {id:'director', icon:'👔', name:'Директор', desc:'+70% эффективности бизнеса', hire:5000, salary:90, bonus:.70}
+  ];
+
+  function currentUser(){ return localStorage.getItem('donatCurrentUser') || ''; }
+  function businessKey(){ const u=currentUser(); return 'donatBusinessProfile_'+(u?u.toLowerCase():'guest'); }
+  function loadBusinessState(){
+    try{
+      const st=JSON.parse(localStorage.getItem(businessKey())||'{"staff":{},"lastExpense":0}');
+      st.staff = st.staff && typeof st.staff==='object' ? st.staff : {};
+      st.lastExpense = Number(st.lastExpense)||0;
+      return st;
+    }catch(e){ return {staff:{},lastExpense:0}; }
+  }
+  function saveBusinessState(st){ localStorage.setItem(businessKey(), JSON.stringify(st)); }
+
+  const businessCatalog = {
+    bz1:['🏪','Продуктовый магазин',.02,1500],
+    bz2:['☕','Кофейня',.04,4000],
+    bz3:['🧼','Автомойка',.06,8000],
+    bz4:['💇','Салон красоты',.08,12000],
+    bz5:['🍽️','Ресторан',.10,20000],
+    bz6:['🎵','Ночной клуб',.13,35000],
+    bz7:['🏨','Отель',.17,60000],
+    bz8:['🏦','Банк',.22,100000],
+    bz9:['💻','IT-компания',.28,160000],
+    bz10:['🛍️','Торговый центр',.35,250000],
+    bz11:['🏢','Корпорация',.45,500000],
+    bz12:['🌆','Бизнес-империя',.60,1000000]
+  };
+
+  function ownedBusinesses(){
+    const st = typeof getShopAccountState==='function' ? getShopAccountState() : {owned:[]};
+    return (st.owned||[]).filter(id=>businessCatalog[id]);
+  }
+  function staffCount(id, st){ const s=st.staff[id]||{}; return EMPLOYEES.reduce((n,e)=>n+(Number(s[e.id])||0),0); }
+  function staffCostPerMinute(id, st){
+    const s=st.staff[id]||{};
+    return EMPLOYEES.reduce((n,e)=>n+(Number(s[e.id])||0)*e.salary,0);
+  }
+  function staffBonus(id, st){
+    const s=st.staff[id]||{};
+    return EMPLOYEES.reduce((n,e)=>n+(Number(s[e.id])||0)*e.bonus,0);
+  }
+  function efficiency(id, st){
+    const count=staffCount(id,st);
+    if(count<=0) return 0;
+    return Math.min(1.6, 0.5 + staffBonus(id,st));
+  }
+  function totalBusinessBonusStaffed(){
+    const st=loadBusinessState();
+    return ownedBusinesses().reduce((sum,id)=>sum+businessCatalog[id][2]*efficiency(id,st),0);
+  }
+  function totalBusinessExpenses(){
+    const st=loadBusinessState();
+    return ownedBusinesses().reduce((sum,id)=>sum+staffCostPerMinute(id,st)+businessCatalog[id][3]*0.001,0);
+  }
+  function businessesIncomePaused(){
+    const owns=ownedBusinesses();
+    if(!owns.length) return false;
+    const st=loadBusinessState();
+    return owns.some(id=>staffCount(id,st)<=0) || (totalBusinessExpenses()>0 && g.d < totalBusinessExpenses());
+  }
+  function processBusinessExpenses(){
+    const owns=ownedBusinesses();
+    if(!owns.length) return;
+    const st=loadBusinessState();
+    const now=Date.now();
+    if(!st.lastExpense) st.lastExpense=now;
+    const mins=Math.floor((now-st.lastExpense)/60000);
+    if(mins<=0) return;
+    const expense=Math.ceil(totalBusinessExpenses()*mins);
+    if(expense>0){
+      g.d=Math.max(0,g.d-expense);
+      saveBusinessState({...st,lastExpense:now});
+      if(typeof save==='function') save();
+      if(typeof upd==='function') upd();
+      showToast('💼 Зарплаты и налоги: −'+expense+' 💎');
+    } else {
+      st.lastExpense=now; saveBusinessState(st);
+    }
+  }
+  window.totalBusinessBonusStaffed=totalBusinessBonusStaffed;
+  window.totalBusinessExpenses=totalBusinessExpenses;
+  window.businessesIncomePaused=businessesIncomePaused;
+  window.processBusinessExpenses=processBusinessExpenses;
+
+  function money(n){ return Number(n||0).toLocaleString('ru-RU'); }
+
+  function closeOtherPages(){
+    try{ if(typeof closeS==='function') closeS(); }catch(e){}
+    try{ if(typeof closeSet==='function') closeSet(); }catch(e){}
+    try{ if(typeof closeMusic==='function') closeMusic(); }catch(e){}
+    try{ if(typeof closeG==='function') closeG(); }catch(e){}
+    try{ document.getElementById('shopPage')?.classList.remove('active'); }catch(e){}
+  }
+
+  function renderPage(){
+    const user=currentUser();
+    if(!user){
+      summary.innerHTML='';
+      status.className='businesses-status active paused';
+      status.textContent='🔐 Войди в аккаунт, чтобы управлять бизнесами и сотрудниками.';
+      list.innerHTML='<div class="business-card"><h3>Нет авторизации</h3><p class="business-desc">После входа здесь появятся купленные бизнесы.</p></div>';
+      balance.textContent=Math.floor(g.d||0);
+      return;
+    }
+    const owns=ownedBusinesses();
+    const st=loadBusinessState();
+    if(!owns.length){
+      status.className='businesses-status active paused';
+      status.textContent='💼 У тебя пока нет купленных бизнесов. Купи бизнес в магазине.';
+      summary.innerHTML='';
+      list.innerHTML='<div class="business-card"><h3>Мои бизнесы</h3><p class="business-desc">Здесь появятся твои бизнесы после покупки.</p></div>';
+      balance.textContent=Math.floor(g.d||0);
+      return;
+    }
+
+    const exp=totalBusinessExpenses();
+    const bonus=totalBusinessBonusStaffed();
+    const paused=businessesIncomePaused();
+    status.className='businesses-status active '+(paused?'paused':'ok');
+    status.textContent=paused
+      ? '⛔ Доход от бизнеса остановлен: нужны сотрудники и деньги на зарплаты/налоги.'
+      : '✅ Бизнес работает. Зарплаты и налоги списываются автоматически.';
+    summary.innerHTML=`
+      <div class="business-summary-card"><span>📊 Бонус бизнеса</span><strong>+${Math.round(bonus*100)}%</strong></div>
+      <div class="business-summary-card"><span>👥 Сотрудники</span><strong>${owns.reduce((n,id)=>n+staffCount(id,st),0)}</strong></div>
+      <div class="business-summary-card"><span>🧾 Расходы/мин</span><strong>${money(Math.ceil(exp))} 💎</strong></div>`;
+    balance.textContent=Math.floor(g.d||0);
+
+    list.innerHTML=owns.map(id=>{
+      const x=businessCatalog[id]; const count=staffCount(id,st); const eff=efficiency(id,st);
+      const bonusNow=x[2]*eff;
+      const expense=staffCostPerMinute(id,st)+x[3]*0.001;
+      return `<article class="business-card">
+        <h3>${x[0]} ${x[1]}</h3>
+        <div class="business-desc">Базовый бонус +${Math.round(x[2]*100)}% · эффективность команды ×${eff.toFixed(2)}</div>
+        <div class="business-metrics">
+          <div class="business-metric">👥 Сотрудники<b class="employee-count">${count}</b></div>
+          <div class="business-metric">📈 Бонус сейчас<b class="business-profit">+${Math.round(bonusNow*100)}%</b></div>
+          <div class="business-metric">💰 Расходы<b class="business-expense">${money(Math.ceil(expense))} 💎/мин</b></div>
+          <div class="business-metric">🏷️ Владелец<b>${money(x[3])} 💎</b></div>
+        </div>
+        <button type="button" data-manage-business="${id}">👥 Управлять сотрудниками</button>
+      </article>`;
+    }).join('');
+
+    list.querySelectorAll('[data-manage-business]').forEach(btn=>btn.onclick=()=>openEmployees(btn.dataset.manageBusiness));
+  }
+
+  function openBusinesses(){
+    closeOtherPages();
+    page.classList.add('active');
+    if(typeof document!=='undefined' && document.body) document.body.style.overflow='hidden';
+    renderPage();
+  }
+  function closeBusinesses(){
+    page.classList.remove('active');
+    document.body.style.overflow='';
+  }
+  window.refreshBusinessPage=renderPage;
+  menu.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); openBusinesses(); });
+  if(back) back.addEventListener('click', closeBusinesses);
+
+  let currentBusinessId=null;
+  function openEmployees(id){
+    currentBusinessId=id;
+    const x=businessCatalog[id]; if(!x) return;
+    const st=loadBusinessState();
+    employeeTarget.textContent=`${x[0]} ${x[1]} · сотрудников: ${staffCount(id,st)}`;
+    employeeList.innerHTML=EMPLOYEES.map(e=>{
+      const cnt=Number((st.staff[id]||{})[e.id])||0;
+      const can=(g.d||0)>=e.hire;
+      return `<div class="employee-row">
+        <div class="employee-icon">${e.icon}</div>
+        <div><h4>${e.name} × ${cnt}</h4><p>${e.desc}<br>Найм: ${money(e.hire)} 💎 · Зарплата: ${e.salary} 💎/мин</p></div>
+        <button data-hire-employee="${e.id}" ${can?'':'disabled'}>+ Нанять</button>
+      </div>`;
+    }).join('');
+    employeeModal.classList.add('active');
+    employeeList.querySelectorAll('[data-hire-employee]').forEach(btn=>btn.onclick=()=>hireEmployee(btn.dataset.hireEmployee));
+  }
+  function hireEmployee(type){
+    if(!currentBusinessId) return;
+    const emp=EMPLOYEES.find(e=>e.id===type); if(!emp) return;
+    if((g.d||0)<emp.hire){ showToast('❌ Не хватает донатов на найм'); return; }
+    const st=loadBusinessState();
+    if(!st.staff[currentBusinessId]) st.staff[currentBusinessId]={};
+    st.staff[currentBusinessId][type]=(Number(st.staff[currentBusinessId][type])||0)+1;
+    g.d-=emp.hire;
+    saveBusinessState(st); if(typeof save==='function')save(); if(typeof upd==='function')upd();
+    renderPage(); openEmployees(currentBusinessId);
+    showToast('👥 '+emp.name+' нанят');
+  }
+  if(employeeClose) employeeClose.onclick=()=>employeeModal.classList.remove('active');
+  if(employeeModal) employeeModal.addEventListener('click',e=>{if(e.target===employeeModal)employeeModal.classList.remove('active');});
+
+  /* Если страница была открыта/перезагружена — сразу восстановить состояние. */
+  window.addEventListener('storage', ()=>renderPage());
+
+})();
 </script>
 </body>
 </html>
