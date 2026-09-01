@@ -3146,8 +3146,20 @@ function totalBusinessBonus(){
   return st.owned.reduce((sum,id)=>sum+businessBonus(id),0);
 }
 function businessExpensesPerMinute(){ let total=maintenancePerMinute(); if(typeof totalBusinessExpenses==='function') total+=Number(totalBusinessExpenses()||0); return total; }
-function canMaintainBusiness(){ const cost=businessExpensesPerMinute(); return cost<=0 || g.d>=cost; }
-function effectiveIncome(){let mult=1+(officeOwned()?0.35:0); if(!canMaintainBusiness()) return 0; if(typeof businessesIncomePaused==='function'&&businessesIncomePaused()) return 0; if(typeof totalBusinessBonusStaffed==='function') mult += totalBusinessBonusStaffed(); const businessNet=(typeof totalBusinessNetProfitPerMinute==='function'?totalBusinessNetProfitPerMinute()/60:0); return g.i*mult + businessNet;}
+function canMaintainBusiness(){
+  const cost=businessExpensesPerMinute();
+  /* Никакого обнуления: если денег не хватает на полный обязательный платёж,
+     автоматический доход просто ставится на паузу до пополнения баланса. */
+  return cost<=0 || g.d>=cost;
+}
+function effectiveIncome(){
+  let mult=1+(officeOwned()?0.35:0);
+  if(!canMaintainBusiness()) return 0;
+  if(typeof businessesIncomePaused==='function'&&businessesIncomePaused()) return 0;
+  if(typeof totalBusinessBonusStaffed==='function') mult += totalBusinessBonusStaffed();
+  const businessNet=(typeof totalBusinessNetProfitPerMinute==='function'?totalBusinessNetProfitPerMinute()/60:0);
+  return g.i*mult + businessNet;
+}
 function maintenancePerMinute(){
   const st=getShopAccountState();
   return st.owned.reduce((sum,id)=>sum+shopPrice(id)*0.01,0);
@@ -3160,8 +3172,18 @@ function processMaintenance(){
   const mins=Math.floor((now-st.lastMaintenance)/60000);
   if(mins<=0)return;
   const fee=Math.floor(maintenancePerMinute()*mins);
-  if(fee>0){g.d=Math.max(0,g.d-fee);showToast('🧾 Обслуживание: −'+fee+' 💎');}
-  st.lastMaintenance=now;
+  if(fee<=0){
+    st.lastMaintenance=now;
+  }else if(g.d>=fee){
+    g.d-=fee;
+    st.lastMaintenance=now;
+    showToast('🧾 Обслуживание: −'+fee+' 💎');
+    save();
+  }else{
+    /* Денег не хватило — ничего не удаляем и не списываем частично.
+       Бизнес/покупки остаются на месте, автоматический доход заморожен. */
+    showToast('⏸️ Бизнесы заморожены: не хватает на обслуживание. Заработай USDT кликами.');
+  }
   const u=localStorage.getItem('donatCurrentUser')||'';
   localStorage.setItem('donatShopProfile_'+(u?u.toLowerCase():'guest'),JSON.stringify(st));
 }
@@ -4614,9 +4636,9 @@ setInterval(dt2,1000);dt2();loadTheme();load();
     const owns=ownedBusinesses();
     if(!owns.length) return false;
     const st=loadBusinessState();
-    /* Без сотрудников бизнес не работает. Сам бизнес при этом рассчитан так,
-       чтобы после запуска его валовая прибыль всегда превышала расходы. */
-    return owns.some(id=>staffCount(id,st)<=0);
+    /* Без сотрудников бизнес не работает, но сам бизнес и его покупки сохраняются. */
+    if(owns.some(id=>staffCount(id,st)<=0)) return true;
+    return false;
   }
   function processBusinessExpenses(){
     const owns=ownedBusinesses();
@@ -4628,13 +4650,22 @@ setInterval(dt2,1000);dt2();loadTheme();load();
     if(mins<=0) return;
     const expense=Math.ceil(totalBusinessExpenses()*mins);
     if(expense>0){
-      g.d=Math.max(0,g.d-expense);
-      saveBusinessState({...st,lastExpense:now});
-      if(typeof save==='function') save();
-      if(typeof upd==='function') upd();
-      showToast('💼 Зарплаты и налоги: −'+expense+' 💎');
+      if(g.d>=expense){
+        /* Списываем только если можем оплатить весь счёт.
+           Частичного списания нет — активы и сотрудники не пропадают. */
+        g.d-=expense;
+        st.lastExpense=now;
+        saveBusinessState(st);
+        if(typeof save==='function') save();
+        if(typeof upd==='function') upd();
+        showToast('💼 Зарплаты и налоги: −'+expense+' 💎');
+      }else{
+        /* Не хватает денег: бизнесы просто заморожены до пополнения. */
+        showToast('⏸️ Бизнесы заморожены: не хватает на зарплаты и налоги.');
+      }
     } else {
-      st.lastExpense=now; saveBusinessState(st);
+      st.lastExpense=now;
+      saveBusinessState(st);
     }
   }
   window.totalBusinessBonusStaffed=totalBusinessBonusStaffed;
