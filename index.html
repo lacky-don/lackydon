@@ -308,8 +308,8 @@ body{background:#121212;color:#fff;font-family:Segoe UI,sans-serif;display:flex;
 .menu-btn.active span:nth-child(3){transform:rotate(-45deg)translate(5px,-5px)}
 .info-btn{background:rgba(255,255,255,0.1);color:#fff;border:none;padding:8px 16px;border-radius:20px;cursor:pointer;font-size:.85rem;font-weight:600}
 .info-btn:hover{background:rgba(255,255,255,0.2)}
-.dock{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);display:flex;gap:12px;padding:14px 20px;background:rgba(255,255,255,0.12);backdrop-filter:blur(30px);border-radius:50px;z-index:90}
-.dock-item{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,0.08);border:2px solid rgba(255,255,255,0.1);color:#fff;font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;text-decoration:none}
+.dock{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:7px;padding:8px 12px;background:rgba(255,255,255,0.12);backdrop-filter:blur(30px);border-radius:50px;z-index:90}
+.dock-item{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.08);border:2px solid rgba(255,255,255,0.1);color:#fff;font-size:19px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;text-decoration:none}
 .dock-item:hover{transform:translateY(-8px)scale(1.08);background:rgba(255,255,255,0.2)}
 .dock-divider{width:1px;height:30px;background:rgba(255,255,255,0.1)}
 .overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:50;opacity:0;visibility:hidden;transition:all .4s}
@@ -363,6 +363,143 @@ body{background:#121212;color:#fff;font-family:Segoe UI,sans-serif;display:flex;
 .dropdown.active .arrow{transform:rotate(180deg)}
 .content{display:flex;flex-direction:column;align-items:center;justify-content:center;height:calc(100vh-120px);padding:20px}
 .content iframe{border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.3);max-width:100%;background:#fff}
+.games-showcase{
+    width:min(100%,760px);
+    margin:auto;
+}
+.games-showcase-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    margin-bottom:18px;
+}
+.games-showcase-head h2{
+    font-size:2rem;
+    margin-bottom:4px;
+}
+.games-showcase-head p{
+    opacity:.65;
+    font-size:.9rem;
+}
+.games-nav{
+    display:flex;
+    gap:8px;
+}
+.games-arrow{
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    border:1px solid #38bdf8;
+    background:rgba(56,189,248,.08);
+    color:#fff;
+    font-size:30px;
+    line-height:1;
+    cursor:pointer;
+    box-shadow:0 0 10px rgba(56,189,248,.25);
+    transition:.2s;
+}
+.games-arrow:hover{
+    transform:scale(1.08);
+    background:rgba(56,189,248,.18);
+    box-shadow:0 0 16px rgba(56,189,248,.55);
+}
+.games-slider{
+    display:flex;
+    gap:16px;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    scroll-behavior:smooth;
+    padding:8px 4px 18px;
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+}
+.games-slider::-webkit-scrollbar{display:none}
+.game-card{
+    flex:0 0 min(78vw,300px);
+    min-height:245px;
+    scroll-snap-align:center;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:flex-start;
+    text-align:left;
+    padding:24px;
+    border-radius:24px;
+    border:1px solid rgba(56,189,248,.5);
+    background:
+        radial-gradient(circle at 85% 15%,rgba(56,189,248,.18),transparent 35%),
+        rgba(255,255,255,.07);
+    color:#fff;
+    cursor:pointer;
+    box-shadow:0 0 16px rgba(56,189,248,.12),inset 0 0 25px rgba(255,255,255,.025);
+    transition:transform .2s,box-shadow .2s,border-color .2s;
+}
+.game-card:hover{
+    transform:translateY(-5px);
+    border-color:#38bdf8;
+    box-shadow:0 0 22px rgba(56,189,248,.35),inset 0 0 25px rgba(56,189,248,.05);
+}
+.game-card:active{transform:scale(.98)}
+.game-card-icon{
+    font-size:58px;
+    margin-bottom:14px;
+    filter:drop-shadow(0 0 10px rgba(255,255,255,.18));
+}
+.game-card-title{
+    font-size:1.35rem;
+    font-weight:800;
+    margin-bottom:7px;
+}
+.game-card-desc{
+    opacity:.68;
+    line-height:1.4;
+    font-size:.9rem;
+}
+.game-card-action{
+    margin-top:auto;
+    padding-top:18px;
+    color:#38bdf8;
+    font-weight:800;
+}
+.games-dots{
+    display:flex;
+    justify-content:center;
+    gap:7px;
+    margin-top:2px;
+}
+.games-dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:rgba(255,255,255,.25);
+    border:0;
+    padding:0;
+    transition:.2s;
+}
+.games-dot.active{
+    width:24px;
+    border-radius:8px;
+    background:#38bdf8;
+    box-shadow:0 0 10px rgba(56,189,248,.7);
+}
+body.light-theme .game-card{
+    color:#222;
+    background:rgba(0,0,0,.045);
+    border-color:rgba(14,165,233,.45);
+}
+body.light-theme .games-arrow{color:#222}
+body.blue-theme .game-card{
+    color:#082f49;
+    background:rgba(255,255,255,.32);
+}
+@media(max-width:600px){
+    .games-showcase{width:100%}
+    .games-showcase-head h2{font-size:1.65rem}
+    .game-card{flex-basis:82vw;min-height:225px;padding:20px}
+    .game-card-icon{font-size:50px}
+}
+
 .game-page{display:none;position:fixed;top:0;left:0;width:100%;height:100vh;background:#1a1a2e;z-index:200;padding:20px;overflow-y:auto}
 .game-page.active{display:block}
 .game-container{max-width:500px;margin:0 auto;padding:30px 20px;text-align:center}
@@ -615,7 +752,7 @@ body,
 .volume-control .vol-value{font-size:.85rem;color:#666;width:40px;text-align:center;font-weight:600}
 .volume-control input[type="range"]:hover{background:#555}
 .volume-control input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.1);box-shadow:0 0 12px rgba(255,107,53,0.5)}
-@media(max-width:600px){.dock{padding:10px 14px;gap:8px}.dock-item{width:44px;height:44px;font-size:20px}.content iframe{width:100%;height:auto;aspect-ratio:345/560}.settings-panel{padding:25px 18px}.music-container{padding:0 5px}.volume-control{padding:8px 12px;gap:8px}.volume-control .vol-icon{font-size:1rem;width:24px}.volume-control .vol-value{font-size:.75rem;width:32px}}
+@media(max-width:600px){.dock{padding:7px 9px;gap:5px}.dock-item{width:38px;height:38px;font-size:17px}.content iframe{width:100%;height:auto;aspect-ratio:345/560}.settings-panel{padding:25px 18px}.music-container{padding:0 5px}.volume-control{padding:8px 12px;gap:8px}.volume-control .vol-icon{font-size:1rem;width:24px}.volume-control .vol-value{font-size:.75rem;width:32px}}
 /* 💙 НЕОН НЕ ПРОПАДАЕТ */
 
 /* Кнопка времени */
@@ -878,10 +1015,1388 @@ body,
 #dogPage{background:#160b08;color:#f59e0b}#dogPage .extra-balance{background:rgba(245,158,11,.08);border:1px solid #f59e0b;box-shadow:0 0 18px rgba(245,158,11,.2)}#dogPage .extra-balance span,#dogPage .extra-paytable b{color:#fbbf24}#dogPage .extra-machine{border-color:#f59e0b;box-shadow:0 0 18px rgba(245,158,11,.25),inset 0 0 35px rgba(245,158,11,.06)}#dogPage .extra-reel{border-color:#7c4a09}#dogPage .extra-result{color:#fbbf24}#dogPage .extra-spin{background:linear-gradient(135deg,#d97706,#fbbf24,#f59e0b);color:#211000}
 #spiderPage{background:#080b18;color:#ef4444}#spiderPage .extra-balance{background:rgba(239,68,68,.08);border:1px solid #ef4444}#spiderPage .extra-balance span,#spiderPage .extra-paytable b{color:#60a5fa}#spiderPage .extra-machine{border-color:#ef4444;box-shadow:0 0 18px rgba(239,68,68,.25),inset 0 0 35px rgba(59,130,246,.06)}#spiderPage .extra-reel{border-color:#2563eb}#spiderPage .extra-result{color:#60a5fa}#spiderPage .extra-spin{background:linear-gradient(135deg,#b91c1c,#ef4444,#2563eb)}
 #kolobokPage{background:#171008;color:#f59e0b}#kolobokPage .extra-balance{background:rgba(245,158,11,.08);border:1px solid #f59e0b}#kolobokPage .extra-balance span,#kolobokPage .extra-paytable b{color:#fbbf24}#kolobokPage .extra-machine{border-color:#f59e0b;box-shadow:0 0 18px rgba(245,158,11,.25),inset 0 0 35px rgba(245,158,11,.06)}#kolobokPage .extra-reel{border-color:#b45309}#kolobokPage .extra-result{color:#fbbf24}#kolobokPage .extra-spin{background:linear-gradient(135deg,#d97706,#fbbf24,#f59e0b);color:#321500}
-@media(max-width:700px){.extra-game-page{padding-left:12px;padding-right:12px}.extra-reel{height:82px;font-size:2.55rem}.dock{max-width:calc(100vw - 12px);overflow-x:auto;justify-content:flex-start;scrollbar-width:none}.dock::-webkit-scrollbar{display:none}.dock-item{flex:0 0 48px;width:48px;height:48px;font-size:21px}.dock{gap:8px;padding:10px 12px}}
+@media(max-width:700px){.extra-game-page{padding-left:12px;padding-right:12px}.extra-reel{height:82px;font-size:2.55rem}.dock{max-width:calc(100vw - 12px);overflow-x:auto;justify-content:flex-start;scrollbar-width:none}.dock::-webkit-scrollbar{display:none}.dock-item{flex:0 0 40px;width:40px;height:40px;font-size:18px}.dock{gap:5px;padding:7px 9px}}
 
 
 .hero-visual{width:min(100%,360px);margin:10px auto 18px;display:flex;justify-content:center;filter:drop-shadow(0 0 18px rgba(59,130,246,.28));}.hero-visual svg{width:100%;height:auto;max-height:330px;display:block}.spider-hero{filter:drop-shadow(0 0 22px rgba(239,68,68,.3))}.kolobok-hero{filter:drop-shadow(0 0 22px rgba(245,158,11,.28))}.extra-game-container{position:relative}.hero-visual text{fill:#fbbf24;font-family:Arial,sans-serif;}
+
+
+.scroll-down-hint{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:2px;
+    margin:14px auto 0;
+    opacity:.62;
+    font-size:.72rem;
+    user-select:none;
+}
+.scroll-down-arrow{
+    font-size:1.35rem;
+    line-height:1;
+    animation:scrollHint 1.3s ease-in-out infinite;
+}
+@keyframes scrollHint{
+    0%,100%{transform:translateY(0);opacity:.45}
+    50%{transform:translateY(5px);opacity:1}
+}
+
+/* ===== НОВОСТИ КАЗИНО ===== */
+.casino-news{
+    width:min(100%,760px);
+    margin:34px auto 0;
+    padding-bottom:30px;
+}
+.casino-news-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:14px;
+    padding:0 3px;
+}
+.casino-news-head h2{
+    font-size:1.45rem;
+    margin:0 0 4px;
+}
+.casino-news-head p{
+    margin:0;
+    opacity:.6;
+    font-size:.78rem;
+}
+.news-live{
+    flex:0 0 auto;
+    font-size:.68rem;
+    font-weight:800;
+    letter-spacing:.08em;
+    padding:6px 9px;
+    border:1px solid rgba(239,68,68,.5);
+    border-radius:999px;
+    color:#ef4444;
+    background:rgba(239,68,68,.08);
+}
+.news-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+.news-card{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    padding:15px;
+    border-radius:18px;
+    border:1px solid rgba(255,255,255,.09);
+    background:rgba(255,255,255,.055);
+    box-shadow:0 7px 22px rgba(0,0,0,.12);
+}
+.news-icon{
+    flex:0 0 48px;
+    width:48px;
+    height:48px;
+    display:grid;
+    place-items:center;
+    border-radius:14px;
+    font-size:25px;
+    background:rgba(56,189,248,.1);
+}
+.news-body{
+    min-width:0;
+}
+.news-date{
+    display:block;
+    margin-bottom:3px;
+    font-size:.68rem;
+    opacity:.48;
+}
+.news-body h3{
+    margin:0 0 4px;
+    font-size:.98rem;
+}
+.news-body p{
+    margin:0;
+    font-size:.77rem;
+    line-height:1.35;
+    opacity:.62;
+}
+body.light-theme .news-card{
+    background:rgba(0,0,0,.045);
+    border-color:rgba(0,0,0,.09);
+}
+body.blue-theme .news-card{
+    background:rgba(255,255,255,.28);
+    border-color:rgba(8,47,73,.12);
+}
+@media(max-width:600px){
+    .casino-news{
+        width:100%;
+        margin-top:28px;
+        padding-bottom:24px;
+    }
+    .casino-news-head h2{
+        font-size:1.3rem;
+    }
+    .news-card{
+        padding:13px;
+        border-radius:16px;
+    }
+    .news-icon{
+        flex-basis:43px;
+        width:43px;
+        height:43px;
+        font-size:22px;
+    }
+    .news-body h3{
+        font-size:.91rem;
+    }
+    .news-body p{
+        font-size:.74rem;
+    }
+}
+
+
+/* ===== В НИЖНЕЙ ПАНЕЛИ ОСТАЮТСЯ ТОЛЬКО MUSIC И SETTINGS ===== */
+.dock .dock-item:not(#dockMusicBtn):not(#dockSettingsBtn),
+.dock .dock-divider{
+    display:none !important;
+}
+
+.dock{
+    gap:10px !important;
+    padding:10px 14px !important;
+    justify-content:center !important;
+}
+
+@media(max-width:600px){
+    .dock{
+        bottom:8px !important;
+        gap:8px !important;
+        padding:8px 10px !important;
+    }
+
+    .dock-item{
+        width:46px !important;
+        height:46px !important;
+    }
+
+    /* Страница действительно прокручивается вниз */
+    html, body{
+        height:auto !important;
+        min-height:100%;
+        overflow-x:hidden !important;
+        overflow-y:auto !important;
+    }
+
+    .content{
+        height:auto !important;
+        min-height:calc(100svh - 60px);
+        overflow:visible !important;
+        display:flex !important;
+        flex-direction:column;
+        justify-content:flex-start !important;
+        align-items:stretch !important;
+        padding-bottom:120px !important;
+    }
+
+    .casino-news{
+        display:block !important;
+        visibility:visible !important;
+        margin-top:35px !important;
+        padding-bottom:120px !important;
+    }
+}
+
+
+/* ===== МОБИЛЬНАЯ ОПТИМИЗАЦИЯ ===== */
+html, body{
+    width:100%;
+    max-width:100%;
+    overflow-x:hidden;
+}
+body{
+    -webkit-tap-highlight-color:transparent;
+    touch-action:pan-y;
+}
+@media (max-width:600px){
+    body{
+        height:auto;
+        min-height:100svh;
+        overflow-x:hidden;
+        overflow-y:auto;
+        display:block;
+        align-items:initial;
+        justify-content:initial;
+    }
+    .content{
+        height:auto !important;
+        min-height:calc(100svh - 60px);
+        overflow:visible;
+        justify-content:flex-start;
+        align-items:stretch;
+    }
+}
+.content{
+    min-height:calc(100svh - 92px);
+    height:auto;
+    padding:14px 10px 92px;
+    box-sizing:border-box;
+}
+.games-showcase{
+    width:100%;
+    max-width:100%;
+}
+.games-showcase-head{
+    margin-bottom:12px;
+    padding:0 3px;
+}
+.games-showcase-head h2{
+    font-size:1.45rem;
+    margin:0 0 2px;
+}
+.games-showcase-head p{
+    font-size:.78rem;
+    margin:0;
+}
+.games-nav{
+    gap:6px;
+}
+.games-arrow{
+    width:38px;
+    height:38px;
+    font-size:25px;
+}
+.games-slider{
+    gap:10px;
+    padding:4px 2px 12px;
+    margin:0;
+    scroll-padding-inline:2px;
+    overscroll-behavior-x:contain;
+}
+.game-card{
+    flex:0 0 calc(100vw - 36px);
+    width:calc(100vw - 36px);
+    min-height:205px;
+    box-sizing:border-box;
+    padding:19px;
+    border-radius:20px;
+}
+.game-card-icon{
+    font-size:45px;
+    margin-bottom:10px;
+}
+.game-card-title{
+    font-size:1.18rem;
+    margin-bottom:5px;
+}
+.game-card-desc{
+    font-size:.82rem;
+    line-height:1.35;
+}
+.game-card-action{
+    padding-top:12px;
+    font-size:.88rem;
+}
+.games-dots{
+    margin-top:0;
+}
+.dock{
+    width:calc(100% - 12px);
+    max-width:none;
+    bottom:6px;
+    padding:8px 10px;
+    gap:7px;
+    box-sizing:border-box;
+    border-radius:18px;
+}
+.dock-item{
+    flex:0 0 44px;
+    width:44px;
+    height:44px;
+    font-size:19px;
+    border-radius:12px;
+}
+.dock-divider{
+    height:28px;
+}
+.top-bar{
+    padding:10px 12px;
+}
+.menu-btn,.info-btn{
+    min-width:42px;
+    min-height:42px;
+}
+@media (max-width:380px){
+    .content{padding-left:8px;padding-right:8px}
+    .game-card{
+        flex-basis:calc(100vw - 28px);
+        width:calc(100vw - 28px);
+        min-height:195px;
+        padding:17px;
+    }
+    .game-card-icon{font-size:40px}
+    .game-card-title{font-size:1.1rem}
+    .dock-item{
+        flex-basis:40px;
+        width:40px;
+        height:40px;
+        font-size:17px;
+    }
+    .dock{gap:5px;padding:7px 8px}
+}
+
+
+
+/* ===== ФИНАЛЬНОЕ ИСПРАВЛЕНИЕ ГЛАВНОЙ ===== */
+
+.game-triggers{
+    display:none !important;
+    position:absolute !important;
+    width:0 !important;
+    height:0 !important;
+    overflow:hidden !important;
+}
+
+@media (max-width:600px){
+
+    html, body{
+        width:100% !important;
+        max-width:100% !important;
+        min-height:100% !important;
+        height:auto !important;
+        overflow-x:hidden !important;
+        overflow-y:auto !important;
+    }
+
+    body{
+        display:block !important;
+    }
+
+    .content{
+        width:100% !important;
+        max-width:none !important;
+        min-height:calc(100svh - 116px) !important;
+        height:auto !important;
+        box-sizing:border-box !important;
+        display:block !important;
+        padding:14px 0 125px !important;
+        overflow:visible !important;
+    }
+
+    .games-showcase{
+        width:100% !important;
+        max-width:none !important;
+        margin:0 !important;
+        padding:0 !important;
+        box-sizing:border-box !important;
+    }
+
+    .games-showcase-head{
+        width:100% !important;
+        box-sizing:border-box !important;
+        padding:0 14px !important;
+        margin:0 0 12px !important;
+        min-height:48px !important;
+        display:flex !important;
+        align-items:center !important;
+        justify-content:space-between !important;
+    }
+
+    .games-showcase-head h2{
+        margin:0 0 3px !important;
+        font-size:1.45rem !important;
+        line-height:1.15 !important;
+    }
+
+    .games-showcase-head p{
+        margin:0 !important;
+        font-size:.76rem !important;
+    }
+
+    .games-nav{
+        flex:0 0 auto !important;
+    }
+
+    .games-slider{
+        width:100% !important;
+        box-sizing:border-box !important;
+        display:flex !important;
+        gap:10px !important;
+        overflow-x:auto !important;
+        overflow-y:hidden !important;
+        scroll-snap-type:x mandatory !important;
+        scroll-snap-stop:always !important;
+        scroll-behavior:smooth !important;
+        padding:4px 10px 12px !important;
+        margin:0 !important;
+        scrollbar-width:none !important;
+    }
+
+    .games-slider::-webkit-scrollbar{
+        display:none !important;
+    }
+
+    .game-card{
+        flex:0 0 calc(100vw - 20px) !important;
+        width:calc(100vw - 20px) !important;
+        min-width:calc(100vw - 20px) !important;
+        max-width:calc(100vw - 20px) !important;
+        min-height:205px !important;
+        box-sizing:border-box !important;
+        scroll-snap-align:start !important;
+        padding:20px !important;
+        border-radius:20px !important;
+    }
+
+    .games-dots{
+        margin:2px 0 0 !important;
+    }
+
+    .scroll-down-hint{
+        margin:12px 0 0 !important;
+    }
+
+    .casino-news{
+        width:100% !important;
+        max-width:none !important;
+        box-sizing:border-box !important;
+        margin:34px 0 0 !important;
+        padding:0 10px 125px !important;
+    }
+
+    .casino-news-head{
+        width:100% !important;
+        box-sizing:border-box !important;
+    }
+
+    .news-list{
+        width:100% !important;
+    }
+
+    .news-card{
+        width:100% !important;
+        box-sizing:border-box !important;
+    }
+
+    .dock{
+        position:fixed !important;
+        left:50% !important;
+        transform:translateX(-50%) !important;
+        bottom:8px !important;
+        width:calc(100vw - 16px) !important;
+        max-width:none !important;
+        justify-content:center !important;
+        z-index:150 !important;
+        box-sizing:border-box !important;
+    }
+
+    .dock .dock-item{
+        display:flex !important;
+        flex:0 0 46px !important;
+        width:46px !important;
+        height:46px !important;
+    }
+}
+
+/* На десктопе тоже возвращаем нормальную ширину главной */
+@media (min-width:601px){
+    .content{
+        height:auto !important;
+        min-height:calc(100vh - 120px) !important;
+        justify-content:flex-start !important;
+        padding-top:28px !important;
+        padding-bottom:120px !important;
+    }
+    .games-showcase{
+        margin:0 auto !important;
+    }
+}
+
+
+/* ===== ФИНАЛЬНЫЙ ВИД КАРУСЕЛИ КАЗИНО ===== */
+.games-showcase-head{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    gap:12px !important;
+}
+
+.games-nav{
+    display:flex !important;
+    flex:0 0 auto !important;
+    gap:7px !important;
+    z-index:5 !important;
+}
+
+.games-arrow{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    width:38px !important;
+    height:38px !important;
+    padding:0 !important;
+    border-radius:50% !important;
+    cursor:pointer !important;
+    visibility:visible !important;
+    opacity:1 !important;
+}
+
+.games-slider{
+    scroll-snap-type:x mandatory !important;
+}
+
+@media(max-width:600px){
+    .games-showcase-head{
+        padding:0 12px !important;
+        margin-bottom:8px !important;
+    }
+
+    .games-showcase-head h2{
+        font-size:1.25rem !important;
+    }
+
+    .games-showcase-head p{
+        font-size:.7rem !important;
+    }
+
+    .games-nav{
+        gap:5px !important;
+    }
+
+    .games-arrow{
+        width:34px !important;
+        height:34px !important;
+        min-width:34px !important;
+        font-size:22px !important;
+    }
+
+    .games-slider{
+        gap:8px !important;
+        padding:3px 12px 9px !important;
+    }
+
+    .game-card{
+        flex:0 0 245px !important;
+        width:245px !important;
+        min-width:245px !important;
+        max-width:245px !important;
+        min-height:170px !important;
+        padding:16px !important;
+        border-radius:17px !important;
+    }
+
+    .game-card-icon{
+        font-size:38px !important;
+        margin-bottom:7px !important;
+    }
+
+    .game-card-title{
+        font-size:1rem !important;
+        margin-bottom:4px !important;
+    }
+
+    .game-card-desc{
+        font-size:.72rem !important;
+        line-height:1.3 !important;
+    }
+
+    .game-card-action{
+        padding-top:10px !important;
+        font-size:.78rem !important;
+    }
+
+    .games-dots{
+        margin-top:0 !important;
+    }
+}
+
+
+/* ===== КАРУСЕЛЬ: СТРЕЛКИ ПО БОКАМ + МАЛЕНЬКИЕ КАРТОЧКИ ===== */
+
+.games-showcase{
+    position:relative !important;
+}
+
+.games-showcase-head{
+    position:relative !important;
+    z-index:20 !important;
+}
+
+/* Стрелки находятся прямо по краям карусели */
+.games-nav{
+    position:absolute !important;
+    left:0 !important;
+    right:0 !important;
+    top:50% !important;
+    transform:translateY(-50%) !important;
+    width:100% !important;
+    height:0 !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    padding:0 8px !important;
+    box-sizing:border-box !important;
+    pointer-events:none !important;
+    z-index:50 !important;
+}
+
+.games-arrow{
+    pointer-events:auto !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    width:38px !important;
+    height:38px !important;
+    min-width:38px !important;
+    padding:0 !important;
+    margin:0 !important;
+    border-radius:50% !important;
+    font-size:25px !important;
+    line-height:1 !important;
+    cursor:pointer !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    background:rgba(10,10,10,.9) !important;
+    border:2px solid #38bdf8 !important;
+    color:#fff !important;
+    box-shadow:0 0 12px rgba(56,189,248,.45) !important;
+}
+
+/* Маленькие карточки */
+.games-slider{
+    width:100% !important;
+    box-sizing:border-box !important;
+    gap:10px !important;
+    padding:4px 52px 12px !important;
+}
+
+.game-card{
+    flex:0 0 235px !important;
+    width:235px !important;
+    min-width:235px !important;
+    max-width:235px !important;
+    min-height:155px !important;
+    padding:15px !important;
+    border-radius:17px !important;
+}
+
+.game-card-icon{
+    font-size:36px !important;
+    margin-bottom:6px !important;
+}
+
+.game-card-title{
+    font-size:1rem !important;
+    margin-bottom:3px !important;
+}
+
+.game-card-desc{
+    font-size:.72rem !important;
+    line-height:1.25 !important;
+}
+
+.game-card-action{
+    padding-top:8px !important;
+    font-size:.78rem !important;
+}
+
+@media(max-width:600px){
+
+    .games-showcase{
+        padding-top:0 !important;
+    }
+
+    .games-showcase-head{
+        min-height:42px !important;
+        padding:0 12px !important;
+        margin-bottom:5px !important;
+    }
+
+    .games-showcase-head h2{
+        font-size:1.2rem !important;
+    }
+
+    .games-showcase-head p{
+        font-size:.68rem !important;
+    }
+
+    .games-nav{
+        top:50% !important;
+        padding:0 7px !important;
+    }
+
+    .games-arrow{
+        width:34px !important;
+        height:34px !important;
+        min-width:34px !important;
+        font-size:22px !important;
+    }
+
+    .games-slider{
+        gap:8px !important;
+        padding:3px 48px 9px !important;
+    }
+
+    .game-card{
+        flex:0 0 210px !important;
+        width:210px !important;
+        min-width:210px !important;
+        max-width:210px !important;
+        min-height:145px !important;
+        padding:14px !important;
+        border-radius:16px !important;
+    }
+
+    .game-card-icon{
+        font-size:32px !important;
+        margin-bottom:5px !important;
+    }
+
+    .game-card-title{
+        font-size:.92rem !important;
+    }
+
+    .game-card-desc{
+        font-size:.68rem !important;
+    }
+
+    .game-card-action{
+        font-size:.74rem !important;
+        padding-top:7px !important;
+    }
+}
+
+
+/* ===== СТРЕЛКИ КАЗИНО: БОЛЬШЕ И ЯВНО СЛЕВА/СПРАВА ===== */
+
+.games-showcase{
+    position:relative !important;
+}
+
+.games-slider{
+    position:relative !important;
+}
+
+.games-nav{
+    position:absolute !important;
+    top:50% !important;
+    left:0 !important;
+    right:0 !important;
+    width:100% !important;
+    height:0 !important;
+    transform:translateY(-50%) !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    padding:0 10px !important;
+    box-sizing:border-box !important;
+    z-index:100 !important;
+    pointer-events:none !important;
+}
+
+.games-arrow{
+    pointer-events:auto !important;
+    display:flex !important;
+    visibility:visible !important;
+    opacity:1 !important;
+
+    width:46px !important;
+    height:46px !important;
+    min-width:46px !important;
+    max-width:46px !important;
+
+    padding:0 !important;
+    margin:0 !important;
+
+    align-items:center !important;
+    justify-content:center !important;
+
+    border-radius:50% !important;
+    border:2px solid #38bdf8 !important;
+    background:rgba(12,18,22,.94) !important;
+    color:#fff !important;
+
+    font-size:30px !important;
+    font-weight:700 !important;
+    line-height:1 !important;
+
+    box-shadow:
+        0 0 14px rgba(56,189,248,.55),
+        inset 0 0 8px rgba(255,255,255,.08) !important;
+
+    cursor:pointer !important;
+    -webkit-tap-highlight-color:transparent !important;
+}
+
+.games-arrow:active{
+    transform:scale(.92) !important;
+}
+
+@media(max-width:600px){
+
+    .games-nav{
+        padding:0 8px !important;
+    }
+
+    .games-arrow{
+        width:44px !important;
+        height:44px !important;
+        min-width:44px !important;
+        max-width:44px !important;
+        font-size:28px !important;
+    }
+
+    /* Оставляем место по бокам, чтобы стрелки не закрывали текст */
+    .games-slider{
+        padding-left:58px !important;
+        padding-right:58px !important;
+    }
+
+    /* Казино чуть больше предыдущей версии */
+    .game-card{
+        flex:0 0 225px !important;
+        width:225px !important;
+        min-width:225px !important;
+        max-width:225px !important;
+        min-height:155px !important;
+    }
+}
+
+
+/* ===== КНОПКИ ЛИСТАНИЯ: ПЕРВЫЙ РАЗМЕР + ВМЕСТЕ ===== */
+
+.games-showcase-head{
+    position:relative !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+}
+
+.games-nav{
+    position:static !important;
+    transform:none !important;
+    width:auto !important;
+    height:auto !important;
+    display:flex !important;
+    flex-direction:row !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:6px !important;
+    padding:0 !important;
+    margin:0 !important;
+    pointer-events:auto !important;
+}
+
+.games-arrow{
+    position:static !important;
+    width:38px !important;
+    height:38px !important;
+    min-width:38px !important;
+    max-width:38px !important;
+    padding:0 !important;
+    margin:0 !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    font-size:25px !important;
+    border-radius:50% !important;
+}
+
+@media(max-width:600px){
+    .games-showcase-head{
+        padding:0 12px !important;
+    }
+
+    .games-nav{
+        gap:5px !important;
+    }
+
+    .games-arrow{
+        width:34px !important;
+        height:34px !important;
+        min-width:34px !important;
+        max-width:34px !important;
+        font-size:22px !important;
+    }
+}
+
+
+/* ===== АДАПТАЦИЯ ПОД НЕПОЛНОЭКРАННОЕ ОКНО ===== */
+html,body{
+    width:100%;
+    max-width:100%;
+    overflow-x:hidden;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+@media (min-width:601px) and (max-width:1100px){
+    body{
+        min-width:0 !important;
+    }
+
+    .content{
+        width:100% !important;
+        max-width:100% !important;
+        min-height:calc(100vh - 120px) !important;
+        height:auto !important;
+        padding:22px 16px 120px !important;
+        display:block !important;
+        overflow:visible !important;
+    }
+
+    .games-showcase{
+        width:100% !important;
+        max-width:900px !important;
+        margin:0 auto !important;
+    }
+
+    .games-showcase-head{
+        width:100% !important;
+        margin-bottom:10px !important;
+    }
+
+    .games-showcase-head h2{
+        font-size:1.45rem !important;
+    }
+
+    .games-showcase-head p{
+        font-size:.78rem !important;
+    }
+
+    .games-slider{
+        width:100% !important;
+        gap:10px !important;
+        padding:5px 46px 12px !important;
+        overflow-x:auto !important;
+    }
+
+    .game-card{
+        flex:0 0 220px !important;
+        width:220px !important;
+        min-width:220px !important;
+        max-width:220px !important;
+        min-height:165px !important;
+        padding:15px !important;
+        border-radius:17px !important;
+    }
+
+    .game-card-icon{
+        font-size:38px !important;
+        margin-bottom:7px !important;
+    }
+
+    .game-card-title{
+        font-size:1rem !important;
+    }
+
+    .game-card-desc{
+        font-size:.74rem !important;
+    }
+
+    .game-card-action{
+        padding-top:9px !important;
+        font-size:.8rem !important;
+    }
+
+    .games-nav{
+        gap:6px !important;
+    }
+
+    .games-arrow{
+        width:38px !important;
+        height:38px !important;
+        min-width:38px !important;
+        font-size:25px !important;
+    }
+
+    .casino-news{
+        width:100% !important;
+        max-width:760px !important;
+        margin:32px auto 0 !important;
+        padding:0 0 110px !important;
+    }
+
+    .dock{
+        bottom:14px !important;
+    }
+}
+
+/* Очень узкое окно — уменьшаем верхний отступ, но ничего не обрезаем */
+@media (min-width:601px) and (max-height:720px){
+    .content{
+        padding-top:12px !important;
+    }
+
+    .game-card{
+        min-height:145px !important;
+    }
+
+    .game-card-icon{
+        font-size:32px !important;
+        margin-bottom:4px !important;
+    }
+
+    .games-slider{
+        padding-bottom:7px !important;
+    }
+
+    .scroll-down-hint{
+        margin-top:5px !important;
+    }
+
+    .casino-news{
+        margin-top:20px !important;
+    }
+}
+
+
+/* ===== ФИНАЛ: МАЛЕНЬКИЕ СТРЕЛКИ В ОДНОМ МЕСТЕ + КОЛЕСО ===== */
+
+.games-showcase{
+    position:relative !important;
+}
+
+.games-showcase-head{
+    position:relative !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+}
+
+.games-nav{
+    position:static !important;
+    display:flex !important;
+    flex-direction:row !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:4px !important;
+    width:auto !important;
+    height:auto !important;
+    transform:none !important;
+    padding:0 !important;
+    margin:0 !important;
+    pointer-events:auto !important;
+    z-index:20 !important;
+}
+
+.games-arrow{
+    position:static !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    width:30px !important;
+    height:30px !important;
+    min-width:30px !important;
+    max-width:30px !important;
+    padding:0 !important;
+    margin:0 !important;
+    border-radius:9px !important;
+    font-size:18px !important;
+    line-height:1 !important;
+    box-shadow:none !important;
+}
+
+/* Компактные карточки казино */
+.games-slider{
+    width:100% !important;
+    max-width:100% !important;
+    box-sizing:border-box !important;
+    overflow-x:auto !important;
+    overflow-y:hidden !important;
+    scroll-behavior:smooth !important;
+    scrollbar-width:none !important;
+}
+
+.games-slider::-webkit-scrollbar{
+    display:none !important;
+}
+
+.game-card{
+    flex:0 0 210px !important;
+    width:210px !important;
+    min-width:210px !important;
+    max-width:210px !important;
+    min-height:145px !important;
+    padding:13px !important;
+    border-radius:15px !important;
+}
+
+.game-card-icon{
+    font-size:31px !important;
+}
+
+.game-card-title{
+    font-size:.9rem !important;
+}
+
+.game-card-desc{
+    font-size:.67rem !important;
+}
+
+.game-card-action{
+    font-size:.72rem !important;
+    padding-top:6px !important;
+}
+
+@media(max-width:600px){
+    .games-showcase-head{
+        padding:0 10px !important;
+        margin-bottom:6px !important;
+    }
+
+    .games-nav{
+        gap:4px !important;
+    }
+
+    .games-arrow{
+        width:30px !important;
+        height:30px !important;
+        min-width:30px !important;
+        max-width:30px !important;
+        font-size:18px !important;
+    }
+
+    .games-slider{
+        gap:7px !important;
+        padding:3px 8px 8px !important;
+    }
+
+    .game-card{
+        flex-basis:210px !important;
+        width:210px !important;
+        min-width:210px !important;
+        max-width:210px !important;
+        min-height:145px !important;
+    }
+}
+
+/* Колесо мыши переключает казино горизонтально */
+.games-slider{
+    overscroll-behavior-x:contain !important;
+}
+
+
+/* ===== ФИНАЛЬНАЯ КАРУСЕЛЬ: 2 КАРТОЧКИ ===== */
+.games-showcase{
+    position:relative !important;
+    width:100% !important;
+    max-width:100% !important;
+}
+
+.games-showcase-head{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    gap:10px !important;
+}
+
+.games-nav{
+    position:static !important;
+    display:flex !important;
+    flex-direction:row !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:4px !important;
+    width:auto !important;
+    height:auto !important;
+    transform:none !important;
+    padding:0 !important;
+    margin:0 !important;
+    pointer-events:auto !important;
+}
+
+.games-arrow{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    width:30px !important;
+    height:30px !important;
+    min-width:30px !important;
+    max-width:30px !important;
+    padding:0 !important;
+    margin:0 !important;
+    border-radius:8px !important;
+    font-size:18px !important;
+    line-height:1 !important;
+}
+
+.games-slider{
+    display:flex !important;
+    flex-wrap:nowrap !important;
+    width:100% !important;
+    box-sizing:border-box !important;
+    gap:10px !important;
+    overflow-x:auto !important;
+    overflow-y:hidden !important;
+    scroll-snap-type:x mandatory !important;
+    scroll-behavior:smooth !important;
+    scrollbar-width:none !important;
+    padding:4px 2px 10px !important;
+}
+
+.games-slider::-webkit-scrollbar{
+    display:none !important;
+}
+
+.game-card{
+    flex:0 0 calc((100% - 10px) / 2) !important;
+    width:calc((100% - 10px) / 2) !important;
+    min-width:calc((100% - 10px) / 2) !important;
+    max-width:calc((100% - 10px) / 2) !important;
+    min-height:150px !important;
+    box-sizing:border-box !important;
+    padding:14px !important;
+    border-radius:15px !important;
+    scroll-snap-align:start !important;
+}
+
+.game-card-icon{
+    font-size:32px !important;
+}
+
+.game-card-title{
+    font-size:.92rem !important;
+}
+
+.game-card-desc{
+    font-size:.68rem !important;
+}
+
+.game-card-action{
+    font-size:.74rem !important;
+    padding-top:7px !important;
+}
+
+.games-dots{
+    display:flex !important;
+    justify-content:center !important;
+    align-items:center !important;
+    gap:6px !important;
+    min-height:10px !important;
+}
+
+@media(max-width:600px){
+    .games-showcase-head{
+        padding:0 10px !important;
+        margin-bottom:6px !important;
+    }
+
+    .games-nav{
+        gap:4px !important;
+    }
+
+    .games-arrow{
+        width:30px !important;
+        height:30px !important;
+        min-width:30px !important;
+        max-width:30px !important;
+        font-size:18px !important;
+    }
+
+    .games-slider{
+        gap:8px !important;
+        padding:3px 7px 8px !important;
+    }
+
+    .game-card{
+        flex-basis:calc((100% - 8px) / 2) !important;
+        width:calc((100% - 8px) / 2) !important;
+        min-width:calc((100% - 8px) / 2) !important;
+        max-width:calc((100% - 8px) / 2) !important;
+        min-height:135px !important;
+        padding:12px !important;
+        border-radius:14px !important;
+    }
+
+    .game-card-icon{
+        font-size:28px !important;
+    }
+
+    .game-card-title{
+        font-size:.82rem !important;
+    }
+
+    .game-card-desc{
+        font-size:.62rem !important;
+        line-height:1.2 !important;
+    }
+
+    .game-card-action{
+        font-size:.68rem !important;
+        padding-top:6px !important;
+    }
+}
+
+</style>
+
+<style id="page-scroll-fix">
+html { width:100%; min-height:100%; overflow-x:hidden; overflow-y:auto; scroll-behavior:smooth; }
+body { width:100%; min-height:100vh; height:auto !important; overflow-x:hidden !important; overflow-y:auto !important; touch-action:pan-y; -webkit-overflow-scrolling:touch; }
+.content { height:auto !important; min-height:100vh; overflow:visible !important; }
+@media (max-width:600px) { html, body { height:auto !important; min-height:100%; overflow-x:hidden !important; overflow-y:auto !important; } body { display:block !important; } .content { height:auto !important; min-height:100svh !important; overflow:visible !important; padding-bottom:130px; } }
+</style>
+
+<style>
+/* ===== СУПЕР-КОМПАКТНАЯ НИЖНЯЯ ПАНЕЛЬ ===== */
+.dock {
+    position: fixed !important;
+    left: 50% !important;
+    bottom: 8px !important;
+    transform: translateX(-50%) !important;
+    width: max-content !important;
+    max-width: max-content !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 7px !important;
+    padding: 6px 8px !important;
+    border-radius: 16px !important;
+}
+
+.dock .dock-item {
+    flex: 0 0 42px !important;
+    width: 42px !important;
+    min-width: 42px !important;
+    max-width: 42px !important;
+    height: 42px !important;
+    min-height: 42px !important;
+    max-height: 42px !important;
+    padding: 0 !important;
+    border-width: 1.5px !important;
+    border-radius: 10px !important;
+    font-size: 18px !important;
+}
+
+.dock .dock-divider {
+    height: 26px !important;
+}
+
+@media (max-width: 600px) {
+    .dock {
+        width: max-content !important;
+        max-width: max-content !important;
+        padding: 6px 8px !important;
+        gap: 6px !important;
+        bottom: 7px !important;
+        border-radius: 15px !important;
+    }
+
+    .dock .dock-item {
+        flex: 0 0 42px !important;
+        width: 42px !important;
+        min-width: 42px !important;
+        max-width: 42px !important;
+        height: 42px !important;
+        min-height: 42px !important;
+        max-height: 42px !important;
+        font-size: 17px !important;
+    }
+}
 </style>
 </head>
 <body>
@@ -942,25 +2457,124 @@ body,
 </div>
 </div>
 <div class="content">
-    <img src="ляля%20вор.jpg"
-         alt="Картинка"
-         style="width:100%; height:auto; display:block; object-fit:cover; border-radius:16px;">
+    <div class="games-showcase">
+        <div class="games-showcase-head">
+            <div>
+                <h2>🎰 Казино</h2>
+                <p>Листай и выбирай казино</p>
+            </div>
+            <div class="games-nav">
+                <button class="games-arrow" id="gamesPrev" aria-label="Предыдущая игра">‹</button>
+                <button class="games-arrow" id="gamesNext" aria-label="Следующая игра">›</button>
+            </div>
+        </div>
+
+        <div class="games-slider" id="gamesSlider">
+            <button class="game-card" data-game="dockPlayBtn">
+                <span class="game-card-icon">💎</span>
+                <span class="game-card-title">Donat</span>
+                <span class="game-card-desc">Кликай и прокачивай доход</span>
+                <span class="game-card-action">Играть →</span>
+            </button>
+
+            <button class="game-card" data-game="dockSlotBtn">
+                <span class="game-card-icon">🎰</span>
+                <span class="game-card-title">Lacky Casino</span>
+                <span class="game-card-desc">Крути барабаны и лови джекпот</span>
+                <span class="game-card-action">Играть →</span>
+            </button>
+
+            <button class="game-card" data-game="dockJetBtn">
+                <span class="game-card-icon">✈️</span>
+                <span class="game-card-title">Lacky Jet</span>
+                <span class="game-card-desc">Забери выигрыш до краша</span>
+                <span class="game-card-action">Играть →</span>
+            </button>
+
+            <button class="game-card" data-game="dockDogBtn">
+                <span class="game-card-icon">🐶</span>
+                <span class="game-card-title">The Dog House</span>
+                <span class="game-card-desc">Лови лапки и собирай выигрыш</span>
+                <span class="game-card-action">Играть →</span>
+            </button>
+
+            <button class="game-card" data-game="dockSpiderBtn">
+                <span class="game-card-icon">🕷️</span>
+                <span class="game-card-title">SPIDER-MAN</span>
+                <span class="game-card-desc">Сила паутины решает всё</span>
+                <span class="game-card-action">Играть →</span>
+            </button>
+
+            <button class="game-card" data-game="dockKolobokBtn">
+                <span class="game-card-icon">🥯</span>
+                <span class="game-card-title">Колобок</span>
+                <span class="game-card-desc">От бабушки ушёл — выигрыш забрал</span>
+                <span class="game-card-action">Играть →</span>
+            </button>
+        </div>
+
+        <div class="games-dots" id="gamesDots" aria-label="Навигация по играм"></div>
+
+        <div class="scroll-down-hint" aria-hidden="true">
+            <span>Листай вниз</span>
+            <span class="scroll-down-arrow">↓</span>
+        </div>
+    </div>
+
+    <section class="casino-news" id="casinoNews">
+        <div class="casino-news-head">
+            <div>
+                <h2>📰 Новости</h2>
+                <p>Листай вниз, чтобы читать последние новости</p>
+            </div>
+            <span class="news-live">● LIVE</span>
+        </div>
+
+        <div class="news-list">
+            <article class="news-card">
+                <div class="news-icon">🎰</div>
+                <div class="news-body">
+                    <span class="news-date">Сегодня</span>
+                    <h3>Новые игры уже в казино</h3>
+                    <p>Добавлены новые игровые режимы и обновлены карточки казино.</p>
+                </div>
+            </article>
+
+            <article class="news-card">
+                <div class="news-icon">💎</div>
+                <div class="news-body">
+                    <span class="news-date">Вчера</span>
+                    <h3>Больше возможностей для выигрыша</h3>
+                    <p>Следи за обновлениями и проверяй новые события в казино.</p>
+                </div>
+            </article>
+
+            <article class="news-card">
+                <div class="news-icon">🔥</div>
+                <div class="news-body">
+                    <span class="news-date">28 августа</span>
+                    <h3>Обновление казино</h3>
+                    <p>Интерфейс стал удобнее на телефонах, а листать игры теперь ещё проще.</p>
+                </div>
+            </article>
+        </div>
+    </section>
 </div>
 <div class="dock">
-    <div class="dock-divider"></div>
-<button class="dock-item" id="dockSlotBtn">🎰</button>
-<button class="dock-item" id="dockPlayBtn">▶</button>
-<div class="dock-divider"></div>
 <button class="dock-item" id="dockMusicBtn">♫</button>
-<div class="dock-divider"></div>
-<button class="dock-item" id="dockJetBtn">✈️</button>
-<div class="dock-divider"></div>
-<button class="dock-item" id="dockDogBtn" title="The Dog House">🐶</button>
-<button class="dock-item" id="dockSpiderBtn" title="Spider-Man">🕷️</button>
-<button class="dock-item" id="dockKolobokBtn" title="Колобок">🥯</button>
-<div class="dock-divider"></div>
 <button class="dock-item" id="dockSettingsBtn">⚙️</button>
 </div>
+
+<!-- Скрытые кнопки запуска игр: нужны JavaScript, но не показываются в нижней панели -->
+<div class="game-triggers" aria-hidden="true">
+<button id="dockPlayBtn" type="button">▶</button>
+<button id="dockSlotBtn" type="button">🎰</button>
+<button id="dockJetBtn" type="button">✈️</button>
+<button id="dockDogBtn" type="button">🐶</button>
+<button id="dockSpiderBtn" type="button">🕷️</button>
+<button id="dockKolobokBtn" type="button">🥯</button>
+</div>
+
 <div class="jet-page" id="jetPage">
     <div class="jet-container">
 
@@ -1797,9 +3411,251 @@ function initExtraGame(x){
  btn.onclick=()=>openExtraGame(x);back.onclick=close;spin.onclick=spinGame;minus.onclick=()=>bet.value=Math.max(1,Number(bet.value)-10);plus.onclick=()=>bet.value=Number(bet.value)+10;
 }
 extraGames.forEach(initExtraGame);
+
+/* ===== КАРУСЕЛЬ КАЗИНО: 2 КАРТОЧКИ НА СТРАНИЦУ ===== */
+const gamesSlider = document.getElementById('gamesSlider');
+const gamesPrev = document.getElementById('gamesPrev');
+const gamesNext = document.getElementById('gamesNext');
+const gamesDots = document.getElementById('gamesDots');
+const gameCards = Array.from(document.querySelectorAll('.game-card'));
+
+function getPageStep(){
+    if(!gamesSlider) return 0;
+    return gamesSlider.clientWidth;
+}
+
+function getPageCount(){
+    return Math.max(1, Math.ceil(gameCards.length / 2));
+}
+
+function getCurrentPage(){
+    const step = getPageStep();
+    if(!step) return 0;
+    return Math.max(0, Math.min(
+        getPageCount() - 1,
+        Math.round(gamesSlider.scrollLeft / step)
+    ));
+}
+
+function scrollGames(direction){
+    if(!gamesSlider) return;
+    const page = getCurrentPage();
+    const nextPage = Math.max(0, Math.min(
+        getPageCount() - 1,
+        page + direction
+    ));
+
+    gamesSlider.scrollTo({
+        left: getPageStep() * nextPage,
+        behavior:'smooth'
+    });
+}
+
+function updateGamesDots(){
+    if(!gamesSlider || !gamesDots) return;
+
+    const pageCount = getPageCount();
+    const current = getCurrentPage();
+
+    gamesDots.innerHTML = '';
+
+    for(let i=0; i<pageCount; i++){
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'games-dot' + (i === current ? ' active' : '');
+        dot.setAttribute('aria-label','Страница казино '+(i+1));
+
+        dot.onclick = ()=>{
+            gamesSlider.scrollTo({
+                left:getPageStep() * i,
+                behavior:'smooth'
+            });
+        };
+
+        gamesDots.appendChild(dot);
+    }
+}
+
+if(gamesSlider){
+
+    /* Две карточки занимают одну страницу */
+    requestAnimationFrame(()=>{
+        gamesSlider.scrollLeft = 0;
+        updateGamesDots();
+    });
+
+    gameCards.forEach(card=>{
+        card.addEventListener('click',()=>{
+            const target = document.getElementById(card.dataset.game);
+            if(target) target.click();
+        });
+    });
+
+    if(gamesPrev) gamesPrev.onclick = e=>{
+        e.preventDefault();
+        e.stopPropagation();
+        scrollGames(-1);
+    };
+
+    if(gamesNext) gamesNext.onclick = e=>{
+        e.preventDefault();
+        e.stopPropagation();
+        scrollGames(1);
+    };
+
+    gamesSlider.addEventListener('scroll', updateGamesDots, {passive:true});
+
+    window.addEventListener('resize', ()=>{
+        const page = getCurrentPage();
+        requestAnimationFrame(()=>{
+            gamesSlider.scrollLeft = getPageStep() * page;
+            updateGamesDots();
+        });
+    });
+
+    /* Свайп = следующая/предыдущая пара */
+    let touchStartX = 0;
+
+    gamesSlider.addEventListener('touchstart', e=>{
+        touchStartX = e.touches[0].clientX;
+    }, {passive:true});
+
+    gamesSlider.addEventListener('touchend', e=>{
+        const dx = e.changedTouches[0].clientX - touchStartX;
+
+        if(Math.abs(dx) > 45){
+            scrollGames(dx < 0 ? 1 : -1);
+        }
+    }, {passive:true});
+
+    /* Колесо мыши = следующая/предыдущая пара */
+    let wheelLock = false;
+
+    gamesSlider.addEventListener('wheel', e=>{
+        if(wheelLock) return;
+
+        const delta = Math.abs(e.deltaY) >= Math.abs(e.deltaX)
+            ? e.deltaY
+            : e.deltaX;
+
+        if(!delta) return;
+
+        const page = getCurrentPage();
+
+        if((delta > 0 && page < getPageCount()-1) ||
+           (delta < 0 && page > 0)){
+            e.preventDefault();
+            e.stopPropagation();
+
+            wheelLock = true;
+            scrollGames(delta > 0 ? 1 : -1);
+
+            setTimeout(()=>{
+                wheelLock = false;
+            }, 450);
+        }
+    }, {passive:false});
+}
+
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){const active=extraGames.find(x=>document.getElementById(x.page).classList.contains('active'));if(active){if(!extraState[active.key].running){document.getElementById(active.page).classList.remove('active');document.querySelector('.content').style.display='flex';}}}});
 
 setInterval(dt2,1000);dt2();loadTheme();load();
+
+
+/* ===== НАДЁЖНЫЕ СТРЕЛКИ КАРУСЕЛИ ===== */
+(function(){
+    const slider = document.getElementById('gamesSlider');
+    const prev = document.getElementById('gamesPrev');
+    const next = document.getElementById('gamesNext');
+
+    if(!slider || !prev || !next) return;
+
+    function step(){
+        const card = slider.querySelector('.game-card');
+        if(!card) return 220;
+        const gap = parseFloat(getComputedStyle(slider).gap) || 8;
+        return card.getBoundingClientRect().width + gap;
+    }
+
+    function move(direction){
+        slider.scrollBy({
+            left: direction * step(),
+            behavior:'smooth'
+        });
+    }
+
+    prev.onclick = function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        move(-1);
+    };
+
+    next.onclick = function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        move(1);
+    };
+})();
+
+
+/* ===== ФИНАЛЬНЫЕ КНОПКИ ВЛЕВО / ВПРАВО ===== */
+(function(){
+    const slider = document.getElementById('gamesSlider');
+    const prev = document.getElementById('gamesPrev');
+    const next = document.getElementById('gamesNext');
+
+    if (!slider || !prev || !next) return;
+
+    function getStep(){
+        const card = slider.querySelector('.game-card');
+        if (!card) return 240;
+        const gap = parseFloat(getComputedStyle(slider).gap) || 8;
+        return card.getBoundingClientRect().width + gap;
+    }
+
+    prev.addEventListener('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        slider.scrollBy({
+            left: -getStep(),
+            behavior: 'smooth'
+        });
+    });
+
+    next.addEventListener('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        slider.scrollBy({
+            left: getStep(),
+            behavior: 'smooth'
+        });
+    });
+})();
+
+
+/* ===== КОЛЕСИКО: ЛИСТАНИЕ КАЗИНО ВЛЕВО/ВПРАВО ===== */
+(function(){
+    const slider = document.getElementById('gamesSlider');
+    if(!slider) return;
+
+    slider.addEventListener('wheel', function(e){
+        const max = slider.scrollWidth - slider.clientWidth;
+        if(max <= 1) return;
+
+        const delta = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+        if(!delta) return;
+
+        const before = slider.scrollLeft;
+        const target = Math.max(0, Math.min(max, before + delta));
+
+        /* Перехватываем колесо только если реально есть куда листать. */
+        if(target !== before){
+            e.preventDefault();
+            e.stopPropagation();
+            slider.scrollLeft = target;
+        }
+    }, {passive:false});
+})();
 
 </script>
 </body>
