@@ -3160,6 +3160,248 @@ body.blue-theme .task-claim{color:#ffffff!important}
 .placement-advice-close{width:100%;margin-top:14px;padding:11px;border:1px solid #38bdf8;background:#38bdf8;color:#03131f;border-radius:12px;font-weight:900;cursor:pointer}
 </style>
 </style>
+<style>
+
+/* ===== AUTH VISIBILITY FINAL FIX ===== */
+.auth-section.auth-logged-in{
+  display:none !important;
+  visibility:hidden !important;
+}
+.auth-section.auth-logged-out{
+  display:flex !important;
+  visibility:visible !important;
+}
+.auth-profile:not(.show){
+  display:none !important;
+  visibility:hidden !important;
+}
+.auth-profile.show{
+  display:flex !important;
+  visibility:visible !important;
+}
+
+</style>
+
+<style id="strong-glass-background">
+/* ===== СИЛЬНОЕ РАЗМЫТИЕ ФОНА НА ВСЕХ ВНУТРЕННИХ СТРАНИЦАХ ===== */
+.game-page,
+.slot-page,
+.jet-page,
+.extra-game-page,
+.shop-page,
+.tasks-page,
+.businesses-page,
+.progress-page,
+.business-map-page,
+.settings-overlay,
+.auth-overlay,
+.modal-overlay,
+.map-page{
+  background:rgba(5,10,18,.42) !important;
+  -webkit-backdrop-filter:blur(28px) saturate(.72) !important;
+  backdrop-filter:blur(28px) saturate(.72) !important;
+}
+
+/* На светлых темах фон остаётся светлым, но задний экран всё равно сильно размывается. */
+body.light-theme .game-page,
+body.light-theme .slot-page,
+body.light-theme .jet-page,
+body.light-theme .extra-game-page,
+body.light-theme .shop-page,
+body.light-theme .tasks-page,
+body.light-theme .businesses-page,
+body.light-theme .progress-page,
+body.light-theme .business-map-page,
+body.light-theme .settings-overlay,
+body.light-theme .auth-overlay,
+body.blue-theme .game-page,
+body.blue-theme .slot-page,
+body.blue-theme .jet-page,
+body.blue-theme .extra-game-page,
+body.blue-theme .shop-page,
+body.blue-theme .tasks-page,
+body.blue-theme .businesses-page,
+body.blue-theme .progress-page,
+body.blue-theme .business-map-page,
+body.blue-theme .settings-overlay,
+body.blue-theme .auth-overlay{
+  background:rgba(255,255,255,.28) !important;
+  -webkit-backdrop-filter:blur(28px) saturate(.72) !important;
+  backdrop-filter:blur(28px) saturate(.72) !important;
+}
+
+/* Стеклянные контейнеры внутри — читаемые и не сливаются с фоном. */
+.game-container,
+.slot-container,
+.jet-container,
+.extra-game-container,
+.shop-container,
+.tasks-container,
+.businesses-container,
+.progress-container,
+.business-map-container,
+.settings-panel,
+.auth-modal{
+  background:rgba(13,22,34,.78) !important;
+  -webkit-backdrop-filter:blur(14px) !important;
+  backdrop-filter:blur(14px) !important;
+  border-radius:24px !important;
+}
+
+/* Усиливаем затемнение за модалками, не затемняя само содержимое. */
+.settings-overlay.active,
+.auth-overlay.active,
+.modal-overlay.active{
+  background:rgba(0,0,0,.32) !important;
+  -webkit-backdrop-filter:blur(28px) saturate(.7) !important;
+  backdrop-filter:blur(28px) saturate(.7) !important;
+}
+
+@media(max-width:600px){
+  .game-page,
+  .slot-page,
+  .jet-page,
+  .extra-game-page,
+  .shop-page,
+  .tasks-page,
+  .businesses-page,
+  .progress-page,
+  .business-map-page{
+    -webkit-backdrop-filter:blur(24px) saturate(.72) !important;
+    backdrop-filter:blur(24px) saturate(.72) !important;
+  }
+}
+</style>
+
+
+<script id="global-money-format">
+(function(){
+  window.formatUSDT = function(value){
+    const n = Number(value);
+    if(!Number.isFinite(n)) return '0';
+    const hasDecimals = Math.abs(n % 1) > 0.000001;
+    return n.toLocaleString('ru-RU', {
+      minimumFractionDigits: hasDecimals ? 2 : 0,
+      maximumFractionDigits: 2,
+      useGrouping: true
+    }).replace(/\u00A0/g,' ');
+  };
+})();
+</script>
+
+
+<style id="cs2-like-cases">
+.case-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}
+.case{padding:14px;border-radius:16px;border:1px solid rgba(56,189,248,.25);background:linear-gradient(180deg,rgba(24,35,49,.95),rgba(9,15,24,.92));text-align:center;overflow:hidden}
+.case-icon{font-size:32px;filter:drop-shadow(0 0 10px rgba(255,255,255,.18));margin-bottom:5px}
+.case b{display:block;margin:4px 0}
+.case small{opacity:.68}
+.case-opening{position:relative;margin-top:14px;padding:16px;border:1px solid rgba(56,189,248,.25);border-radius:18px;background:rgba(2,8,16,.75);overflow:hidden}
+.case-arrow{position:absolute;z-index:3;left:50%;top:1px;transform:translateX(-50%);color:#38bdf8;text-shadow:0 0 10px #38bdf8;font-size:18px}
+.case-window{height:78px;margin-top:7px;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.12);background:#07101a;position:relative}
+.case-window:before,.case-window:after{content:"";position:absolute;z-index:2;top:0;bottom:0;width:22%;pointer-events:none}
+.case-window:before{left:0;background:linear-gradient(90deg,#07101a 0%,rgba(7,16,26,0) 100%)}
+.case-window:after{right:0;background:linear-gradient(270deg,#07101a 0%,rgba(7,16,26,0) 100%)}
+.case-strip{display:flex;gap:8px;height:100%;align-items:center;will-change:transform}
+.case-item{flex:0 0 118px;height:56px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.78rem;border:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg,#182432,#0e1721);box-shadow:inset 0 0 12px rgba(255,255,255,.035)}
+.case-item.common{border-color:#64748b}.case-item.rare{border-color:#38bdf8;box-shadow:inset 0 0 14px rgba(56,189,248,.12)}.case-item.epic{border-color:#a78bfa;box-shadow:inset 0 0 14px rgba(167,139,250,.14)}.case-item.legendary{border-color:#facc15;box-shadow:inset 0 0 14px rgba(250,204,21,.16)}
+.case-item.selected{outline:2px solid #fff;box-shadow:0 0 18px rgba(255,255,255,.28),inset 0 0 18px rgba(255,255,255,.1)}
+.case-result{text-align:center;min-height:24px;margin-top:10px;font-weight:800}
+.case-opening.rolling .case-arrow{animation:casePulse .55s infinite alternate}
+@keyframes casePulse{from{transform:translateX(-50%) scale(.92);opacity:.55}to{transform:translateX(-50%) scale(1.08);opacity:1}}
+@media(max-width:700px){.case-grid{grid-template-columns:1fr}.case-item{flex-basis:108px}.case-window{height:70px}}
+</style>
+
+
+<style id="light-blue-controls-fix">
+/* ===== Светлая/голубая тема: кнопки читаемы и меню не остаётся чёрным ===== */
+body.light-theme .games-arrow,
+body.light-theme .menu-btn,
+body.blue-theme .games-arrow,
+body.blue-theme .menu-btn{
+  background:rgba(255,255,255,.78) !important;
+  color:#111 !important;
+  border-color:#0ea5e9 !important;
+  box-shadow:0 2px 12px rgba(14,165,233,.18) !important;
+}
+body.light-theme .menu-btn span,
+body.blue-theme .menu-btn span{
+  background:#111 !important;
+}
+body.light-theme .games-arrow,
+body.blue-theme .games-arrow{
+  font-weight:800 !important;
+}
+
+/* Кнопка назад — светлая, а не чёрная. */
+body.light-theme .back-btn,
+body.light-theme .slot-back,
+body.light-theme .extra-back,
+body.light-theme .jet-back,
+body.blue-theme .back-btn,
+body.blue-theme .slot-back,
+body.blue-theme .extra-back,
+body.blue-theme .jet-back{
+  background:rgba(255,255,255,.82) !important;
+  color:#111 !important;
+  border-color:#0ea5e9 !important;
+}
+
+/* Навигационная стрелка/кнопки карусели тоже светлые. */
+body.light-theme .games-nav button,
+body.blue-theme .games-nav button{
+  color:#111 !important;
+}
+</style>
+
+
+<style id="grey-controls-light-blue">
+/* ===== СЕРЫЕ КНОПКИ ДЛЯ БЕЛОЙ И ГОЛУБОЙ ТЕМЫ ===== */
+body.light-theme .games-arrow,
+body.light-theme .menu-btn,
+body.blue-theme .games-arrow,
+body.blue-theme .menu-btn,
+body.light-theme .back-btn,
+body.light-theme .slot-back,
+body.light-theme .extra-back,
+body.light-theme .jet-back,
+body.blue-theme .back-btn,
+body.blue-theme .slot-back,
+body.blue-theme .extra-back,
+body.blue-theme .jet-back{
+  background:#d1d5db !important;
+  color:#111827 !important;
+  border-color:#9ca3af !important;
+  box-shadow:0 2px 8px rgba(0,0,0,.12) !important;
+}
+
+body.light-theme .menu-btn span,
+body.blue-theme .menu-btn span{
+  background:#111827 !important;
+}
+
+body.light-theme .games-arrow,
+body.blue-theme .games-arrow{
+  font-weight:800 !important;
+}
+
+body.light-theme .games-nav button,
+body.blue-theme .games-nav button{
+  background:#d1d5db !important;
+  color:#111827 !important;
+  border-color:#9ca3af !important;
+}
+
+body.light-theme .games-arrow:hover,
+body.blue-theme .games-arrow:hover,
+body.light-theme .menu-btn:hover,
+body.blue-theme .menu-btn:hover{
+  background:#bfc3c9 !important;
+  border-color:#6b7280 !important;
+  box-shadow:0 3px 12px rgba(0,0,0,.16) !important;
+}
+</style>
+
 </head>
 <body>
 <div class="toast" id="toast"></div>
@@ -3591,7 +3833,7 @@ body.blue-theme .task-claim{color:#ffffff!important}
 <button class="extra-back" id="kolobokBack">← Назад</button></div></div>
 
 
-<div class="progress-page" id="progressPage"><div class="progress-container"><div class="progress-top"><div><h1>🌟 Прогресс</h1><p style="opacity:.7;margin-top:3px">Развитие, награды, капитал и коллекция</p></div><button class="progress-back" id="progressBack" title="Назад">↶</button></div><div class="progress-grid"><div class="progress-card progress-wide"><h3>📈 Уровень игрока</h3><div class="progress-stat" id="progLevel">Уровень 1</div><p id="progXpText">0 / 100 XP</p><div class="progress-bar"><span id="progXpBar"></span></div></div><div class="progress-card"><h3>🎁 Ежедневная награда</h3><p id="dailyText">Награда за вход</p><div class="progress-stat" id="dailyReward">10 USDT</div><button class="progress-btn" id="dailyClaim">Получить</button></div><div class="progress-card"><h3>🏆 Достижения</h3><div class="progress-stat" id="achCount">0 / 0</div><div class="progress-list" id="achList"></div></div><div class="progress-card"><h3>🎁 Кейсы</h3><p>Случайные награды за USDT.</p><div class="case-grid"><div class="case">🥉<b>Бронза</b><small>100 USDT</small><br><button class="progress-btn" data-case="100">Открыть</button></div><div class="case">🥈<b>Серебро</b><small>1 000 USDT</small><br><button class="progress-btn" data-case="1000">Открыть</button></div><div class="case">🥇<b>Золото</b><small>10 000 USDT</small><br><button class="progress-btn" data-case="10000">Открыть</button></div></div><p id="caseResult"></p></div><div class="progress-card"><h3>🏦 Банк</h3><p>0.5% каждые 10 минут.</p><div class="progress-stat" id="bankBalance">0 USDT</div><input id="bankAmount" type="number" min="1" placeholder="Сумма" style="width:100%;padding:9px;border-radius:10px;border:1px solid #38bdf8;background:transparent;color:inherit;margin-top:8px"><div class="progress-actions"><button class="progress-btn" id="bankDeposit">Положить</button><button class="progress-btn" id="bankWithdraw">Снять</button></div></div><div class="progress-card"><h3>📈 Биржа</h3><p>Цена виртуальной акции меняется раз в минуту.</p><div class="progress-stat" id="marketPrice">100 USDT</div><p>Акции: <span id="marketShares">0</span></p><div class="progress-actions"><button class="progress-btn" id="marketBuy">Купить</button><button class="progress-btn" id="marketSell">Продать</button></div></div><div class="progress-card progress-wide"><h3>🔓 Новые открытия</h3><p>Ежедневная награда помогает прокачивать уровень. За уровни открываются новые бизнесы, предметы и VIP-статусы.</p><div class="unlock-grid" id="unlockGrid"></div></div>
+<div class="progress-page" id="progressPage"><div class="progress-container"><div class="progress-top"><div><h1>🌟 Прогресс</h1><p style="opacity:.7;margin-top:3px">Развитие, награды, капитал и коллекция</p></div><button class="progress-back" id="progressBack" title="Назад">↶</button></div><div class="progress-grid"><div class="progress-card progress-wide"><h3>📈 Уровень игрока</h3><div class="progress-stat" id="progLevel">Уровень 1</div><p id="progXpText">0 / 100 XP</p><div class="progress-bar"><span id="progXpBar"></span></div></div><div class="progress-card"><h3>🎁 Ежедневная награда</h3><p id="dailyText">Награда за вход</p><div class="progress-stat" id="dailyReward">10 USDT</div><button class="progress-btn" id="dailyClaim">Получить</button></div><div class="progress-card"><h3>🏆 Достижения</h3><div class="progress-stat" id="achCount">0 / 0</div><div class="progress-list" id="achList"></div></div><div class="progress-card progress-wide"><h3>🎁 Кейсы</h3><p>Открытие в стиле кейс-рулетки: предметы пролетают по ленте и останавливаются на выигранной награде.</p><div class="case-grid"><div class="case"><div class="case-icon">📦</div><b>Бронзовый кейс</b><small>100 USDT</small><br><button class="progress-btn" data-case="100">Открыть</button></div><div class="case"><div class="case-icon">🎁</div><b>Серебряный кейс</b><small>1 000 USDT</small><br><button class="progress-btn" data-case="1000">Открыть</button></div><div class="case"><div class="case-icon">💎</div><b>Золотой кейс</b><small>10 000 USDT</small><br><button class="progress-btn" data-case="10000">Открыть</button></div></div><div class="case-opening" id="caseOpening"><div class="case-arrow">▼</div><div class="case-window"><div class="case-strip" id="caseStrip"></div></div><div class="case-result" id="caseResult"></div></div></div><div class="progress-card"><h3>🏦 Банк</h3><p>0.5% каждые 10 минут.</p><div class="progress-stat" id="bankBalance">0 USDT</div><input id="bankAmount" type="number" min="1" placeholder="Сумма" style="width:100%;padding:9px;border-radius:10px;border:1px solid #38bdf8;background:transparent;color:inherit;margin-top:8px"><div class="progress-actions"><button class="progress-btn" id="bankDeposit">Положить</button><button class="progress-btn" id="bankWithdraw">Снять</button></div></div><div class="progress-card"><h3>📈 Биржа</h3><p>Цена виртуальной акции меняется раз в минуту.</p><div class="progress-stat" id="marketPrice">100 USDT</div><p>Акции: <span id="marketShares">0</span></p><div class="progress-actions"><button class="progress-btn" id="marketBuy">Купить</button><button class="progress-btn" id="marketSell">Продать</button></div></div><div class="progress-card progress-wide"><h3>🔓 Новые открытия</h3><p>Ежедневная награда помогает прокачивать уровень. За уровни открываются новые бизнесы, предметы и VIP-статусы.</p><div class="unlock-grid" id="unlockGrid"></div></div>
 <div class="progress-card progress-wide"><h3>🗺️ Карта владений</h3><p>Зелёные объекты уже куплены.</p><div class="progress-map" id="progressMap"></div></div><div class="progress-card"><h3>⚡ Событие</h3><div class="progress-stat" id="eventTitle">Спокойный рынок</div><p id="eventDesc">Случайное событие.</p><p id="eventTimer"></p></div><div class="progress-card"><h3>🏆 Лидеры</h3><p>Локальный рейтинг браузера.</p><div class="progress-list" id="leaderList"></div></div><div class="progress-card progress-wide"><h3>🎒 Коллекция</h3><p id="collectionText">Собранные предметы</p><div class="progress-list" id="collectionList"></div></div></div></div></div>
 
 <div class="settings-overlay" id="settingsOverlay"></div>
@@ -3689,7 +3931,7 @@ function processMaintenance(){
 }
 function load(){const s=localStorage.getItem('donatGame');if(s){try{const d=JSON.parse(s);g.d=d.d||0;g.c=d.c||0;g.i=d.i||0;if(d.u){d.u.forEach((u,i)=>{if(g.u[i]){g.u[i].l=u.l||0;g.u[i].c=u.c||g.u[i].b}})}}catch(e){}}processMaintenance();upd()}
 function save(){localStorage.setItem('donatGame',JSON.stringify({d:g.d,c:g.c,i:g.i,u:g.u.map(u=>({l:u.l,c:u.c}))}))}
-function upd(){document.getElementById('donatDisplay').textContent=Math.floor(g.d);document.getElementById('clicksDisplay').textContent=g.c;document.getElementById('incomeDisplay').textContent=effectiveIncome().toFixed(1);render()}
+function upd(){document.getElementById('donatDisplay').textContent=formatUSDT(Math.floor(g.d));document.getElementById('clicksDisplay').textContent=g.c;document.getElementById('incomeDisplay').textContent=effectiveIncome().toFixed(1);render()}
 function render(){const c=document.getElementById('upgradesContainer');c.innerHTML='';g.u.forEach((u,i)=>{const card=document.createElement('div');const disabled=g.d<u.c;card.className='upgrade-card'+(disabled?' disabled':'');card.innerHTML='<div class="upgrade-name">'+u.n+'</div><div class="upgrade-desc">'+u.desc+'</div><div class="upgrade-cost">💎 '+Math.floor(u.c)+'</div><div style="font-size:0.75rem;opacity:0.6;">Ур: '+u.l+'</div>';if(!disabled){card.onclick=function(){buy(i)}}c.appendChild(card)})}
 function buy(i){const u=g.u[i];if(g.d<u.c){playCasinoSound('error');return;}playCasinoSound('buy');g.d-=u.c;u.l++;u.c=Math.floor(u.b*Math.pow(1.15,u.l));if(u.t==='click')g.i+=u.m*0.5;else if(u.t==='income')g.i+=u.m;else if(u.t==='percent')g.i*=(1+u.m);save();upd()}
 function clickD(){playCasinoSound('click',.55);const b=0.10*(1+(g.u[0].l*0.5));g.d+=b;g.c++;save();upd()}
@@ -3869,7 +4111,8 @@ function setAuthError(msg){authError.textContent=msg||''}
 function updateAuthUI(){
     const logged=currentUser();
     if(logged){
-        authSection.style.display='none';
+        authSection.classList.add('auth-logged-in');
+        authSection.classList.remove('auth-logged-out');
         authProfile.classList.add('show');
         authProfileName.textContent=logged;
         authAvatar.textContent=(logged.trim()[0]||'A').toUpperCase();
@@ -3877,7 +4120,8 @@ function updateAuthUI(){
             window.updateCurrentPremiumProfile();
         }
     }else{
-        authSection.style.display='flex';
+        authSection.classList.remove('auth-logged-in');
+        authSection.classList.add('auth-logged-out');
         authProfile.classList.remove('show');
         if(authPremiumBadge){
             authPremiumBadge.style.display='none';
@@ -4520,7 +4764,7 @@ function initExtraGame(x){
  const page=document.getElementById(x.page),btn=document.getElementById(x.button),back=document.getElementById(x.back),spin=document.getElementById(x.spin),bet=document.getElementById(x.bet),minus=document.getElementById(x.minus),plus=document.getElementById(x.plus),balance=document.getElementById(x.balance),result=document.getElementById(x.result),reels=x.reels.map(id=>document.getElementById(id));
  function symbol(){return x.symbols[Math.floor(Math.random()*x.symbols.length)]}
  function mult(a,b,c){if(a===b&&b===c&&x.payouts[a])return x.payouts[a];if(a===x.combo[0]&&b===x.combo[1]&&c===x.combo[2])return 5;if(a===b||a===c||b===c)return 2;return 0}
- function refresh(){balance.textContent=Math.floor(g.d)}
+ function refresh(){balance.textContent=formatUSDT(Math.floor(g.d))}
  function close(){if(st.running)return;page.classList.remove('active');document.querySelector('.content').style.display='flex'}
  function spinGame(){
   if(st.running)return;const amount=Math.floor(Number(bet.value));
@@ -4969,7 +5213,7 @@ setInterval(dt2,1000);dt2();loadTheme();load();startIncomeLoop();
   window.updateCurrentPremiumProfile = updatePremiumProfile;
   function money(n){return Number(n).toLocaleString('ru-RU');}
 
-  function updateShopBalance(){if(typeof g!=='undefined'&&balance) balance.textContent=Math.floor(g.d||0);}
+  function updateShopBalance(){if(typeof g!=='undefined'&&balance) balance.textContent=formatUSDT(Math.floor(g.d||0));}
   function render(){
     const st=state();
     const visible=items.filter(x=>category==='all'||x[4]===category);
@@ -5211,7 +5455,7 @@ setInterval(dt2,1000);dt2();loadTheme();load();startIncomeLoop();
       status.className='businesses-status active paused';
       status.textContent='🔐 Войди в аккаунт, чтобы управлять бизнесами и сотрудниками.';
       list.innerHTML='<div class="business-card"><h3>Нет авторизации</h3><p class="business-desc">После входа здесь появятся купленные бизнесы.</p></div>';
-      balance.textContent=Math.floor(g.d||0);
+      balance.textContent=formatUSDT(Math.floor(g.d||0));
       return;
     }
     const owns=ownedBusinesses();
@@ -5221,7 +5465,7 @@ setInterval(dt2,1000);dt2();loadTheme();load();startIncomeLoop();
       status.textContent='💼 У тебя пока нет купленных бизнесов. Купи бизнес в магазине.';
       summary.innerHTML='';
       list.innerHTML='<div class="business-card"><h3>Мои бизнесы</h3><p class="business-desc">Здесь появятся твои бизнесы после покупки.</p></div>';
-      balance.textContent=Math.floor(g.d||0);
+      balance.textContent=formatUSDT(Math.floor(g.d||0));
       return;
     }
 
@@ -5237,7 +5481,7 @@ setInterval(dt2,1000);dt2();loadTheme();load();startIncomeLoop();
       <div class="business-summary-card"><span>👥 Сотрудники</span><strong>${owns.reduce((n,id)=>n+staffCount(id,st),0)}</strong></div>
       <div class="business-summary-card"><span>🧾 Расходы/мин</span><strong>${money(Math.ceil(exp))} 💎</strong></div>
       <div class="business-summary-card"><span>📈 Чистая прибыль/мин</span><strong>+${money(Math.ceil(totalBusinessNetProfitPerMinute()))} 💎</strong></div>`;
-    balance.textContent=Math.floor(g.d||0);
+    balance.textContent=formatUSDT(Math.floor(g.d||0));
 
     list.innerHTML=owns.map(id=>{
       const x=businessCatalog[id]; const count=staffCount(id,st); const eff=efficiency(id,st);
@@ -5430,10 +5674,59 @@ function renderUnlocks(level){const el=$('unlockGrid');if(!el)return;el.innerHTM
 
 const A=[['🖱️ 50 кликов',()=>G.c>=50],['💵 1 000 USDT',()=>G.d>=1000],['💰 10 000 USDT',()=>G.d>=10000],['💎 100 000 USDT',()=>G.d>=100000],['🏆 1 000 000 USDT',()=>G.d>=1000000],['⬆️ Первый апгрейд',()=>G.u.some(u=>u.l>0)],['🎒 5 покупок',()=>own().length>=5]];
 const N={c1:'🚗 Авто',c2:'🏎️ Спорткар',c3:'🚙 Кроссовер',c4:'🏁 Суперкар',c5:'🚕 Премиум авто',c6:'🚐 Минивэн',c7:'🚲 Электровелосипед',c8:'🚘 Люкс-седан',h1:'🏠 Квартира',h2:'🏡 Дом',h3:'🏰 Особняк',h4:'🏝️ Вилла',h5:'🏢 Пентхаус',h6:'💼 Офис',h7:'🏙️ Башня',bz1:'🏪 Магазин',bz2:'☕ Кофейня',bz3:'🧼 Автомойка',bz4:'🍽️ Ресторан',bz5:'🏨 Отель',bz6:'🏦 Банк',bz7:'💻 IT',bz8:'🛍️ ТЦ',bz9:'🏢 Корпорация',bz10:'🌆 Холдинг',bz11:'🏙️ Империя',bz12:'🌍 Конгломерат',bz13:'🎰 Казино',v1:'💎 VIP',v2:'👑 Королевский',v3:'⭐ Золотой',v4:'🔥 Премиум',v5:'💠 Алмазный'};
-function render(){const [l,c,n]=lvl();renderUnlocks(l);$('progLevel').textContent='Уровень '+l;$('progXpText').textContent=c+' / '+n+' XP';$('progXpBar').style.width=(c/n*100)+'%';let done=0;$('achList').innerHTML=A.map(a=>{const ok=a[1]();if(ok)done++;return '<div class="progress-item"><span>'+a[0]+'</span><span class="progress-tag">'+(ok?'✓':'—')+'</span></div>'}).join('');$('achCount').textContent=done+' / '+A.length;const now=Date.now(),day=86400000,ready=!S.lastDaily||now-S.lastDaily>=day;$('dailyClaim').disabled=!ready;$('dailyText').textContent=ready?'Награда доступна. Серия: '+(S.streak+1):'Следующая награда через '+Math.ceil((day-(now-S.lastDaily))/3600000)+' ч.';$('dailyReward').textContent=(10*Math.min(7,S.streak+1))+' USDT';if(S.bankAt&&now-S.bankAt>=600000){const k=Math.floor((now-S.bankAt)/600000);S.bank*=Math.pow(1.005,k);S.bankAt=now;save()}$('bankBalance').textContent=S.bank.toFixed(2)+' USDT';if(!S.marketAt)S.marketAt=now;if(now-S.marketAt>=60000){const k=Math.floor((now-S.marketAt)/60000);for(let i=0;i<k;i++)S.market*=1+(Math.random()*.06-.03);S.market=Math.max(10,Math.min(100000,S.market));S.marketAt=now;save()}$('marketPrice').textContent=S.market.toFixed(2)+' USDT';$('marketShares').textContent=S.shares;const nodes=[['🏪 Магазин',['bz1']],['☕ Кофейня',['bz2']],['🧼 Автомойка',['bz3']],['🍽️ Ресторан',['bz4']],['🏨 Отель',['bz5']],['🏦 Банк',['bz6']],['💻 IT',['bz7']],['🛍️ ТЦ',['bz8']],['🏢 Корпорация',['bz9']],['🌆 Холдинг',['bz10']],['🏙️ Империя',['bz11']],['🌍 Конгломерат',['bz12']],['🎰 Казино',['bz13']]];$('progressMap').innerHTML=nodes.map(x=>'<div class="map-node '+(x[1].some(k=>own().includes(k))?'owned':'')+'">'+x[0]+'<br><small>'+(x[1].some(k=>own().includes(k))?'✓ Куплено':'—')+'</small></div>').join('');const o=own();$('collectionText').textContent='Собрано: '+o.length+' предметов';$('collectionList').innerHTML=o.length?o.map(id=>'<div class="progress-item"><span>'+(N[id]||id)+'</span><span class="progress-tag">Собрано</span></div>').join(''):'<div class="progress-item"><span>Пока пусто</span></div>';const score=Math.floor(G.d+o.length*1000+l*5000);$('leaderList').innerHTML=[['🥇 Ты',score],['🥈 Алекс',Math.floor(score*.82)],['🥉 Макс',Math.floor(score*.61)]].map(x=>'<div class="progress-item"><span>'+x[0]+'</span><b>'+x[1].toLocaleString('ru-RU')+'</b></div>').join('');if(!S.eventAt||now-S.eventAt>=300000){const e=[['📈 Бум рынка',1.15],['🎉 Праздник',1.25],['🧊 Спокойный рынок',1]][Math.floor(Math.random()*3)];S.eventTitle=e[0];S.eventMult=e[1];S.eventAt=now;save()}$('eventTitle').textContent=S.eventTitle;$('eventDesc').textContent='Бонус дополнительного дохода: ×'+S.eventMult.toFixed(2);$('eventTimer').textContent='Осталось: '+Math.ceil((300000-(now-S.eventAt))/1000)+' сек.'}
+function render(){const [l,c,n]=lvl();renderUnlocks(l);$('progLevel').textContent='Уровень '+l;$('progXpText').textContent=c+' / '+n+' XP';$('progXpBar').style.width=(c/n*100)+'%';let done=0;$('achList').innerHTML=A.map(a=>{const ok=a[1]();if(ok)done++;return '<div class="progress-item"><span>'+a[0]+'</span><span class="progress-tag">'+(ok?'✓':'—')+'</span></div>'}).join('');$('achCount').textContent=done+' / '+A.length;const now=Date.now(),day=86400000,ready=!S.lastDaily||now-S.lastDaily>=day;$('dailyClaim').disabled=!ready;$('dailyText').textContent=ready?'Награда доступна. Серия: '+(S.streak+1):'Следующая награда через '+Math.ceil((day-(now-S.lastDaily))/3600000)+' ч.';$('dailyReward').textContent=formatUSDT(10*Math.min(7,S.streak+1))+' USDT';if(S.bankAt&&now-S.bankAt>=600000){const k=Math.floor((now-S.bankAt)/600000);S.bank*=Math.pow(1.005,k);S.bankAt=now;save()}$('bankBalance').textContent=formatUSDT(S.bank)+' USDT';if(!S.marketAt)S.marketAt=now;if(now-S.marketAt>=60000){const k=Math.floor((now-S.marketAt)/60000);for(let i=0;i<k;i++)S.market*=1+(Math.random()*.06-.03);S.market=Math.max(10,Math.min(100000,S.market));S.marketAt=now;save()}$('marketPrice').textContent=formatUSDT(S.market)+' USDT';$('marketShares').textContent=S.shares;const nodes=[['🏪 Магазин',['bz1']],['☕ Кофейня',['bz2']],['🧼 Автомойка',['bz3']],['🍽️ Ресторан',['bz4']],['🏨 Отель',['bz5']],['🏦 Банк',['bz6']],['💻 IT',['bz7']],['🛍️ ТЦ',['bz8']],['🏢 Корпорация',['bz9']],['🌆 Холдинг',['bz10']],['🏙️ Империя',['bz11']],['🌍 Конгломерат',['bz12']],['🎰 Казино',['bz13']]];$('progressMap').innerHTML=nodes.map(x=>'<div class="map-node '+(x[1].some(k=>own().includes(k))?'owned':'')+'">'+x[0]+'<br><small>'+(x[1].some(k=>own().includes(k))?'✓ Куплено':'—')+'</small></div>').join('');const o=own();$('collectionText').textContent='Собрано: '+o.length+' предметов';$('collectionList').innerHTML=o.length?o.map(id=>'<div class="progress-item"><span>'+(N[id]||id)+'</span><span class="progress-tag">Собрано</span></div>').join(''):'<div class="progress-item"><span>Пока пусто</span></div>';const score=Math.floor(G.d+o.length*1000+l*5000);$('leaderList').innerHTML=[['🥇 Ты',score],['🥈 Алекс',Math.floor(score*.82)],['🥉 Макс',Math.floor(score*.61)]].map(x=>'<div class="progress-item"><span>'+x[0]+'</span><b>'+formatUSDT(x[1])+'</b></div>').join('');if(!S.eventAt||now-S.eventAt>=300000){const e=[['📈 Бум рынка',1.15],['🎉 Праздник',1.25],['🧊 Спокойный рынок',1]][Math.floor(Math.random()*3)];S.eventTitle=e[0];S.eventMult=e[1];S.eventAt=now;save()}$('eventTitle').textContent=S.eventTitle;$('eventDesc').textContent='Бонус дополнительного дохода: ×'+S.eventMult.toFixed(2);$('eventTimer').textContent='Осталось: '+Math.ceil((300000-(now-S.eventAt))/1000)+' сек.'}
 function open(){document.querySelector('.content')?.style.setProperty('display','none');page.classList.add('active');render()}function close(){page.classList.remove('active');document.querySelector('.content')?.style.removeProperty('display')}menu.onclick=e=>{e.stopPropagation();open()};back.onclick=close;
 $('dailyClaim').onclick=()=>{if($('dailyClaim').disabled)return;const now=Date.now();if(S.lastDaily&&now-S.lastDaily>172800000)S.streak=0;S.streak++;S.lastDaily=now;const r=10*Math.min(7,S.streak);add(r);xp(25);save();render();window.showToast&&window.showToast('🎁 +'+r+' USDT')};
-document.querySelectorAll('[data-case]').forEach(b=>b.onclick=()=>{const cost=+b.dataset.case;if(G.d<cost)return window.showToast&&window.showToast('❌ Не хватает USDT');add(-cost);const mult=[.25,.5,1,2,5][Math.floor(Math.random()*5)],r=Math.max(1,Math.floor(cost*mult));add(r);xp(Math.floor(cost/20));$('caseResult').textContent='🎉 +'+r+' USDT';render()});
+const CASE_ITEMS = [
+  {name:'💵 25 USDT', mult:.25, cls:'common'},
+  {name:'💵 50 USDT', mult:.5, cls:'common'},
+  {name:'💰 100 USDT', mult:1, cls:'rare'},
+  {name:'💎 200 USDT', mult:2, cls:'epic'},
+  {name:'🔥 500 USDT', mult:5, cls:'legendary'}
+];
+function openCaseRoulette(cost){
+  const strip=document.getElementById('caseStrip');
+  const result=document.getElementById('caseResult');
+  const opening=document.getElementById('caseOpening');
+  if(!strip||!result||!opening)return;
+  if(G.d<cost){window.showToast&&window.showToast('❌ Не хватает USDT');return;}
+  add(-cost);
+  result.textContent='Открываем кейс…';
+  opening.classList.add('rolling');
+
+  const winnerIndex=28;
+  const items=[];
+  for(let i=0;i<42;i++) items.push(CASE_ITEMS[Math.floor(Math.random()*CASE_ITEMS.length)]);
+  const winner=CASE_ITEMS[Math.floor(Math.random()*CASE_ITEMS.length)];
+  items[winnerIndex]=winner;
+  strip.innerHTML=items.map((it,i)=>'<div class="case-item '+it.cls+'" data-i="'+i+'"><span>'+it.name+'</span></div>').join('');
+  strip.style.transition='none';
+  strip.style.transform='translateX(0)';
+
+  requestAnimationFrame(()=>{
+    const card=strip.children[0];
+    const gap=8, itemWidth=(card?card.getBoundingClientRect().width:120)+gap;
+    const viewport=document.querySelector('.case-window');
+    const center=(viewport?viewport.clientWidth:320)/2 - itemWidth/2;
+    const target=-(winnerIndex*itemWidth-center);
+    requestAnimationFrame(()=>{
+      strip.style.transition='transform 5.2s cubic-bezier(.08,.72,.12,1)';
+      strip.style.transform='translateX('+target+'px)';
+    });
+  });
+
+  setTimeout(()=>{
+    opening.classList.remove('rolling');
+    const reward=Math.max(1,Math.floor(cost*winner.mult));
+    add(reward);
+    xp(Math.floor(cost/20));
+    result.innerHTML='🎉 Выпало: <b>'+winner.name+'</b> · <strong>+'+formatUSDT(reward)+' USDT</strong>';
+    const won=strip.querySelector('[data-i="'+winnerIndex+'"]');
+    if(won)won.classList.add('selected');
+    render();
+  },5350);
+}
+document.querySelectorAll('[data-case]').forEach(b=>b.onclick=()=>openCaseRoulette(+b.dataset.case));
 $('bankDeposit').onclick=()=>{const n=+$('bankAmount').value;if(!n||n<1||G.d<n)return window.showToast&&window.showToast('❌ Недостаточно USDT');add(-n);S.bank+=n;if(!S.bankAt)S.bankAt=Date.now();save();render()};$('bankWithdraw').onclick=()=>{const n=Math.min(S.bank,+$('bankAmount').value||0);if(n<=0)return;render();S.bank-=n;add(n);if(S.bank<=0)S.bankAt=0;save();render()};$('marketBuy').onclick=()=>{render();if(G.d<S.market)return window.showToast&&window.showToast('❌ Не хватает USDT');add(-S.market);S.shares++;save();render()};$('marketSell').onclick=()=>{if(S.shares<1)return;render();S.shares--;add(S.market);save();render()};
 setInterval(()=>{if(page.classList.contains('active'))render()},1000);
 })();
