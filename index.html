@@ -3274,44 +3274,157 @@ body.blue-theme .auth-overlay{
 </style>
 
 
-<style id="menu-must-hide-on-pages">
-/* ===== МЕНЮ НИКОГДА НЕ ДОЛЖНО ОСТАВАТЬСЯ ПОВЕРХ ОТКРЫТОЙ ВКЛАДКИ ===== */
-body:has(
-  .game-page.active,
-  .slot-page.active,
-  .jet-page.active,
-  .extra-game-page.active,
-  .shop-page.active,
-  .tasks-page.active,
-  .businesses-page.active,
-  .progress-page.active,
-  .business-map-page.active,
-  .music-page.active
-) .sidebar{
-  display:none !important;
-  visibility:hidden !important;
-  pointer-events:none !important;
+<script id="global-money-format">
+(function(){
+  window.formatUSDT = function(value){
+    const n = Number(value);
+    if(!Number.isFinite(n)) return '0';
+    const hasDecimals = Math.abs(n % 1) > 0.000001;
+    return n.toLocaleString('ru-RU', {
+      minimumFractionDigits: hasDecimals ? 2 : 0,
+      maximumFractionDigits: 2,
+      useGrouping: true
+    }).replace(/\u00A0/g,' ');
+  };
+})();
+</script>
+
+
+<style id="cs2-like-cases">
+.case-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}
+.case{padding:14px;border-radius:16px;border:1px solid rgba(56,189,248,.25);background:linear-gradient(180deg,rgba(24,35,49,.95),rgba(9,15,24,.92));text-align:center;overflow:hidden}
+.case-icon{font-size:32px;filter:drop-shadow(0 0 10px rgba(255,255,255,.18));margin-bottom:5px}
+.case b{display:block;margin:4px 0}
+.case small{opacity:.68}
+.case-opening{position:relative;margin-top:14px;padding:16px;border:1px solid rgba(56,189,248,.25);border-radius:18px;background:rgba(2,8,16,.75);overflow:hidden}
+.case-arrow{position:absolute;z-index:3;left:50%;top:1px;transform:translateX(-50%);color:#38bdf8;text-shadow:0 0 10px #38bdf8;font-size:18px}
+.case-window{height:78px;margin-top:7px;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.12);background:#07101a;position:relative}
+.case-window:before,.case-window:after{content:"";position:absolute;z-index:2;top:0;bottom:0;width:22%;pointer-events:none}
+.case-window:before{left:0;background:linear-gradient(90deg,#07101a 0%,rgba(7,16,26,0) 100%)}
+.case-window:after{right:0;background:linear-gradient(270deg,#07101a 0%,rgba(7,16,26,0) 100%)}
+.case-strip{display:flex;gap:8px;height:100%;align-items:center;will-change:transform}
+.case-item{flex:0 0 118px;height:56px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.78rem;border:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg,#182432,#0e1721);box-shadow:inset 0 0 12px rgba(255,255,255,.035)}
+.case-item.common{border-color:#64748b}.case-item.rare{border-color:#38bdf8;box-shadow:inset 0 0 14px rgba(56,189,248,.12)}.case-item.epic{border-color:#a78bfa;box-shadow:inset 0 0 14px rgba(167,139,250,.14)}.case-item.legendary{border-color:#facc15;box-shadow:inset 0 0 14px rgba(250,204,21,.16)}
+.case-item.selected{outline:2px solid #fff;box-shadow:0 0 18px rgba(255,255,255,.28),inset 0 0 18px rgba(255,255,255,.1)}
+.case-result{text-align:center;min-height:24px;margin-top:10px;font-weight:800}
+.case-opening.rolling .case-arrow{animation:casePulse .55s infinite alternate}
+@keyframes casePulse{from{transform:translateX(-50%) scale(.92);opacity:.55}to{transform:translateX(-50%) scale(1.08);opacity:1}}
+@media(max-width:700px){.case-grid{grid-template-columns:1fr}.case-item{flex-basis:108px}.case-window{height:70px}}
+</style>
+
+
+<style id="light-blue-controls-fix">
+/* ===== Светлая/голубая тема: кнопки читаемы и меню не остаётся чёрным ===== */
+body.light-theme .games-arrow,
+body.light-theme .menu-btn,
+body.blue-theme .games-arrow,
+body.blue-theme .menu-btn{
+  background:rgba(255,255,255,.78) !important;
+  color:#111 !important;
+  border-color:#0ea5e9 !important;
+  box-shadow:0 2px 12px rgba(14,165,233,.18) !important;
+}
+body.light-theme .menu-btn span,
+body.blue-theme .menu-btn span{
+  background:#111 !important;
+}
+body.light-theme .games-arrow,
+body.blue-theme .games-arrow{
+  font-weight:800 !important;
 }
 
-body:has(
-  .game-page.active,
-  .slot-page.active,
-  .jet-page.active,
-  .extra-game-page.active,
-  .shop-page.active,
-  .tasks-page.active,
-  .businesses-page.active,
-  .progress-page.active,
-  .business-map-page.active,
-  .music-page.active
-) .overlay{
-  display:none !important;
-  opacity:0 !important;
-  visibility:hidden !important;
-  pointer-events:none !important;
+/* Кнопка назад — светлая, а не чёрная. */
+body.light-theme .back-btn,
+body.light-theme .slot-back,
+body.light-theme .extra-back,
+body.light-theme .jet-back,
+body.blue-theme .back-btn,
+body.blue-theme .slot-back,
+body.blue-theme .extra-back,
+body.blue-theme .jet-back{
+  background:rgba(255,255,255,.82) !important;
+  color:#111 !important;
+  border-color:#0ea5e9 !important;
 }
 
-/* Кнопка меню остаётся доступной, но при открытой вкладке шторка не показывается. */
+/* Навигационная стрелка/кнопки карусели тоже светлые. */
+body.light-theme .games-nav button,
+body.blue-theme .games-nav button{
+  color:#111 !important;
+}
+</style>
+
+
+<style id="grey-controls-light-blue">
+/* ===== СЕРЫЕ КНОПКИ ДЛЯ БЕЛОЙ И ГОЛУБОЙ ТЕМЫ ===== */
+body.light-theme .games-arrow,
+body.light-theme .menu-btn,
+body.blue-theme .games-arrow,
+body.blue-theme .menu-btn,
+body.light-theme .back-btn,
+body.light-theme .slot-back,
+body.light-theme .extra-back,
+body.light-theme .jet-back,
+body.blue-theme .back-btn,
+body.blue-theme .slot-back,
+body.blue-theme .extra-back,
+body.blue-theme .jet-back{
+  background:#d1d5db !important;
+  color:#111827 !important;
+  border-color:#9ca3af !important;
+  box-shadow:0 2px 8px rgba(0,0,0,.12) !important;
+}
+
+body.light-theme .menu-btn span,
+body.blue-theme .menu-btn span{
+  background:#111827 !important;
+}
+
+body.light-theme .games-arrow,
+body.blue-theme .games-arrow{
+  font-weight:800 !important;
+}
+
+body.light-theme .games-nav button,
+body.blue-theme .games-nav button{
+  background:#d1d5db !important;
+  color:#111827 !important;
+  border-color:#9ca3af !important;
+}
+
+body.light-theme .games-arrow:hover,
+body.blue-theme .games-arrow:hover,
+body.light-theme .menu-btn:hover,
+body.blue-theme .menu-btn:hover{
+  background:#bfc3c9 !important;
+  border-color:#6b7280 !important;
+  box-shadow:0 3px 12px rgba(0,0,0,.16) !important;
+}
+</style>
+
+
+<style id="ultimate-empire-css">
+.empire-page{display:none;position:fixed;inset:0;z-index:420;overflow-y:auto;padding:78px 14px 125px;background:rgba(7,12,20,.48);color:#fff;-webkit-backdrop-filter:blur(30px) saturate(.78);backdrop-filter:blur(30px) saturate(.78)}
+.empire-page.active{display:block}.empire-wrap{width:min(100%,1100px);margin:0 auto}.empire-head{display:flex;justify-content:space-between;gap:16px;margin-bottom:16px}.empire-title{font-size:2rem;font-weight:900}.empire-sub{opacity:.68}.empire-level{padding:10px 14px;border:1px solid #38bdf8;border-radius:14px;background:rgba(56,189,248,.1);white-space:nowrap;font-weight:900}
+.empire-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}.empire-stat,.empire-panel{border:1px solid rgba(56,189,248,.24);border-radius:20px;background:linear-gradient(180deg,rgba(18,29,43,.84),rgba(8,14,23,.84));box-shadow:0 12px 30px rgba(0,0,0,.22);backdrop-filter:blur(14px)}.empire-stat{padding:14px}.empire-stat small{display:block;opacity:.62;margin-bottom:4px}.empire-stat b{font-size:1.3rem}.empire-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.empire-panel{padding:16px}.empire-panel.wide{grid-column:1/-1}.empire-panel h3{margin:0 0 8px}.empire-panel p{margin:4px 0;opacity:.72;font-size:.84rem}.empire-progress{height:9px;border-radius:99px;overflow:hidden;background:rgba(127,127,127,.18);margin:10px 0}.empire-progress>span{display:block;height:100%;background:linear-gradient(90deg,#0ea5e9,#38bdf8);border-radius:inherit}
+.empire-districts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.empire-district{padding:12px;border-radius:15px;border:1px solid rgba(56,189,248,.18);background:rgba(255,255,255,.035)}.empire-district strong{display:block}.empire-district small{opacity:.64}.empire-list{display:flex;flex-direction:column;gap:8px;margin-top:10px}.empire-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border-radius:13px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07)}.empire-btn{border:1px solid #38bdf8;background:rgba(56,189,248,.1);color:inherit;padding:9px 12px;border-radius:11px;cursor:pointer;font-weight:800}.empire-btn:disabled{opacity:.45;cursor:not-allowed}.empire-badge{display:inline-flex;padding:4px 8px;border-radius:999px;border:1px solid rgba(56,189,248,.3);font-size:.72rem}.empire-collection{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}.empire-item{padding:12px;border-radius:14px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.035);text-align:center}.empire-item .icon{font-size:28px;display:block}.empire-hot{color:#facc15}.empire-good{color:#4ade80}.empire-back{width:100%;margin-top:14px}
+body.light-theme .empire-page,body.blue-theme .empire-page{color:#111}body.light-theme .empire-page{background:rgba(245,245,245,.38)}body.blue-theme .empire-page{background:rgba(186,230,253,.38)}body.light-theme .empire-stat,body.light-theme .empire-panel,body.blue-theme .empire-stat,body.blue-theme .empire-panel{background:rgba(255,255,255,.72);border-color:rgba(8,47,73,.14)}
+@media(max-width:800px){.empire-stats{grid-template-columns:repeat(2,1fr)}.empire-grid{grid-template-columns:1fr}.empire-panel.wide{grid-column:auto}.empire-districts{grid-template-columns:repeat(2,1fr)}.empire-collection{grid-template-columns:repeat(3,1fr)}}@media(max-width:520px){.empire-title{font-size:1.55rem}.empire-head{flex-direction:column}.empire-level{align-self:flex-start}.empire-collection{grid-template-columns:repeat(2,1fr)}}
+</style>
+
+
+<style id="map-plot-final-fix">
+.map-plot.occupied{
+  display:none !important;
+}
+.city-map{
+  position:relative !important;
+  overflow:hidden !important;
+}
+.map-plot{
+  box-sizing:border-box !important;
+  transform:none !important;
+}
 </style>
 
 </head>
@@ -3745,7 +3858,7 @@ body:has(
 <button class="extra-back" id="kolobokBack">← Назад</button></div></div>
 
 
-<div class="progress-page" id="progressPage"><div class="progress-container"><div class="progress-top"><div><h1>🌟 Прогресс</h1><p style="opacity:.7;margin-top:3px">Развитие, награды, капитал и коллекция</p></div><button class="progress-back" id="progressBack" title="Назад">↶</button></div><div class="progress-grid"><div class="progress-card progress-wide"><h3>📈 Уровень игрока</h3><div class="progress-stat" id="progLevel">Уровень 1</div><p id="progXpText">0 / 100 XP</p><div class="progress-bar"><span id="progXpBar"></span></div></div><div class="progress-card"><h3>🎁 Ежедневная награда</h3><p id="dailyText">Награда за вход</p><div class="progress-stat" id="dailyReward">10 USDT</div><button class="progress-btn" id="dailyClaim">Получить</button></div><div class="progress-card"><h3>🏆 Достижения</h3><div class="progress-stat" id="achCount">0 / 0</div><div class="progress-list" id="achList"></div></div><div class="progress-card"><h3>🎁 Кейсы</h3><p>Случайные награды за USDT.</p><div class="case-grid"><div class="case">🥉<b>Бронза</b><small>100 USDT</small><br><button class="progress-btn" data-case="100">Открыть</button></div><div class="case">🥈<b>Серебро</b><small>1 000 USDT</small><br><button class="progress-btn" data-case="1000">Открыть</button></div><div class="case">🥇<b>Золото</b><small>10 000 USDT</small><br><button class="progress-btn" data-case="10000">Открыть</button></div></div><p id="caseResult"></p></div><div class="progress-card"><h3>🏦 Банк</h3><p>0.5% каждые 10 минут.</p><div class="progress-stat" id="bankBalance">0 USDT</div><input id="bankAmount" type="number" min="1" placeholder="Сумма" style="width:100%;padding:9px;border-radius:10px;border:1px solid #38bdf8;background:transparent;color:inherit;margin-top:8px"><div class="progress-actions"><button class="progress-btn" id="bankDeposit">Положить</button><button class="progress-btn" id="bankWithdraw">Снять</button></div></div><div class="progress-card"><h3>📈 Биржа</h3><p>Цена виртуальной акции меняется раз в минуту.</p><div class="progress-stat" id="marketPrice">100 USDT</div><p>Акции: <span id="marketShares">0</span></p><div class="progress-actions"><button class="progress-btn" id="marketBuy">Купить</button><button class="progress-btn" id="marketSell">Продать</button></div></div><div class="progress-card progress-wide"><h3>🔓 Новые открытия</h3><p>Ежедневная награда помогает прокачивать уровень. За уровни открываются новые бизнесы, предметы и VIP-статусы.</p><div class="unlock-grid" id="unlockGrid"></div></div>
+<div class="progress-page" id="progressPage"><div class="progress-container"><div class="progress-top"><div><h1>🌟 Прогресс</h1><p style="opacity:.7;margin-top:3px">Развитие, награды, капитал и коллекция</p></div><button class="progress-back" id="progressBack" title="Назад">↶</button></div><div class="progress-grid"><div class="progress-card progress-wide"><h3>📈 Уровень игрока</h3><div class="progress-stat" id="progLevel">Уровень 1</div><p id="progXpText">0 / 100 XP</p><div class="progress-bar"><span id="progXpBar"></span></div></div><div class="progress-card"><h3>🎁 Ежедневная награда</h3><p id="dailyText">Награда за вход</p><div class="progress-stat" id="dailyReward">10 USDT</div><button class="progress-btn" id="dailyClaim">Получить</button></div><div class="progress-card"><h3>🏆 Достижения</h3><div class="progress-stat" id="achCount">0 / 0</div><div class="progress-list" id="achList"></div></div><div class="progress-card progress-wide"><h3>🎁 Кейсы</h3><p>Открытие в стиле кейс-рулетки: предметы пролетают по ленте и останавливаются на выигранной награде.</p><div class="case-grid"><div class="case"><div class="case-icon">📦</div><b>Бронзовый кейс</b><small>100 USDT</small><br><button class="progress-btn" data-case="100">Открыть</button></div><div class="case"><div class="case-icon">🎁</div><b>Серебряный кейс</b><small>1 000 USDT</small><br><button class="progress-btn" data-case="1000">Открыть</button></div><div class="case"><div class="case-icon">💎</div><b>Золотой кейс</b><small>10 000 USDT</small><br><button class="progress-btn" data-case="10000">Открыть</button></div></div><div class="case-opening" id="caseOpening"><div class="case-arrow">▼</div><div class="case-window"><div class="case-strip" id="caseStrip"></div></div><div class="case-result" id="caseResult"></div></div></div><div class="progress-card"><h3>🏦 Банк</h3><p>0.5% каждые 10 минут.</p><div class="progress-stat" id="bankBalance">0 USDT</div><input id="bankAmount" type="number" min="1" placeholder="Сумма" style="width:100%;padding:9px;border-radius:10px;border:1px solid #38bdf8;background:transparent;color:inherit;margin-top:8px"><div class="progress-actions"><button class="progress-btn" id="bankDeposit">Положить</button><button class="progress-btn" id="bankWithdraw">Снять</button></div></div><div class="progress-card"><h3>📈 Биржа</h3><p>Цена виртуальной акции меняется раз в минуту.</p><div class="progress-stat" id="marketPrice">100 USDT</div><p>Акции: <span id="marketShares">0</span></p><div class="progress-actions"><button class="progress-btn" id="marketBuy">Купить</button><button class="progress-btn" id="marketSell">Продать</button></div></div><div class="progress-card progress-wide"><h3>🔓 Новые открытия</h3><p>Ежедневная награда помогает прокачивать уровень. За уровни открываются новые бизнесы, предметы и VIP-статусы.</p><div class="unlock-grid" id="unlockGrid"></div></div>
 <div class="progress-card progress-wide"><h3>🗺️ Карта владений</h3><p>Зелёные объекты уже куплены.</p><div class="progress-map" id="progressMap"></div></div><div class="progress-card"><h3>⚡ Событие</h3><div class="progress-stat" id="eventTitle">Спокойный рынок</div><p id="eventDesc">Случайное событие.</p><p id="eventTimer"></p></div><div class="progress-card"><h3>🏆 Лидеры</h3><p>Локальный рейтинг браузера.</p><div class="progress-list" id="leaderList"></div></div><div class="progress-card progress-wide"><h3>🎒 Коллекция</h3><p id="collectionText">Собранные предметы</p><div class="progress-list" id="collectionList"></div></div></div></div></div>
 
 <div class="settings-overlay" id="settingsOverlay"></div>
@@ -3843,7 +3956,7 @@ function processMaintenance(){
 }
 function load(){const s=localStorage.getItem('donatGame');if(s){try{const d=JSON.parse(s);g.d=d.d||0;g.c=d.c||0;g.i=d.i||0;if(d.u){d.u.forEach((u,i)=>{if(g.u[i]){g.u[i].l=u.l||0;g.u[i].c=u.c||g.u[i].b}})}}catch(e){}}processMaintenance();upd()}
 function save(){localStorage.setItem('donatGame',JSON.stringify({d:g.d,c:g.c,i:g.i,u:g.u.map(u=>({l:u.l,c:u.c}))}))}
-function upd(){document.getElementById('donatDisplay').textContent=Math.floor(g.d);document.getElementById('clicksDisplay').textContent=g.c;document.getElementById('incomeDisplay').textContent=effectiveIncome().toFixed(1);render()}
+function upd(){document.getElementById('donatDisplay').textContent=formatUSDT(Math.floor(g.d));document.getElementById('clicksDisplay').textContent=g.c;document.getElementById('incomeDisplay').textContent=effectiveIncome().toFixed(1);render()}
 function render(){const c=document.getElementById('upgradesContainer');c.innerHTML='';g.u.forEach((u,i)=>{const card=document.createElement('div');const disabled=g.d<u.c;card.className='upgrade-card'+(disabled?' disabled':'');card.innerHTML='<div class="upgrade-name">'+u.n+'</div><div class="upgrade-desc">'+u.desc+'</div><div class="upgrade-cost">💎 '+Math.floor(u.c)+'</div><div style="font-size:0.75rem;opacity:0.6;">Ур: '+u.l+'</div>';if(!disabled){card.onclick=function(){buy(i)}}c.appendChild(card)})}
 function buy(i){const u=g.u[i];if(g.d<u.c){playCasinoSound('error');return;}playCasinoSound('buy');g.d-=u.c;u.l++;u.c=Math.floor(u.b*Math.pow(1.15,u.l));if(u.t==='click')g.i+=u.m*0.5;else if(u.t==='income')g.i+=u.m;else if(u.t==='percent')g.i*=(1+u.m);save();upd()}
 function clickD(){playCasinoSound('click',.55);const b=0.10*(1+(g.u[0].l*0.5));g.d+=b;g.c++;save();upd()}
@@ -4122,9 +4235,9 @@ updateAuthUI();
 lb.onclick=function(e){e.stopPropagation();openAuth('login')};
 rb.onclick=function(e){e.stopPropagation();openAuth('register')};
 
-hm.onclick=function(e){closeS();e.stopPropagation();if(ig)closeG();if(im2)closeMusic();closeS()}
-dl.onclick=function(e){closeS();e.stopPropagation();if(e.target.classList.contains('arrow')||e.target.closest('.arrow')){dt.classList.toggle('active');return}openG();dt.classList.remove('active')}
-gl.onclick=function(e){closeS();e.preventDefault();e.stopPropagation();openG();dt.classList.remove('active')}
+hm.onclick=function(e){e.stopPropagation();if(ig)closeG();if(im2)closeMusic();closeS()}
+dl.onclick=function(e){e.stopPropagation();if(e.target.classList.contains('arrow')||e.target.closest('.arrow')){dt.classList.toggle('active');return}openG();dt.classList.remove('active')}
+gl.onclick=function(e){e.preventDefault();e.stopPropagation();openG();dt.classList.remove('active')}
 dt.onclick=function(e){if(e.target.classList.contains('arrow')||e.target.closest('.arrow')){e.stopPropagation();dt.classList.toggle('active')}}
 bf.onclick=closeG
 cb.onclick=clickD
@@ -4676,7 +4789,7 @@ function initExtraGame(x){
  const page=document.getElementById(x.page),btn=document.getElementById(x.button),back=document.getElementById(x.back),spin=document.getElementById(x.spin),bet=document.getElementById(x.bet),minus=document.getElementById(x.minus),plus=document.getElementById(x.plus),balance=document.getElementById(x.balance),result=document.getElementById(x.result),reels=x.reels.map(id=>document.getElementById(id));
  function symbol(){return x.symbols[Math.floor(Math.random()*x.symbols.length)]}
  function mult(a,b,c){if(a===b&&b===c&&x.payouts[a])return x.payouts[a];if(a===x.combo[0]&&b===x.combo[1]&&c===x.combo[2])return 5;if(a===b||a===c||b===c)return 2;return 0}
- function refresh(){balance.textContent=Math.floor(g.d)}
+ function refresh(){balance.textContent=formatUSDT(Math.floor(g.d))}
  function close(){if(st.running)return;page.classList.remove('active');document.querySelector('.content').style.display='flex'}
  function spinGame(){
   if(st.running)return;const amount=Math.floor(Number(bet.value));
@@ -5125,7 +5238,7 @@ setInterval(dt2,1000);dt2();loadTheme();load();startIncomeLoop();
   window.updateCurrentPremiumProfile = updatePremiumProfile;
   function money(n){return Number(n).toLocaleString('ru-RU');}
 
-  function updateShopBalance(){if(typeof g!=='undefined'&&balance) balance.textContent=Math.floor(g.d||0);}
+  function updateShopBalance(){if(typeof g!=='undefined'&&balance) balance.textContent=formatUSDT(Math.floor(g.d||0));}
   function render(){
     const st=state();
     const visible=items.filter(x=>category==='all'||x[4]===category);
@@ -5367,7 +5480,7 @@ setInterval(dt2,1000);dt2();loadTheme();load();startIncomeLoop();
       status.className='businesses-status active paused';
       status.textContent='🔐 Войди в аккаунт, чтобы управлять бизнесами и сотрудниками.';
       list.innerHTML='<div class="business-card"><h3>Нет авторизации</h3><p class="business-desc">После входа здесь появятся купленные бизнесы.</p></div>';
-      balance.textContent=Math.floor(g.d||0);
+      balance.textContent=formatUSDT(Math.floor(g.d||0));
       return;
     }
     const owns=ownedBusinesses();
@@ -5377,7 +5490,7 @@ setInterval(dt2,1000);dt2();loadTheme();load();startIncomeLoop();
       status.textContent='💼 У тебя пока нет купленных бизнесов. Купи бизнес в магазине.';
       summary.innerHTML='';
       list.innerHTML='<div class="business-card"><h3>Мои бизнесы</h3><p class="business-desc">Здесь появятся твои бизнесы после покупки.</p></div>';
-      balance.textContent=Math.floor(g.d||0);
+      balance.textContent=formatUSDT(Math.floor(g.d||0));
       return;
     }
 
@@ -5393,7 +5506,7 @@ setInterval(dt2,1000);dt2();loadTheme();load();startIncomeLoop();
       <div class="business-summary-card"><span>👥 Сотрудники</span><strong>${owns.reduce((n,id)=>n+staffCount(id,st),0)}</strong></div>
       <div class="business-summary-card"><span>🧾 Расходы/мин</span><strong>${money(Math.ceil(exp))} 💎</strong></div>
       <div class="business-summary-card"><span>📈 Чистая прибыль/мин</span><strong>+${money(Math.ceil(totalBusinessNetProfitPerMinute()))} 💎</strong></div>`;
-    balance.textContent=Math.floor(g.d||0);
+    balance.textContent=formatUSDT(Math.floor(g.d||0));
 
     list.innerHTML=owns.map(id=>{
       const x=businessCatalog[id]; const count=staffCount(id,st); const eff=efficiency(id,st);
@@ -5586,10 +5699,59 @@ function renderUnlocks(level){const el=$('unlockGrid');if(!el)return;el.innerHTM
 
 const A=[['🖱️ 50 кликов',()=>G.c>=50],['💵 1 000 USDT',()=>G.d>=1000],['💰 10 000 USDT',()=>G.d>=10000],['💎 100 000 USDT',()=>G.d>=100000],['🏆 1 000 000 USDT',()=>G.d>=1000000],['⬆️ Первый апгрейд',()=>G.u.some(u=>u.l>0)],['🎒 5 покупок',()=>own().length>=5]];
 const N={c1:'🚗 Авто',c2:'🏎️ Спорткар',c3:'🚙 Кроссовер',c4:'🏁 Суперкар',c5:'🚕 Премиум авто',c6:'🚐 Минивэн',c7:'🚲 Электровелосипед',c8:'🚘 Люкс-седан',h1:'🏠 Квартира',h2:'🏡 Дом',h3:'🏰 Особняк',h4:'🏝️ Вилла',h5:'🏢 Пентхаус',h6:'💼 Офис',h7:'🏙️ Башня',bz1:'🏪 Магазин',bz2:'☕ Кофейня',bz3:'🧼 Автомойка',bz4:'🍽️ Ресторан',bz5:'🏨 Отель',bz6:'🏦 Банк',bz7:'💻 IT',bz8:'🛍️ ТЦ',bz9:'🏢 Корпорация',bz10:'🌆 Холдинг',bz11:'🏙️ Империя',bz12:'🌍 Конгломерат',bz13:'🎰 Казино',v1:'💎 VIP',v2:'👑 Королевский',v3:'⭐ Золотой',v4:'🔥 Премиум',v5:'💠 Алмазный'};
-function render(){const [l,c,n]=lvl();renderUnlocks(l);$('progLevel').textContent='Уровень '+l;$('progXpText').textContent=c+' / '+n+' XP';$('progXpBar').style.width=(c/n*100)+'%';let done=0;$('achList').innerHTML=A.map(a=>{const ok=a[1]();if(ok)done++;return '<div class="progress-item"><span>'+a[0]+'</span><span class="progress-tag">'+(ok?'✓':'—')+'</span></div>'}).join('');$('achCount').textContent=done+' / '+A.length;const now=Date.now(),day=86400000,ready=!S.lastDaily||now-S.lastDaily>=day;$('dailyClaim').disabled=!ready;$('dailyText').textContent=ready?'Награда доступна. Серия: '+(S.streak+1):'Следующая награда через '+Math.ceil((day-(now-S.lastDaily))/3600000)+' ч.';$('dailyReward').textContent=(10*Math.min(7,S.streak+1))+' USDT';if(S.bankAt&&now-S.bankAt>=600000){const k=Math.floor((now-S.bankAt)/600000);S.bank*=Math.pow(1.005,k);S.bankAt=now;save()}$('bankBalance').textContent=S.bank.toFixed(2)+' USDT';if(!S.marketAt)S.marketAt=now;if(now-S.marketAt>=60000){const k=Math.floor((now-S.marketAt)/60000);for(let i=0;i<k;i++)S.market*=1+(Math.random()*.06-.03);S.market=Math.max(10,Math.min(100000,S.market));S.marketAt=now;save()}$('marketPrice').textContent=S.market.toFixed(2)+' USDT';$('marketShares').textContent=S.shares;const nodes=[['🏪 Магазин',['bz1']],['☕ Кофейня',['bz2']],['🧼 Автомойка',['bz3']],['🍽️ Ресторан',['bz4']],['🏨 Отель',['bz5']],['🏦 Банк',['bz6']],['💻 IT',['bz7']],['🛍️ ТЦ',['bz8']],['🏢 Корпорация',['bz9']],['🌆 Холдинг',['bz10']],['🏙️ Империя',['bz11']],['🌍 Конгломерат',['bz12']],['🎰 Казино',['bz13']]];$('progressMap').innerHTML=nodes.map(x=>'<div class="map-node '+(x[1].some(k=>own().includes(k))?'owned':'')+'">'+x[0]+'<br><small>'+(x[1].some(k=>own().includes(k))?'✓ Куплено':'—')+'</small></div>').join('');const o=own();$('collectionText').textContent='Собрано: '+o.length+' предметов';$('collectionList').innerHTML=o.length?o.map(id=>'<div class="progress-item"><span>'+(N[id]||id)+'</span><span class="progress-tag">Собрано</span></div>').join(''):'<div class="progress-item"><span>Пока пусто</span></div>';const score=Math.floor(G.d+o.length*1000+l*5000);$('leaderList').innerHTML=[['🥇 Ты',score],['🥈 Алекс',Math.floor(score*.82)],['🥉 Макс',Math.floor(score*.61)]].map(x=>'<div class="progress-item"><span>'+x[0]+'</span><b>'+x[1].toLocaleString('ru-RU')+'</b></div>').join('');if(!S.eventAt||now-S.eventAt>=300000){const e=[['📈 Бум рынка',1.15],['🎉 Праздник',1.25],['🧊 Спокойный рынок',1]][Math.floor(Math.random()*3)];S.eventTitle=e[0];S.eventMult=e[1];S.eventAt=now;save()}$('eventTitle').textContent=S.eventTitle;$('eventDesc').textContent='Бонус дополнительного дохода: ×'+S.eventMult.toFixed(2);$('eventTimer').textContent='Осталось: '+Math.ceil((300000-(now-S.eventAt))/1000)+' сек.'}
+function render(){const [l,c,n]=lvl();renderUnlocks(l);$('progLevel').textContent='Уровень '+l;$('progXpText').textContent=c+' / '+n+' XP';$('progXpBar').style.width=(c/n*100)+'%';let done=0;$('achList').innerHTML=A.map(a=>{const ok=a[1]();if(ok)done++;return '<div class="progress-item"><span>'+a[0]+'</span><span class="progress-tag">'+(ok?'✓':'—')+'</span></div>'}).join('');$('achCount').textContent=done+' / '+A.length;const now=Date.now(),day=86400000,ready=!S.lastDaily||now-S.lastDaily>=day;$('dailyClaim').disabled=!ready;$('dailyText').textContent=ready?'Награда доступна. Серия: '+(S.streak+1):'Следующая награда через '+Math.ceil((day-(now-S.lastDaily))/3600000)+' ч.';$('dailyReward').textContent=formatUSDT(10*Math.min(7,S.streak+1))+' USDT';if(S.bankAt&&now-S.bankAt>=600000){const k=Math.floor((now-S.bankAt)/600000);S.bank*=Math.pow(1.005,k);S.bankAt=now;save()}$('bankBalance').textContent=formatUSDT(S.bank)+' USDT';if(!S.marketAt)S.marketAt=now;if(now-S.marketAt>=60000){const k=Math.floor((now-S.marketAt)/60000);for(let i=0;i<k;i++)S.market*=1+(Math.random()*.06-.03);S.market=Math.max(10,Math.min(100000,S.market));S.marketAt=now;save()}$('marketPrice').textContent=formatUSDT(S.market)+' USDT';$('marketShares').textContent=S.shares;const nodes=[['🏪 Магазин',['bz1']],['☕ Кофейня',['bz2']],['🧼 Автомойка',['bz3']],['🍽️ Ресторан',['bz4']],['🏨 Отель',['bz5']],['🏦 Банк',['bz6']],['💻 IT',['bz7']],['🛍️ ТЦ',['bz8']],['🏢 Корпорация',['bz9']],['🌆 Холдинг',['bz10']],['🏙️ Империя',['bz11']],['🌍 Конгломерат',['bz12']],['🎰 Казино',['bz13']]];$('progressMap').innerHTML=nodes.map(x=>'<div class="map-node '+(x[1].some(k=>own().includes(k))?'owned':'')+'">'+x[0]+'<br><small>'+(x[1].some(k=>own().includes(k))?'✓ Куплено':'—')+'</small></div>').join('');const o=own();$('collectionText').textContent='Собрано: '+o.length+' предметов';$('collectionList').innerHTML=o.length?o.map(id=>'<div class="progress-item"><span>'+(N[id]||id)+'</span><span class="progress-tag">Собрано</span></div>').join(''):'<div class="progress-item"><span>Пока пусто</span></div>';const score=Math.floor(G.d+o.length*1000+l*5000);$('leaderList').innerHTML=[['🥇 Ты',score],['🥈 Алекс',Math.floor(score*.82)],['🥉 Макс',Math.floor(score*.61)]].map(x=>'<div class="progress-item"><span>'+x[0]+'</span><b>'+formatUSDT(x[1])+'</b></div>').join('');if(!S.eventAt||now-S.eventAt>=300000){const e=[['📈 Бум рынка',1.15],['🎉 Праздник',1.25],['🧊 Спокойный рынок',1]][Math.floor(Math.random()*3)];S.eventTitle=e[0];S.eventMult=e[1];S.eventAt=now;save()}$('eventTitle').textContent=S.eventTitle;$('eventDesc').textContent='Бонус дополнительного дохода: ×'+S.eventMult.toFixed(2);$('eventTimer').textContent='Осталось: '+Math.ceil((300000-(now-S.eventAt))/1000)+' сек.'}
 function open(){document.querySelector('.content')?.style.setProperty('display','none');page.classList.add('active');render()}function close(){page.classList.remove('active');document.querySelector('.content')?.style.removeProperty('display')}menu.onclick=e=>{e.stopPropagation();open()};back.onclick=close;
 $('dailyClaim').onclick=()=>{if($('dailyClaim').disabled)return;const now=Date.now();if(S.lastDaily&&now-S.lastDaily>172800000)S.streak=0;S.streak++;S.lastDaily=now;const r=10*Math.min(7,S.streak);add(r);xp(25);save();render();window.showToast&&window.showToast('🎁 +'+r+' USDT')};
-document.querySelectorAll('[data-case]').forEach(b=>b.onclick=()=>{const cost=+b.dataset.case;if(G.d<cost)return window.showToast&&window.showToast('❌ Не хватает USDT');add(-cost);const mult=[.25,.5,1,2,5][Math.floor(Math.random()*5)],r=Math.max(1,Math.floor(cost*mult));add(r);xp(Math.floor(cost/20));$('caseResult').textContent='🎉 +'+r+' USDT';render()});
+const CASE_ITEMS = [
+  {name:'💵 25 USDT', mult:.25, cls:'common'},
+  {name:'💵 50 USDT', mult:.5, cls:'common'},
+  {name:'💰 100 USDT', mult:1, cls:'rare'},
+  {name:'💎 200 USDT', mult:2, cls:'epic'},
+  {name:'🔥 500 USDT', mult:5, cls:'legendary'}
+];
+function openCaseRoulette(cost){
+  const strip=document.getElementById('caseStrip');
+  const result=document.getElementById('caseResult');
+  const opening=document.getElementById('caseOpening');
+  if(!strip||!result||!opening)return;
+  if(G.d<cost){window.showToast&&window.showToast('❌ Не хватает USDT');return;}
+  add(-cost);
+  result.textContent='Открываем кейс…';
+  opening.classList.add('rolling');
+
+  const winnerIndex=28;
+  const items=[];
+  for(let i=0;i<42;i++) items.push(CASE_ITEMS[Math.floor(Math.random()*CASE_ITEMS.length)]);
+  const winner=CASE_ITEMS[Math.floor(Math.random()*CASE_ITEMS.length)];
+  items[winnerIndex]=winner;
+  strip.innerHTML=items.map((it,i)=>'<div class="case-item '+it.cls+'" data-i="'+i+'"><span>'+it.name+'</span></div>').join('');
+  strip.style.transition='none';
+  strip.style.transform='translateX(0)';
+
+  requestAnimationFrame(()=>{
+    const card=strip.children[0];
+    const gap=8, itemWidth=(card?card.getBoundingClientRect().width:120)+gap;
+    const viewport=document.querySelector('.case-window');
+    const center=(viewport?viewport.clientWidth:320)/2 - itemWidth/2;
+    const target=-(winnerIndex*itemWidth-center);
+    requestAnimationFrame(()=>{
+      strip.style.transition='transform 5.2s cubic-bezier(.08,.72,.12,1)';
+      strip.style.transform='translateX('+target+'px)';
+    });
+  });
+
+  setTimeout(()=>{
+    opening.classList.remove('rolling');
+    const reward=Math.max(1,Math.floor(cost*winner.mult));
+    add(reward);
+    xp(Math.floor(cost/20));
+    result.innerHTML='🎉 Выпало: <b>'+winner.name+'</b> · <strong>+'+formatUSDT(reward)+' USDT</strong>';
+    const won=strip.querySelector('[data-i="'+winnerIndex+'"]');
+    if(won)won.classList.add('selected');
+    render();
+  },5350);
+}
+document.querySelectorAll('[data-case]').forEach(b=>b.onclick=()=>openCaseRoulette(+b.dataset.case));
 $('bankDeposit').onclick=()=>{const n=+$('bankAmount').value;if(!n||n<1||G.d<n)return window.showToast&&window.showToast('❌ Недостаточно USDT');add(-n);S.bank+=n;if(!S.bankAt)S.bankAt=Date.now();save();render()};$('bankWithdraw').onclick=()=>{const n=Math.min(S.bank,+$('bankAmount').value||0);if(n<=0)return;render();S.bank-=n;add(n);if(S.bank<=0)S.bankAt=0;save();render()};$('marketBuy').onclick=()=>{render();if(G.d<S.market)return window.showToast&&window.showToast('❌ Не хватает USDT');add(-S.market);S.shares++;save();render()};$('marketSell').onclick=()=>{if(S.shares<1)return;render();S.shares--;add(S.market);save();render()};
 setInterval(()=>{if(page.classList.contains('active'))render()},1000);
 })();
@@ -5804,7 +5966,7 @@ setInterval(()=>{if(page.classList.contains('active'))render()},1000);
     // Свободные участки показываются поверх города.
     html+=PLOTS.map(p=>{
       const placed=placedByPlot[p.id]; const [tl,tc]=trafficLabel(p.traffic);
-      return `<button class="map-plot ${placed?'occupied':''} ${p.traffic>=1.35?'high':p.traffic<1?'low':''}" data-plot="${p.id}" ${placed?'disabled':''}><span class="map-plot-label">${placed?'🏢 Занято':'📍 Свободный участок'}<br>${p.name}<span class="traffic-chip ${tc}">🚶 ${Math.round(p.traffic*100)}%</span></span></button>`;
+      return `<button class="map-plot ${placed?'occupied':''} ${p.traffic>=1.35?'high':p.traffic<1?'low':''}" data-plot="${p.id}" ${placed?'disabled':''} style="left:${p.left}%;top:${p.top}%;"><span class="map-plot-label">${placed?'🏢 Занято':'📍 Свободный участок'}<br>${p.name}<span class="traffic-chip ${tc}">🚶 ${Math.round(p.traffic*100)}%</span></span></button>`;
     }).join('');
 
     html+=C.map((x,i)=>{
@@ -5869,73 +6031,76 @@ setInterval(()=>{if(page.classList.contains('active'))render()},1000);
 })();
 </script>
 
-<script id="safe-global-menu-close">
+<script id="final-menu-close-fix">
 (() => {
   const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('overlay');
   const menuBtn = document.getElementById('menuBtn');
 
-  function closeMenuSafe(){
-    sidebar?.classList.remove('open');
-    overlay?.classList.remove('active');
-    menuBtn?.classList.remove('active');
+  function reallyCloseMenu(){
+    if(sidebar) sidebar.classList.remove('open');
+    if(overlay) overlay.classList.remove('active');
+    if(menuBtn) menuBtn.classList.remove('active');
     document.body.style.overflow = '';
   }
 
-  window.forceCloseMainMenu = closeMenuSafe;
+  window.reallyCloseMenu = reallyCloseMenu;
 
-  // Close on top-level navigation items, but don't interfere with
-  // authentication/profile controls.
-  sidebar?.addEventListener('click', (e) => {
-    const nav = e.target.closest('.sidebar-item');
-    if (!nav) return;
-    if (e.target.closest('.auth-section') || e.target.closest('.auth-profile')) return;
-    closeMenuSafe();
+  // Capture phase is intentional: it runs before page-specific onclick
+  // handlers, even when those handlers call stopPropagation().
+  document.addEventListener('click', (event) => {
+    const item = event.target.closest?.('#sidebar .sidebar-item');
+    if(!item) return;
+
+    // Authentication/profile controls stay functional.
+    if(item.closest('.auth-section') || item.closest('.auth-profile')) return;
+
+    reallyCloseMenu();
   }, true);
-
-  // Close the menu when the user opens any known internal page.
-  const wrap = (name) => {
-    const fn = window[name];
-    if (typeof fn !== 'function' || fn.__menuWrapped) return;
-    const wrapped = function(...args){
-      closeMenuSafe();
-      return fn.apply(this,args);
-    };
-    wrapped.__menuWrapped = true;
-    window[name] = wrapped;
-  };
-
-  // Defer wrapping until the original functions have been initialized.
-  setTimeout(() => {
-    ['openG','openMusic','openSet','openShop','openTasks','openBusinesses',
-     'openProgress','openBusinessMap','openAuth','openSlot','openJet',
-     'openDog','openSpider','openKolobok'].forEach(wrap);
-  }, 0);
 })();
 </script>
 
 
-<script id="menu-hide-direct">
-(() => {
-  const sidebar = document.getElementById('sidebar');
-  const overlay = document.getElementById('overlay');
-  const menuBtn = document.getElementById('menuBtn');
+<div class="empire-page" id="empirePage">
+<div class="empire-wrap">
+<div class="empire-head"><div><h1 class="empire-title">🏙️ Империя игрока</h1><div class="empire-sub">Город, экономика, коллекции, рынок и развитие</div></div><div class="empire-level" id="empireLevel">Деревня • Ур. 1</div></div>
+<div class="empire-stats"><div class="empire-stat"><small>💰 Капитал</small><b id="empireCapital">0 USDT</b></div><div class="empire-stat"><small>🏢 Бизнесы</small><b id="empireBusinesses">0</b></div><div class="empire-stat"><small>🎒 Предметы</small><b id="empireItems">0</b></div><div class="empire-stat"><small>⭐ Репутация</small><b id="empireRep">0</b></div></div>
+<div class="empire-grid">
+<section class="empire-panel wide"><h3>🏙️ Уровень города</h3><p id="empireCityText"></p><div class="empire-progress"><span id="empireCityBar"></span></div></section>
+<section class="empire-panel"><h3>🗺️ Районы</h3><p>Бонусы зависят от типа района.</p><div class="empire-districts" id="empireDistricts"></div></section>
+<section class="empire-panel"><h3>🌍 Событие</h3><div class="empire-row"><span><b id="empireEventTitle"></b><small id="empireEventDesc"></small></span><span class="empire-badge" id="empireEventTimer"></span></div></section>
+<section class="empire-panel"><h3>📈 Рынок игроков</h3><p>Покупай виртуальные лоты.</p><div class="empire-list" id="empireMarket"></div></section>
+<section class="empire-panel"><h3>🔨 Аукцион</h3><p>Ставь цену и повышай её.</p><div class="empire-list" id="empireAuction"></div></section>
+<section class="empire-panel wide"><h3>🎒 Коллекция</h3><div class="empire-collection" id="empireCollection"></div></section>
+<section class="empire-panel wide"><h3>🏆 Достижения</h3><div class="empire-list" id="empireAchievements"></div></section>
+<section class="empire-panel wide"><h3>📋 Ежедневные цели</h3><div class="empire-list" id="empireDaily"></div></section>
+<section class="empire-panel"><h3>⭐ Репутация</h3><b id="empireRepRank"></b><p id="empireRepDesc"></p></section>
+<section class="empire-panel"><h3>💎 Следующий статус</h3><p id="empireNextVip"></p></section>
+</div>
+<button class="empire-btn empire-back" id="empireBack">← Назад</button>
+</div></div>
 
-  const hide = () => {
-    sidebar?.classList.remove('open');
-    overlay?.classList.remove('active');
-    menuBtn?.classList.remove('active');
-    document.body.style.overflow = '';
-  };
 
-  document.addEventListener('click', (e) => {
-    const item = e.target.closest?.('#sidebar .sidebar-item');
-    if (!item) return;
-    if (item.closest('.auth-section') || item.closest('.auth-profile')) return;
-    hide();
-  }, true);
-
-  window.hideMainMenu = hide;
+<script id="ultimate-empire-js">
+(()=>{const p=document.getElementById('empirePage');if(!p)return;const $=id=>document.getElementById(id),money=n=>Number(n||0).toLocaleString('ru-RU').replace(/\u00A0/g,' '),u=()=>((localStorage.getItem('donatCurrentUser')||'guest').toLowerCase()),K=()=>`ultimateEmpire_${u()}`,load=()=>{try{return Object.assign({rep:0,cityXp:0,eventAt:0,eventIndex:0,auction:null,auctionEnds:0,daily:{}},JSON.parse(localStorage.getItem(K())||'{}'))}catch(e){return {rep:0,cityXp:0,eventAt:0,eventIndex:0,auction:null,auctionEnds:0,daily:{}}}},save=s=>localStorage.setItem(K(),JSON.stringify(s));let S=load();
+const cities=[['Деревня',0],['Посёлок',250],['Город',600],['Мегаполис',1400],['Столица',3000],['Империя',6000]],districts=[['🏙️ Центр','+25%'],['💼 Деловой','+20%'],['🌆 Элитный','+18%'],['🛣️ Проспект','+15%'],['🏭 Промышленный','+12%'],['🌳 Спальный','+8%']],events=[['📈 Экономический бум',1.25],['🎉 Городской праздник',1.15],['🎰 Ночь казино',1.35],['🚗 Автосезон',1.2],['💼 Деловая неделя',1.3]],rarity=['Обычный','Необычный','Редкий','Эпический','Легендарный'],names={c1:'🚗 Авто',c2:'🏎️ Спорткар',c3:'🚙 Кроссовер',c4:'🏁 Суперкар',c5:'🚕 Премиум авто',c6:'🚐 Минивэн',c7:'🚲 Электровелосипед',c8:'🚘 Люкс-седан',h1:'🏠 Квартира',h2:'🏡 Дом',h3:'🏰 Особняк',h4:'🏝️ Вилла',h5:'🏢 Пентхаус',h6:'💼 Офис',h7:'🏙️ Башня',bz1:'🏪 Магазин',bz2:'☕ Кофейня',bz3:'🧼 Автомойка',bz4:'🍽️ Ресторан',bz5:'🏨 Отель',bz6:'🏦 Банк',bz7:'💻 IT',bz8:'🛍️ ТЦ',bz9:'🏢 Корпорация',bz10:'🌆 Холдинг',bz11:'🏙️ Империя',bz12:'🌍 Конгломерат',bz13:'🎰 Казино',v1:'💎 VIP',v2:'👑 Королевский',v3:'⭐ Золотой',v4:'🔥 Премиум',v5:'💠 Алмазный'};
+function shop(){try{const s=JSON.parse(localStorage.getItem('donatShopProfile_'+u())||'{}');return Array.isArray(s.owned)?s.owned:[]}catch(e){return[]}}function bal(){try{return Number(JSON.parse(localStorage.getItem('donatGame')||'{}').d||0)}catch(e){return 0}}function setBal(n){const s=JSON.parse(localStorage.getItem('donatGame')||'{}');s.d=Math.max(0,n);localStorage.setItem('donatGame',JSON.stringify(s));}
+function city(){let i=0;for(let n=0;n<cities.length;n++)if(S.cityXp>=cities[n][1])i=n;return i}
+function draw(){S=load();const b=bal(),o=shop(),ci=city();$('empireCapital').textContent=money(b)+' USDT';$('empireBusinesses').textContent=o.filter(x=>String(x).startsWith('bz')).length;$('empireItems').textContent=o.length;$('empireRep').textContent=Math.floor(S.rep);$('empireLevel').textContent=cities[ci][0]+' • Ур. '+(ci+1);
+const next=cities[Math.min(ci+1,cities.length-1)][1],base=cities[ci][1],pct=ci===cities.length-1?100:Math.max(0,Math.min(100,(S.cityXp-base)/Math.max(1,next-base)*100));$('empireCityText').textContent='Городской опыт: '+money(S.cityXp)+' XP';$('empireCityBar').style.width=pct+'%';
+$('empireDistricts').innerHTML=districts.map(d=>`<div class="empire-district"><strong>${d[0]}</strong><span class="empire-good">${d[1]}</span><small>районный бонус</small></div>`).join('');
+if(!S.eventAt||Date.now()-S.eventAt>900000){S.eventIndex=Math.floor(Math.random()*events.length);S.eventAt=Date.now();save(S)}const ev=events[S.eventIndex];$('empireEventTitle').textContent=ev[0];$('empireEventDesc').textContent=' ×'+ev[1].toFixed(2);let left=Math.max(0,900000-(Date.now()-S.eventAt));$('empireEventTimer').textContent=Math.floor(left/60000)+':'+String(Math.floor(left/1000)%60).padStart(2,'0');
+const market=[['🚗 Спорткар',2500],['🏡 Дом',12000],['🏪 Магазин',28000],['💎 VIP-предмет',5000]];$('empireMarket').innerHTML=market.map(x=>`<div class="empire-row"><span>${x[0]}<br><small>${money(x[1])} USDT</small></span><button class="empire-btn" data-buy-market="${x[1]}">Купить</button></div>`).join('');
+document.querySelectorAll('[data-buy-market]').forEach(btn=>btn.onclick=()=>{const n=+btn.dataset.buyMarket;if(bal()<n){window.showToast&&showToast('❌ Не хватает USDT');return}setBal(bal()-n);S.rep+=2;S.cityXp+=Math.floor(n/1000);save(S);draw();});
+if(!S.auction||Date.now()>=S.auctionEnds){const lots=[['🏎️ Спорткар',6500],['🏰 Особняк',25000],['🎰 Казино-лот',80000],['💎 VIP-предмет',9000]];S.auction=lots[Math.floor(Math.random()*lots.length)];S.auctionEnds=Date.now()+180000;save(S)}$('empireAuction').innerHTML=`<div class="empire-row"><span><b>${S.auction[0]}</b><br><small>Ставка: ${money(S.auction[1])} USDT</small></span><button class="empire-btn" id="empireBid">Повысить</button></div>`;if($('empireBid'))$('empireBid').onclick=()=>{const n=Math.floor(S.auction[1]*1.12);if(bal()<n){window.showToast&&showToast('❌ Не хватает USDT для ставки');return}S.auction[1]=n;S.rep+=3;save(S);draw()};
+$('empireCollection').innerHTML=o.length?o.slice(-12).map((id,i)=>`<div class="empire-item"><span class="icon">${(names[id]||'🎁').split(' ')[0]}</span><b>${(names[id]||id).replace(/^[^\\s]+\\s/,'')}</b><small> ${rarity[(i+o.length)%rarity.length]}</small></div>`).join(''):'<div class="empire-item">📦 Пусто</div>';
+const ach=[['💰 Миллионер',b>=1000000],['🏢 Магнат',o.filter(x=>x.startsWith('bz')).length>=5],['🚗 Коллекционер',o.filter(x=>x.startsWith('c')).length>=5],['⭐ Репутация 100',S.rep>=100],['🏙️ Столица',ci>=4]];$('empireAchievements').innerHTML=ach.map(a=>`<div class="empire-row"><span>${a[0]}</span><span class="empire-badge">${a[1]?'✅ Выполнено':'⏳ В процессе'}</span></div>`).join('');
+const dk=new Date().toISOString().slice(0,10);if(S.daily.day!==dk){S.daily={day:dk,done:{}};save(S)}const goals=[['c','🖱️ 25 кликов',()=>{try{return Number(JSON.parse(localStorage.getItem('donatGame')||'{}').c||0)>=25}catch(e){return false}},150],['b','💰 10 000 USDT',()=>bal()>=10000,400],['o','🛒 Покупка',()=>o.length>=1,250],['r','⭐ 10 репутации',()=>S.rep>=10,350]];$('empireDaily').innerHTML=goals.map(g=>`<div class="empire-row"><span>${g[1]}<br><small>+${money(g[3])} USDT</small></span><button class="empire-btn" data-daily="${g[0]}" ${S.daily.done[g[0]]?'disabled':''}>${S.daily.done[g[0]]?'Получено':'Забрать'}</button></div>`).join('');document.querySelectorAll('[data-daily]').forEach(btn=>btn.onclick=()=>{const g=goals.find(x=>x[0]===btn.dataset.daily);if(!g||S.daily.done[g[0]]||!g[2]())return;setBal(bal()+g[3]);S.rep+=5;S.cityXp+=15;S.daily.done[g[0]]=1;save(S);draw()});
+const rr=S.rep<25?['Новичок','Начало пути']:S.rep<75?['Знакомый','Тебя узнают']:S.rep<150?['Авторитет','Бонусы для бизнеса']:S.rep<300?['Магнат','Элитные возможности']:['Легенда','Максимальный престиж'];$('empireRepRank').textContent=rr[0];$('empireRepDesc').textContent=rr[1];$('empireNextVip').textContent='До следующего ранга: '+Math.max(0,(S.rep<25?25:S.rep<75?75:S.rep<150?150:S.rep<300?300:500)-S.rep)+' репутации.';
+}
+function open(){try{if(typeof closeS==='function')closeS()}catch(e){}p.classList.add('active');document.body.style.overflow='hidden';draw()}function close(){p.classList.remove('active');document.body.style.overflow=''}$('empireBack').onclick=close;
+const sb=document.getElementById('sidebar');if(sb&&!document.getElementById('empireMenuItem')){const it=document.createElement('div');it.className='sidebar-item';it.id='empireMenuItem';it.innerHTML='<span>🏙️ Империя игрока</span>';sb.appendChild(it);it.onclick=()=>{try{closeS()}catch(e){}open()}}
+setInterval(()=>p.classList.contains('active')&&draw(),1000);
 })();
 </script>
 
