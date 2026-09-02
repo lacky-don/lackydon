@@ -6005,5 +6005,35 @@ setInterval(()=>{if(page.classList.contains('active'))render()},1000);
   }catch(e){}
 })();
 </script>
+
+<script id="final-menu-close-fix">
+(() => {
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
+  const menuBtn = document.getElementById('menuBtn');
+
+  function reallyCloseMenu(){
+    if(sidebar) sidebar.classList.remove('open');
+    if(overlay) overlay.classList.remove('active');
+    if(menuBtn) menuBtn.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  window.reallyCloseMenu = reallyCloseMenu;
+
+  // Capture phase is intentional: it runs before page-specific onclick
+  // handlers, even when those handlers call stopPropagation().
+  document.addEventListener('click', (event) => {
+    const item = event.target.closest?.('#sidebar .sidebar-item');
+    if(!item) return;
+
+    // Authentication/profile controls stay functional.
+    if(item.closest('.auth-section') || item.closest('.auth-profile')) return;
+
+    reallyCloseMenu();
+  }, true);
+})();
+</script>
+
 </body>
 </html>
