@@ -3480,6 +3480,41 @@ body.light-theme .empire-page,body.blue-theme .empire-page{color:#111}body.light
 }
 </style>
 
+
+<style id="sports-back-button-fix">
+/* ===== КНОПКА НАЗАД В СПОРТИВНЫХ СТАВКАХ ===== */
+#sportsPage .page-back-btn{
+  display:flex !important;
+  position:fixed !important;
+  top:18px !important;
+  left:18px !important;
+  width:48px !important;
+  height:48px !important;
+  z-index:99999 !important;
+  align-items:center !important;
+  justify-content:center !important;
+  border:2px solid #38bdf8 !important;
+  border-radius:50% !important;
+  background:#0b1d2d !important;
+  color:#fff !important;
+  font-size:30px !important;
+  font-weight:800 !important;
+  line-height:1 !important;
+  box-shadow:0 0 10px rgba(56,189,248,.8),0 0 24px rgba(56,189,248,.35) !important;
+  cursor:pointer !important;
+}
+#sportsPage .page-back-btn:hover{transform:scale(1.06)}
+#sportsPage .page-back-btn:active{transform:scale(.94)}
+@media(max-width:700px){
+  #sportsPage .page-back-btn{
+    top:12px !important;
+    left:12px !important;
+    width:46px !important;
+    height:46px !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="toast" id="toast"></div>
