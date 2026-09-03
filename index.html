@@ -3427,6 +3427,59 @@ body.light-theme .empire-page,body.blue-theme .empire-page{color:#111}body.light
 }
 </style>
 
+
+<style id="mobile-performance-patch">
+/* ===== MOBILE PERFORMANCE PATCH ===== */
+@media (max-width: 700px){
+  html{scroll-behavior:auto!important}
+  .top-bar,.dock,.sidebar,.settings-panel,.toast{
+    backdrop-filter:none!important;
+    -webkit-backdrop-filter:none!important;
+  }
+  .top-bar{box-shadow:none!important}
+  .dock{
+    box-shadow:0 0 10px rgba(56,189,248,.25)!important;
+  }
+  .dock-item,.menu-btn,.games-arrow,.game-card,.settings-btn,
+  .sidebar-item,.auth-btn,.back-btn,.music-back-btn,
+  .jet-start,.jet-cashout,.jet-back,.slot-spin,.slot-back,
+  .extra-spin,.extra-back{
+    transition:transform .12s ease,background-color .12s ease,border-color .12s ease!important;
+  }
+  .games-slider{
+    scroll-behavior:auto!important;
+    scroll-snap-type:x proximity!important;
+    -webkit-overflow-scrolling:touch;
+  }
+  .game-card{
+    box-shadow:0 4px 12px rgba(0,0,0,.10)!important;
+    content-visibility:auto;
+    contain:layout paint style;
+  }
+  .news-card{
+    box-shadow:0 4px 12px rgba(0,0,0,.08)!important;
+    content-visibility:auto;
+    contain:layout paint style;
+  }
+  .hero-visual{
+    filter:none!important;
+  }
+  .hero-visual svg{max-height:250px}
+  .slot-machine,.jet-screen,.extra-machine{
+    box-shadow:0 0 10px rgba(255,255,255,.08),inset 0 0 18px rgba(255,255,255,.03)!important;
+  }
+  .slot-reel,.extra-reel{box-shadow:inset 0 0 10px rgba(255,255,255,.04)!important}
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.001ms!important;
+    scroll-behavior:auto!important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="toast" id="toast"></div>
@@ -6100,7 +6153,231 @@ const rr=S.rep<25?['Новичок','Начало пути']:S.rep<75?['Знак
 }
 function open(){try{if(typeof closeS==='function')closeS()}catch(e){}p.classList.add('active');document.body.style.overflow='hidden';draw()}function close(){p.classList.remove('active');document.body.style.overflow=''}$('empireBack').onclick=close;
 const sb=document.getElementById('sidebar');if(sb&&!document.getElementById('empireMenuItem')){const it=document.createElement('div');it.className='sidebar-item';it.id='empireMenuItem';it.innerHTML='<span>🏙️ Империя игрока</span>';sb.appendChild(it);it.onclick=()=>{try{closeS()}catch(e){}open()}}
-setInterval(()=>p.classList.contains('active')&&draw(),1000);
+setInterval(()=>document.visibilityState==='visible'&&p.classList.contains('active')&&draw(),1500);
+})();
+</script>
+
+
+<!-- ===== СПОРТИВНЫЕ СТАВКИ: ДЕМО НА ВИРТУАЛЬНОМ БАЛАНСЕ ===== -->
+<div class="sports-page" id="sportsPage">
+  <div class="sports-container">
+    <button class="page-back-btn" id="sportsBack" type="button" aria-label="Назад">←</button>
+    <h1>⚽ Спорт — ставки</h1>
+    <p class="sports-subtitle">Демо-режим: ставки только на виртуальный баланс сайта</p>
+
+    <div class="sports-balance">
+      💎 Баланс: <strong id="sportsBalance">0</strong> USDT
+    </div>
+
+    <div class="sports-grid" id="sportsGrid"></div>
+
+    <div class="sports-slip">
+      <div class="sports-slip-head">
+        <h2>🎟️ Купон</h2>
+        <span id="sportsSlipCount">0 событий</span>
+      </div>
+      <div id="sportsSlipList" class="sports-slip-list">
+        <div class="sports-empty">Выбери исход матча</div>
+      </div>
+      <div class="sports-bet-row">
+        <label for="sportsBet">Ставка</label>
+        <input id="sportsBet" type="number" min="1" step="1" value="10" inputmode="numeric">
+      </div>
+      <div class="sports-total">
+        <span>Потенциальная выплата</span>
+        <strong id="sportsPayout">0 USDT</strong>
+      </div>
+      <button class="sports-place" id="sportsPlace" type="button" disabled>💰 Сделать ставку</button>
+      <p class="sports-note">Результат симулируется локально. Реальных денег и платежей здесь нет.</p>
+    </div>
+  </div>
+</div>
+
+<style id="sports-demo-css">
+.sports-page{
+  display:none;position:fixed;inset:0;z-index:285;overflow-y:auto;
+  background:#07111f;color:#fff;padding:70px 16px 100px;
+}
+.sports-page.active{display:block}
+.sports-container{width:100%;max-width:760px;margin:auto}
+.sports-container h1{text-align:center;color:#38bdf8;text-shadow:0 0 12px rgba(56,189,248,.55);margin-bottom:6px}
+.sports-subtitle{text-align:center;opacity:.68;font-size:.86rem;margin-bottom:18px}
+.sports-balance{
+  max-width:520px;margin:0 auto 18px;padding:14px;text-align:center;border:1px solid #38bdf8;
+  border-radius:15px;background:rgba(56,189,248,.08);box-shadow:0 0 14px rgba(56,189,248,.16)
+}
+.sports-balance strong{color:#38bdf8}
+.sports-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.sports-card{
+  padding:15px;border-radius:18px;background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.1);contain:layout paint style
+}
+.sports-league{font-size:.72rem;opacity:.55;margin-bottom:8px}
+.sports-teams{font-weight:800;line-height:1.3;min-height:42px}
+.sports-time{font-size:.72rem;opacity:.55;margin:7px 0 10px}
+.sports-outcomes{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+.sports-outcome{
+  border:1px solid rgba(56,189,248,.35);background:rgba(56,189,248,.07);
+  color:inherit;border-radius:10px;padding:9px 4px;cursor:pointer;font-weight:700;font-size:.82rem
+}
+.sports-outcome span{display:block;font-size:.72rem;opacity:.62;margin-bottom:2px}
+.sports-outcome.selected{background:#38bdf8;color:#06243a;border-color:#38bdf8}
+.sports-slip{
+  margin:18px auto 0;max-width:520px;padding:16px;border-radius:18px;
+  border:1px solid rgba(56,189,248,.35);background:rgba(255,255,255,.045)
+}
+.sports-slip-head,.sports-total{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.sports-slip-head h2{font-size:1.1rem}.sports-slip-head span{font-size:.75rem;opacity:.55}
+.sports-slip-list{display:flex;flex-direction:column;gap:8px;margin:12px 0}
+.sports-slip-item{
+  display:flex;justify-content:space-between;gap:8px;padding:10px;border-radius:11px;
+  background:rgba(255,255,255,.05);font-size:.82rem
+}
+.sports-slip-item b{color:#38bdf8}
+.sports-empty{text-align:center;opacity:.5;padding:10px}
+.sports-bet-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:12px 0}
+.sports-bet-row label{opacity:.7}
+.sports-bet-row input{
+  width:150px;min-width:0;text-align:center;border:1px solid #38bdf8;border-radius:10px;
+  background:#0d1b2a;color:#fff;padding:10px;font-size:17px
+}
+.sports-total{padding:10px 0;border-top:1px solid rgba(255,255,255,.08);font-size:.84rem}
+.sports-total strong{color:#4ade80}
+.sports-place{
+  width:100%;border:0;border-radius:12px;padding:14px;margin-top:8px;
+  background:linear-gradient(135deg,#0284c7,#38bdf8);color:#06243a;font-weight:900;cursor:pointer
+}
+.sports-place:disabled{opacity:.35;cursor:not-allowed}
+.sports-note{text-align:center;font-size:.68rem;opacity:.45;margin:10px 0 0}
+@media(max-width:700px){
+  .sports-page{padding:64px 10px 95px}
+  .sports-grid{grid-template-columns:1fr}
+  .sports-card{padding:13px}
+  .sports-outcome{min-height:44px}
+}
+</style>
+
+
+<script id="sports-demo-js">
+(function(){
+  const page=document.getElementById('sportsPage');
+  if(!page) return;
+  const grid=document.getElementById('sportsGrid');
+  const slipList=document.getElementById('sportsSlipList');
+  const slipCount=document.getElementById('sportsSlipCount');
+  const betInput=document.getElementById('sportsBet');
+  const payout=document.getElementById('sportsPayout');
+  const place=document.getElementById('sportsPlace');
+  const balance=document.getElementById('sportsBalance');
+  const back=document.getElementById('sportsBack');
+
+  const matches=[
+    {id:'m1',league:'⚽ Футбол • Лига',time:'20:30',a:'Север',b:'Атлас',odds:[1.75,3.40,4.20]},
+    {id:'m2',league:'🏀 Баскетбол • Кубок',time:'21:00',a:'Титаны',b:'Вектор',odds:[1.90,3.10,2.05]},
+    {id:'m3',league:'🎾 Теннис • Турнир',time:'21:45',a:'Ракета',b:'Шторм',odds:[1.65,3.60,2.25]}
+  ];
+  const picks=new Map();
+
+  function getBal(){
+    try{return Number(JSON.parse(localStorage.getItem('donatGame')||'{}').d||0)}
+    catch(e){return 0}
+  }
+  function setBal(n){
+    try{
+      const s=JSON.parse(localStorage.getItem('donatGame')||'{}');
+      s.d=Math.max(0,Math.floor(Number(n)||0));
+      localStorage.setItem('donatGame',JSON.stringify(s));
+    }catch(e){}
+  }
+  function money(n){
+    return new Intl.NumberFormat('ru-RU',{maximumFractionDigits:0}).format(Math.max(0,Number(n)||0));
+  }
+  function render(){
+    balance.textContent=money(getBal());
+    grid.innerHTML=matches.map(m=>{
+      const pick=picks.get(m.id);
+      const labels=['П1','X','П2'];
+      return `<article class="sports-card">
+        <div class="sports-league">${m.league}</div>
+        <div class="sports-teams">${m.a} — ${m.b}</div>
+        <div class="sports-time">Сегодня, ${m.time}</div>
+        <div class="sports-outcomes">
+          ${m.odds.map((o,i)=>`<button class="sports-outcome ${pick===i?'selected':''}" data-match="${m.id}" data-pick="${i}">
+            <span>${labels[i]}</span>${o.toFixed(2)}
+          </button>`).join('')}
+        </div>
+      </article>`;
+    }).join('');
+
+    grid.querySelectorAll('.sports-outcome').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const id=btn.dataset.match, pick=Number(btn.dataset.pick);
+        if(picks.get(id)===pick) picks.delete(id); else picks.set(id,pick);
+        render();
+      });
+    });
+
+    const items=[...picks.entries()];
+    const totalOdds=items.reduce((acc,[id,p])=>acc*matches.find(m=>m.id===id).odds[p],1);
+    slipCount.textContent=`${items.length} ${items.length===1?'событие':'события'}`;
+    slipList.innerHTML=items.length ? items.map(([id,p])=>{
+      const m=matches.find(x=>x.id===id);
+      return `<div class="sports-slip-item"><span>${m.a} — ${m.b}<br><small>${['П1','X','П2'][p]}</small></span><b>${m.odds[p].toFixed(2)}</b></div>`;
+    }).join('') : '<div class="sports-empty">Выбери исход матча</div>';
+
+    const bet=Math.max(0,Number(betInput.value)||0);
+    const potential=items.length ? bet*totalOdds : 0;
+    payout.textContent=money(potential)+' USDT';
+    place.disabled=!(items.length && bet>=1 && bet<=getBal());
+  }
+
+  function open(){
+    page.classList.add('active');
+    document.body.style.overflow='hidden';
+    render();
+  }
+  function close(){
+    page.classList.remove('active');
+    document.body.style.overflow='';
+  }
+
+  betInput.addEventListener('input',render);
+  place.addEventListener('click',()=>{
+    const bet=Math.floor(Number(betInput.value)||0);
+    const items=[...picks.entries()];
+    if(!items.length || bet<1 || bet>getBal()) return;
+
+    setBal(getBal()-bet);
+
+    // Локальная симуляция результата. Один из выбранных исходов считается выигрышным.
+    const winner=Math.floor(Math.random()*3);
+    const first=items[0];
+    const match=matches.find(m=>m.id===first[0]);
+    const won=first[1]===winner;
+    const winAmount=won ? Math.floor(bet*match.odds[first[1]]) : 0;
+
+    if(won) setBal(getBal()+winAmount);
+    if(window.showToast) showToast(won ? `🏆 Победа! +${money(winAmount)} USDT` : '❌ Ставка проиграла в демо-режиме');
+
+    picks.clear();
+    render();
+  });
+
+  back.addEventListener('click',close);
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape' && page.classList.contains('active')) close();
+  });
+
+  // Add a sidebar entry without changing the existing navigation.
+  const sidebar=document.getElementById('sidebar');
+  if(sidebar && !document.getElementById('sportsMenuItem')){
+    const item=document.createElement('div');
+    item.className='sidebar-item';
+    item.id='sportsMenuItem';
+    item.innerHTML='<span>⚽ Спортивные ставки</span><span>›</span>';
+    item.addEventListener('click',open);
+    sidebar.appendChild(item);
+  }
 })();
 </script>
 
